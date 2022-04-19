@@ -1,6 +1,51 @@
 ---
-title: 'When to Use Static Generation v.s. Server-side Rendering'
-date: '2020-01-02'
+title: 'Here are 5 ways to install Node.js in 2022'
+date: '2022-04-12'
 ---
 
 **Node.js is very exciting technology.** It enables us to write JavaScript on backend and much more.
+
+**Here are 5 ways how we can install Node.js in 2019:**
+
+## 1 . Node Website (Mac, Windows and Linux)
+
+The first way you would probably encounter, is the simplest and the most straight forward way. When you [visit Node.js website](https://nodejs.org/), you will be shown the download options for your OS right on the homepage.
+
+And the installation process is very simple, download the installer and install Node.js. With this installation you also get NPM installed, it is **package manager for JavaScript**, with which you can install all of the JavaScript modules and libraries shared on NPM website.
+
+## 2. Curl (Mac)
+
+Second most common way in my opinion, at least for Mac users is by using cURL terminal program. If you use terminal, command line or any alternative, I am pretty sure you have used cURL before. cURL is amazing "command line tool for transferring data over various protocols” as stated on official wiki page. Here is how the cURL command for downloading the latest Node.js looks like:
+
+<CodeBlock
+	language='shell'
+	text={`
+curl "https://nodejs.org/dist/latest/node-\${VERSION:-\$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\\.pkg</a>.*|\\1|p')}.pkg" > "\$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "\$HOME/Downloads/node-latest.pkg" -target "/"
+`}
+/>
+
+## 3. Homebrew (Mac)
+
+Third way is by using the brilliant Mac package manager called Homebrew. This was quite frankly my favourite way for some time. You can download and install Homebrew with just mentioned cURL from [Homebrew website](https://brew.sh/).
+
+It is really great tool for managing lots of needed tools for development like MySQL, PHP, Node.js and much more. You can search packages on Homebrew with simple search command like so: `brew search node`. And than once you find your package, you can install it similarly with command `brew install node`. This command would install the latest Node.js version.
+
+## 4. Chocolatey (Windows)
+
+Very similar to Homebrew, but for Windows users is Chocolatey package manager. The main requirement here, is to have Windows PowerShell so you can use Chocolatey. You can read about the requirements and installation on [Chocolatey website](https://chocolatey.org/). Similarly to Homebrew, once you have Chocolatey installed, you can search and install your packages with these commands `choco search nodejs` and `choco install nodejs`.
+
+## 5. NVM (Mac and Linux)
+
+Last, and my favourite way to install and work with Node.js, is to use NVM, or **Node Version Manager**. And there are couple of these version managers like _n_, _nvm_ and some more, so you can pick the one that you like. The king that stands out and is basically the standard is package manager called _NVM_. You can have a look at it on their official [nvm github repo here](https://github.com/creationix/nvm). It is under active development, support and it works great. Yes, the setup is more “difficult” (not really) than with other install options, but you get lots with it.
+
+QUOTE => "Every serious Node.js developer needs to have NVM installed." TWITTER
+
+The best thing about using Node Version Manager is, you can use different versions of Node.js on your system without any hustle. You can switch between those versions to work on legacy applications that use older node versions. It’s just amazing. I highly recommend using NVM.
+
+## 5.1. NVM-WINDOWS (Windows)
+
+There is a Node.js version manager for Windows user also. I haven’t used it, so I’m not gonna write about it, but feel free to check it out on the [official nvm-windows github repo](https://github.com/coreybutler/nvm-windows).
+
+Yes, there are quite a few more ways to install Node.js on your machine, but these are the ones I have decided to write about. Feel free to comment your favourite way.
+
+Thank you for taking your time to go thru this short list and I hope you did learn something new.

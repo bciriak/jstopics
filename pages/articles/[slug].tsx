@@ -4,8 +4,9 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import Layout from '../../components/Layout'
 import { getAllArticleSlugs, getArticleData } from '../../utils/articles'
 import Button from '../../components/Button'
+import CodeBlock from '../../components/CodeBlock'
 
-const components = { Button }
+const components = { Button, CodeBlock }
 
 export default function Article({
 	articleData,
