@@ -1,9 +1,8 @@
-import Navbar from './Navbar'
+import Navbar from './Navbar/Navbar'
 
 const Header: React.FC = () => {
 	return (
-		<div className='bg-blue-500'>
-			Header
+		<div>
 			<Navbar />
 		</div>
 	)

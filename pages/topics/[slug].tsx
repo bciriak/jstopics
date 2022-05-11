@@ -1,13 +1,16 @@
-import { GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import {
+  getAllArticleSlugs,
+  getTopicArticles,
+  getTopicSlugs,
+} from '../../utils/articles'
 import Head from 'next/head'
 import Link from 'next/link'
-import Layout from '../components/Layout'
-import { getAllTopics, getSortedArticlesData } from '../utils/articles'
 
-export default function Home({
-  allArticlesData,
+export default function Topic({
+  articlesData,
 }: {
-  allArticlesData: {
+  articlesData: {
     date: string
     title: string
     id: string
@@ -24,7 +27,7 @@ export default function Home({
       <div>Hello there I am HOMEPAGE!</div>
 
       <ul>
-        {allArticlesData.map(({ id, date, title }) => (
+        {articlesData.map(({ id, date, title }) => (
           <li key={id}>
             <Link href={`/articles/${id}`}>
               <a>{title}</a>
@@ -38,12 +41,22 @@ export default function Home({
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const allArticlesData = getSortedArticlesData()
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = getTopicSlugs()
+  return {
+    paths,
+    fallback: false,
+  }
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const articlesData = await getTopicArticles(params?.slug as string)
+
+  console.log('articlesdata', articlesData)
 
   return {
     props: {
-      allArticlesData,
+      articlesData,
     },
   }
 }

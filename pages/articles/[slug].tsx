@@ -22,7 +22,7 @@ export default function Article({
 			<Head>
 				<title>{articleData.title}</title>
 			</Head>
-			<article>
+			<article className='prose mx-auto'>
 				<h1>{articleData.title}</h1>
 				<small>{articleData.date}</small>
 				{/* <div dangerouslySetInnerHTML={{ __html: articleData.contentHtml }} /> */}

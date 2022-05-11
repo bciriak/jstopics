@@ -2,8 +2,8 @@ import Footer from './Footer'
 import Header from './Header'
 
 export default function Layout({
+	// home, // TODO
 	children,
-	home,
 }: {
 	children: React.ReactNode
 	home?: boolean
@@ -11,17 +11,10 @@ export default function Layout({
 	return (
 		<div>
 			<Header />
-			{home ? (
-				<>
-					<h1>BCiriak</h1>
-				</>
-			) : (
-				<>
-					<h2>Hello World</h2>
-				</>
-			)}
-			<main>{children}</main>
-			<Footer />
+			<div className='container w-full md:max-w-3xl mx-auto pt-20'>
+				<main>{children}</main>
+				<Footer />
+			</div>
 		</div>
 	)
 }
