@@ -2,8 +2,6 @@ import path from 'path'
 import fs from 'fs'
 import { serialize } from 'next-mdx-remote/serialize'
 import matter from 'gray-matter'
-// import { remark } from 'remark'
-// import html from 'remark-html'
 import _ from 'lodash'
 
 interface Topic {
@@ -11,6 +9,13 @@ interface Topic {
   count: number
   cssClass: string
   slug: string
+}
+
+interface Article {
+  title: string
+  date: string
+  year: string
+  excerpt: string
 }
 
 const articlesDirectory = path.join(process.cwd(), 'articles')
@@ -24,10 +29,12 @@ export function getSortedArticlesData() {
     const fileContents = fs.readFileSync(fullPath, 'utf8')
 
     const matterResult = matter(fileContents)
+    const readTime = Math.floor(matterResult.content.split(' ').length / 120)
 
     return {
       id,
-      ...(matterResult.data as { date: string; title: string }),
+      readTime,
+      ...(matterResult.data as Article),
     }
   })
 
@@ -60,11 +67,13 @@ export async function getArticleData(slug: string) {
   const matterResult = matter(fileContents)
 
   const contentHtml = await serialize(matterResult.content)
+  const readTime = Math.floor(matterResult.content.split(' ').length / 120)
 
   return {
     slug,
     contentHtml,
-    ...(matterResult.data as { date: string; title: string }),
+    readTime,
+    ...(matterResult.data as Article),
   }
 }
 
@@ -80,7 +89,7 @@ export async function getTopicArticles(slug: string) {
       const matterResult = matter(fileContents)
 
       if (_.includes(matterResult.data.topics, slug)) {
-        return { id, ...(matterResult.data as { date: string; title: string }) }
+        return { id, ...(matterResult.data as Article) }
       }
     })
   )

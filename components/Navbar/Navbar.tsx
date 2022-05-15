@@ -1,57 +1,51 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-import { Nav, Container } from './NavbarStyle'
+import {
+  NavbarWrapper,
+  NavbarContainer,
+  Logo,
+  NavItems,
+  NavItem,
+} from './NavbarStyle'
+import Image from 'next/image'
 
-export default function Navbar() {
+export function Navbar() {
+  const router = useRouter()
+
   return (
-    <Nav id="header">
-      <div id="progress" className="h-1 z-20 top-0"></div>
-
-      <Container>
-        <div className="pl-4">
-          <Link href="/">
-            <a className="text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl">
-              JS Topics
+    <NavbarWrapper>
+      <NavbarContainer>
+        <Logo>
+          <Link href="/" passHref>
+            <a>
+              <Image
+                src="/js_topics_logo_white.svg"
+                width={70}
+                height={70}
+                alt="JSTopics Logo"
+              />
             </a>
           </Link>
-        </div>
+        </Logo>
 
-        <div className="block lg:hidden pr-4">
-          <button
-            id="nav-toggle"
-            className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-900 hover:border-green-500 appearance-none focus:outline-none"
-          >
-            <svg
-              className="fill-current h-3 w-3"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Menu</title>
-              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-            </svg>
-          </button>
-        </div>
-
-        <div
-          className="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-gray-100 md:bg-transparent z-20"
-          id="nav-content"
-        >
-          <ul className="list-reset lg:flex justify-end flex-1 items-center">
-            <li className="mr-3">
-              <Link href="/all-topics">
-                <a className="inline-block py-2 px-4 text-gray-900 font-bold no-underline">
-                  All Topics
-                </a>
-              </Link>
-            </li>
-            <li className="mr-3">
-              <a className="inline-block text-gray-600 no-underline hover:text-gray-900 hover:pointer py-2 px-4">
+        <NavItems>
+          <NavItem>
+            <Link href="/all-topics">
+              <a className={router.pathname == '/all-topics' ? 'active' : ''}>
+                All Topics
+              </a>
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link href="/all-posts">
+              <a className={router.pathname == '/all-posts' ? 'active' : ''}>
                 All Posts
               </a>
-            </li>
-          </ul>
-        </div>
-      </Container>
-    </Nav>
+            </Link>
+          </NavItem>
+        </NavItems>
+      </NavbarContainer>
+    </NavbarWrapper>
   )
 }
