@@ -5,6 +5,7 @@ import {
   SocialLinks,
 } from './FooterStyle'
 import { SubscribeCTA } from '../SubscribeCTA'
+import Script from 'next/script'
 
 export function Footer() {
   const currentYear = () => {

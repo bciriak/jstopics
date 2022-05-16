@@ -1,0 +1,86 @@
+---
+title: 'Hello World example with Koa.js and Node.js'
+date: 'MAY 16'
+year: '2022'
+excerpt: 'Something very interesting.'
+topics: ['nodejs', 'javascript']
+image: ''
+imageAlt: ''
+---
+
+## What is Koa.js?
+
+Koa.js is a web framework created and maintained by the team behind another very popular Node.js web framework, called Express.js (check it out on the [official Express.js website](https://expressjs.com/)). In fact, Koa.js has many similarities (and many differences) to Express.js, and one could say, Koa is a modern version of Express. Koa.js uses a newer version of JavaScript and its features. Visit the [official Koa.js website](https://koajs.com/) for more information.
+
+## Why Koa.js?
+
+There are a couple of reasons to use Koa.js. First of all, as I already mentioned, it is developed by the team behind Express.js, which is the most popular Node.js framework out there. **The quality of the framework is very high**. It is also very popular itself, with **more than 32k stars on GitHub**, it is up there with the most popular Node.js frameworks. Lastly, it is **great for building web applications and APIs**, it is a modern, fast, and very minimalistic framework.
+
+> "Koa.js is a modern, fast, and minimalistic Node.js web framework, great for building web applications and APIs!"
+
+### Node.js and Koa.js
+
+We need to have Node.js installed on our machine, that should be obvious. If we have Node and NPM, we are ready to initialize the Node.js project like any other, with `npm init` or `npm init -y` if we want to save time and answer all the setup questions with **yes**. We can always change that later. So let’s set up our new Node.js app.
+
+### Node Project Initialisation
+
+I have created a new folder called **koa-hello-world** and this is where I am in my terminal. Let's begin. As I just mentioned, we start by running the npm terminal command _npm init -y_. This leaves us with a basically empty _package.json_ file, now we just need to create our entry point, and if you left the npm initialization at default, it will be **index.js**. So let’s create the file and call it **index.js**. And we are ready to install and create Koa.js application.
+
+## Install Koa.js
+
+Now, Koa is a JavaScript package like any other, we can find it on [yarn website](https://yarnpkg.com/) or [npm website](https://www.npmjs.com/). So it can be installed with npm or yarn, with your common `npm install koa`. Give it a few moments and now the Koa.js package should be included within our **package.json** as a project dependency. Great stuff!
+
+<CodeBlock
+	language='json'
+	fileName='package.json'
+	text={`
+{
+  "name": "koa-hello-world",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+  "dependencies": {
+    "koa": "^2.13.4"
+  }
+}
+`}
+/>
+
+## Hello World! in Our Browser
+
+All we have to do now is to write the javascript code that will create the Koa.js application, handle the request and start the server. All of this can be done by the following short JavaScript snippet copied from Koa.js website:
+
+<CodeBlock
+  language='javascript'
+  fileName='index.js'
+  text={`
+const Koa = require('koa');
+const app = new Koa();
+
+app.use(async ctx => {
+ctx.body = 'Hello World!';
+});
+
+app.listen(3000);
+`}
+/>
+
+## Start up the Server
+
+At this point, we just need to start our server simply by executing the index.js file with the node terminal command. We need to be within the directory that contains index.js file.
+
+<CodeBlock
+	language='shell'
+	fileName=''
+	text={`
+node index.js
+`}
+/>
+
+If we head to **localhost:3000** we should see **"Hello World!"** printed within our browser window. How simple and awesome! And that is all for this simple and short overview of the amazing Koa.js web framework.

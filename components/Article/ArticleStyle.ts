@@ -11,6 +11,8 @@ export const ArticleContainer = styled(Container)`
   }
 
   h1 {
+    font-size: 2.3rem;
+    text-align: center;
     margin-top: 1rem;
     padding-bottom: 2rem;
   }

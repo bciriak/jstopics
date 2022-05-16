@@ -1,0 +1,86 @@
+---
+title: 'Single Page Application Example'
+date: 'APR 23'
+year: '2022'
+excerpt: ''
+topics: ['react', 'javascript']
+image: ''
+imageAlt: ''
+---
+
+What makes web application a Single Page Application?
+Single Page Application or SPA is web application that behaves very much like desktop or native applications. It is smooth, its UI is fast, responsive. How so?
+
+Well almost all of the heavy lifting is done on the client-side by JavaScript.
+
+SPA will load only once in the browser (client), and all of the consecutive re-rendering, data fetching, validation etc., is done by the JavaScript, or front-end JavaScript framework like Angular.
+
+Read more about web frameworks.
+
+Single Page Application Examples
+Some of the biggest companies are using SPAs to make their services as pleasing to users as possible.
+
+Examples of SPAs
+Gmail
+Facebook
+Dropbox
+Microsoft Office Home
+and many more…
+Our imaginary application stack
+To see how SPAs actually work, we will need to imagine our full-stack application. On the back-end we will have simple API service and on the front, our Single Page Application, of course.
+
+API with Single Page Application
+Let’s say we are bookstore owners and want to build an app for managing our bookstore inventory.
+
+Our API
+First we build API service which will have endpoints for all of the CRUD operations.
+
+If you are not sure about APIs, here is great article on What is an API?
+Our APIs example endpoints:
+/books (get all books from our inventory)
+/books/1 (get the book with the id 1)
+etc.
+Great, with our imaginary API in place, we can move to the front-end.
+
+Our Single Page Example App
+Now we have everything setup for us to actually use our SPA to connect to back-end.
+
+When user comes to our website and requests our server for landing page, whole SPA code will be loaded to the browser only once and manage front-end from that point on.
+
+Since our API responds to endpoints with JSON data, we will have to handle routing, form submission, view re-rendering and more, on the client-side.
+
+And this is exactly why we decided to go with SPA. All of these tasks are much smoother and feel native when managed with front-end framework.
+
+Our server will not respond to user requests as in usual Multi Page Applications, so less server resources will be required.
+
+Desktop-like UI
+But why did Single Page Applications even came to be? Simple answer is, because of users! Web applications always move forward and want to make users as happy as possible.
+
+The thing is, when users click on link or button and the app responds in 0.3 seconds instead of 0.03 seconds, users know. No-one knows how, but it just feels better when the app is fluid and fast in responses. That’s it.
+
+Big companies paid millions of dollars to their developers to build whole web frameworks to make clicking with mouse faster and more pleasing.
+
+Sorry, I got carried away a bit, back to our Single Page Application Example!
+
+Client-side Routing
+One of the big problems with SPAs in the earlier days, was routing. Handling routing on the client-side introduces some complexities of which we will not talk in this article. Read more on the topic of Server-side vs. Client-side routing.
+
+Nowadays, routing is not a problem and it is included in some way in every major front-end framework (either natively or as a module).
+
+Our app stack is awesome
+Since we have our imaginary app divided into API and SPA, we can take advantage of this design feature if we want to, and just plug in another client.
+
+Let’s say we want to manage our bookstore also from the native mobile app. Well we can build the app for iPhone and connect to our API service, just like with our Single Page App. API endpoints will serve the data always the same way.
+
+With traditional Multi Page Application, this would not be possible.
+
+Let’s Recap
+The main takeaway to take away, pun intended, is to understand, that SPA is separate entity from our server. This requires us to have some kind of API-like service on the back-end to serve data.
+
+SPA lives in the browser and it is JavaScript code. Single Page Application handles vast majority of user interaction and is loaded only once. This can (and often does) slow down initialisation of our application.
+
+The point is, Single Page App is not for every web project. Far from it.
+
+If there will be interest, I will write article where we would actually build our imaginary Bookstore Inventory Management Application (SPA + API).
+
+So leave a comment or share this if you want an article where we would build this.

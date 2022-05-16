@@ -1,0 +1,151 @@
+---
+title: 'How to include JavaScript file into another JavaScript file?'
+date: 'MAR 19'
+year: '2022'
+excerpt: ''
+topics: ['react', 'javascript']
+image: ''
+imageAlt: ''
+---
+
+In this article we will have a look at couple of different ways to include JavaScript files. We will do this in two environments, one will be JavaScript within browser and second will be using Node.js.
+
+If you don’t have Node installed, read how to install Node.js here.
+
+Let’s dive in.
+
+It was not possible to include JavaScript from another JavaScript
+Back in the day, there was really no way how to include JS files. There was no mechanism to do this.
+
+Thankfully, these days, with the rise of JavaScript and module patterns, we have actually couple of choices to do this.
+
+Two different environments
+As already mentioned, we will experiment with two environments, browser and Node.js.
+
+JavaScript in the browser
+Let’s imagine we are working on our website and want to have one JavaScript file that includes other JS code. So we have following files index.html, app.js and xyz.js. Our index will link to app.js and this file will internally include xyz.js. Here are those files:
+
+Let’s start with xyz.js, the file that we will import.
+
+xyz.js
+function logXyz() {
+console.log("XYZ");
+}
+
+export { logXyz };
+All we do here is, we define our function called logXyz(), than export it with the export statement and in between curly braces we specify function name/identifier to be exported.
+This enables us to import the identifier in another JavaScript file. Here it goes:
+app.js
+import { logXyz } from "./xyz.js";
+logXyz();
+On the first line we import function from xyz.js similarly to how we exported it. We use identifier/function name in our case logXyz and than specify from which file we want to import it. Don’t forget the .js file extension.
+After this we can just call the function logXyz().
+Now we just need to link this file from within our index.html.
+
+index.html
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Include JS into JS</title>
+	</head>
+	<body>
+		<h1>index.html</h1>
+		<script src='app.js' type='module'></script>
+	</body>
+</html>
+This is as basic HTML file as it gets, but pay attention to the script tag.
+
+We have to specify the type=“module” here, if we want to import our xyz.js file.
+
+SIDENOTE: To run these examples, you will need to serve these files on some localhost. Easy way to do this, is by installing Brackets text editor which has Live Preview by default and you can serve JavaScript out of the box. Another way is to install VSCode code editor and add Live Server extension. Sorry about that.
+
+Now, when we serve our index.html and open up JavaScript console. We will see XYZ logged. Awesome!
+
+Include multiple functions
+To have multiple functions available, we need to just add them as our identifiers like so:
+
+xyz.js
+function logXyz() {
+console.log("XYZ");
+}
+function logAbc() {
+console.log("ABC");
+}
+
+export { logXyz, logAbc };
+And also adjust our app.js similarly:
+app.js
+import { logXyz, logAbc } from "./xyz.js";
+logXyz();
+logAbc();
+Directly export JavaScript function
+You can actually find examples that export the function directly, so let’s have a look at that example:
+xyz.js
+export function logXyz() {
+console.log("XYZ");
+}
+and the _app.js_
+app.js
+import { logXyz } from "./xyz.js";
+logXyz();
+Pretty simple.
+
+Alright, this is how we include JavaScript files inside another JavaScript file when working with browser JavaScript. Now, let’s have a look at Node.js solutions.
+
+Node.js doesn’t import
+Yes, it is true. At the time of writing this article, Node.js doesn’t support ES6 import. Node has its own way. Node actually relies heavily on the concept of modules.
+
+Let’s import some files in Node.js environment.
+
+xyz.js
+module.exports.sayXyz = function() {
+console.log("XYZ");
+};
+Here the module.exports might seem a bit confusing, but that is the main Node.js module mechanism. Just think of it at an empty object, that is basically what it is. All we do is, we append attribute to the module object and it is our sayXYZ function.
+
+Now to the app.js.
+
+app.js
+let xyz = require("./xyz");
+
+xyz.sayXyz();
+Requiring is Node way of importing. When you work with Node, you see it all over the place. Requiring modules left and right.
+
+Interesting thing is, require returns the module.exports object with the appended attribute, which is our sayXyz function. xyz is the object in this case.
+
+Now if we run app.js from our terminal with Node, we will get XYZ printed to the console.
+
+node app.js
+If we want to export multiple functions, we just append another attribute to the module.exports object like so:
+
+xyz.js
+module.exports.sayXyz = function() {
+console.log("XYZ");
+};
+module.exports.sayAbc = function() {
+console.log("ABC");
+};
+Here are another two ways to the same result. First one, we make module.exports equal to the object we construct. With function attribute.
+
+xyz.js
+module.exports = {
+sayXyz: function() {
+console.log("XYZ");
+}
+};
+And the last one, probably the most familiar way:
+
+xyz.js
+function sayXyz() {
+console.log("XYZ");
+}
+
+module.exports.sayXyz = sayXyz;
+Bonus Node import
+If you really want to use import in your Node environment, you can achieve it with the help of Babel. Babel is a JavaScript compiler that makes modern JavaScript code available in older, non-compatible JavaScript environments.
+
+All it does with the import statement is, it transpiles the JavaScript it into require function so that Node.js understands it. If you are interested in trying it out, read this nice article on Enabling Import in Node.js.
+
+That is it for this article. Have a great one.

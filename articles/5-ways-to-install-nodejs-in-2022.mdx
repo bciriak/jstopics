@@ -4,15 +4,17 @@ date: 'APR 12'
 year: '2022'
 excerpt: 'Lorem ipsum is very nice way to say things.'
 topics: ['nodejs', 'javascript']
+image: '5-ways-to-install-nodejs-in-2019.jpeg'
+imageAlt: 'Graphic showing 5 ways to install Node.js'
 ---
 
-**Node.js is very exciting technology.** It enables us to write JavaScript on backend and much more.
+**Node.js is very exciting technology.** It enables us to write JavaScript on backend, talk to the file system, build fast and simple APIs and much more.
 
 ---
 
 **Here are 5 ways how we can install Node.js in 2019:**
 
-## 1 . Node Website (Mac, Windows and Linux)
+## 1. Node Website (Mac, Windows and Linux)
 
 The first way you would probably encounter, is the simplest and the most straight forward way. When you [visit Node.js website](https://nodejs.org/), you will be shown the download options for your OS right on the homepage.
 
@@ -24,7 +26,7 @@ Second most common way in my opinion, at least for Mac users is by using cURL te
 
 <CodeBlock
 	language='shell'
-  fileName='boohoo.js'
+	fileName='boohoo.js'
 	text={`
 curl "https://nodejs.org/dist/latest/node-\${VERSION:-\$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\\.pkg</a>.*|\\1|p')}.pkg" > "\$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "\$HOME/Downloads/node-latest.pkg" -target "/"
 `}
