@@ -18,14 +18,7 @@ export function Navbar() {
       <NavbarContainer>
         <Logo>
           <Link href="/" passHref>
-            <a>
-              <Image
-                src="/js_topics_logo_white.svg"
-                width={70}
-                height={70}
-                alt="JSTopics Logo"
-              />
-            </a>
+            <a>JSTopics</a>
           </Link>
         </Logo>
 

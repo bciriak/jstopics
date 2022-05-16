@@ -3,6 +3,7 @@ import { Container } from '../Common/CommonStyle'
 
 export const ArticleContainer = styled(Container)`
   max-width: 720px;
+  padding-bottom: 2rem;
 
   small {
     display: block;

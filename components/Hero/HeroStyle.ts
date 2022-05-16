@@ -11,13 +11,9 @@ export const Content = styled.div`
   color: white;
 
   h1 {
-    font-size: 4.5rem;
+    font-size: 4rem;
     font-weight: 800;
-    width: 85%;
+    width: 90%;
     color: white;
   }
-`
-
-export const Highlight = styled.span`
-  text-decoration: underline;
 `

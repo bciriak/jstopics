@@ -11,7 +11,12 @@ export const NavbarContainer = styled(Container)`
 `
 
 export const Logo = styled.div`
+  padding: 2rem 0;
+
   a {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 900;
   }
 `
 

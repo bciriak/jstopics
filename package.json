@@ -9,6 +9,8 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"@mailchimp/mailchimp_marketing": "^3.0.75",
+		"@types/mailchimp__mailchimp_marketing": "^3.0.4",
 		"gray-matter": "^4.0.3",
 		"lodash": "^4.17.21",
 		"next": "12.1.4",

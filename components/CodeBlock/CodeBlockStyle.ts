@@ -1,16 +1,15 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
-  position: relative;
-`
+export const Container = styled.div``
 
-export const Language = styled.div`
-  position: absolute;
-  color: white;
-  background: #0099ce;
+export const CodeHeader = styled.div`
+  display: flex;
+  margin-bottom: -7px;
+  padding: 10px 15px;
+  justify-content: space-between;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
 
-  padding: 0.5rem 0.5rem;
-  right: 20px;
-  top: -1rem;
-  border-radius: 0.5rem;
+  background: #e4e4e4;
+  font-size: 13px;
 `

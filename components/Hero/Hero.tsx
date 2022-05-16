@@ -1,5 +1,5 @@
-import { Container } from '../Common/CommonStyle'
-import { HeroWrapper, Content, Highlight } from './HeroStyle'
+import { Container, Highlight } from '../Common/CommonStyle'
+import { HeroWrapper, Content } from './HeroStyle'
 import { SubscribeCTA } from '../SubscribeCTA'
 
 export function Hero() {
@@ -8,8 +8,9 @@ export function Hero() {
       <Container>
         <Content>
           <h1>
-            JSTopics is all about <Highlight>JavaScript</Highlight>, TypeScript,
-            React and all things related.
+            JSTopics is all about{' '}
+            <Highlight>JavaScript, TypeScript, React</Highlight> and all things
+            related.
           </h1>
 
           <SubscribeCTA />

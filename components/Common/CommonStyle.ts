@@ -10,3 +10,7 @@ export const Container = styled.div`
   margin: 0 auto;
   padding: 0 20px;
 `
+
+export const Highlight = styled.span`
+  text-decoration: underline;
+`
