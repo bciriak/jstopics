@@ -5,9 +5,22 @@ export const ArticleContainer = styled(Container)`
   max-width: 720px;
   padding-bottom: 2rem;
 
+  img {
+    max-width: 100%;
+    padding: 2rem 0;
+  }
+
   small {
     display: block;
     padding-top: 3rem;
+  }
+
+  ul {
+    padding-left: 1.8rem;
+    li {
+      list-style-type: disc;
+      padding: 0.2rem 0;
+    }
   }
 
   h1 {
@@ -20,10 +33,6 @@ export const ArticleContainer = styled(Container)`
   p {
     font-size: 1.125rem;
     line-height: 1.9rem;
-  }
-
-  p:first-of-type {
-    font-size: 1.4rem;
   }
 
   a {

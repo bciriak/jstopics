@@ -1,48 +1,42 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { MDXRemote } from 'next-mdx-remote'
 
 import { getAllArticleSlugs, getArticleData } from '../../utils/articles'
 import Button from '../../components/Button'
 import { CodeBlock } from '../../components/CodeBlock'
+import { MdLink } from '../../components/MdLink'
+import { MdLinkInternal } from '../../components/MdLinkInternal'
+import { MdImage } from '../../components/MdImage'
 import { Article } from '../../components/Article'
 import Image from 'next/image'
+import { ArticleInterface } from '../../types/article'
 
-const components = { Button, CodeBlock }
+const components = { Button, CodeBlock, MdLink, MdLinkInternal, MdImage }
 
-export default function ArticlePage({
-	articleData,
-}: {
-	articleData: {
-		title: string
-		date: string
-		year: number
-		image: string
-		imageAlt: string
-		readTime: number
-		contentHtml: MDXRemoteSerializeResult
-	}
-}) {
+function ArticlePage({ article }: { article: ArticleInterface }) {
 	return (
 		<>
 			<Head>
-				<title>{articleData.title}</title>
+				<title>{article.title}</title>
 			</Head>
 			<Article>
 				<Image
 					height='750px'
 					width='1500px'
-					alt={articleData.imageAlt}
-					src={`/images/covers/${articleData.image}`}
+					alt={article.imageAlt}
+					src={`/images/covers/${article.image}`}
 				/>
 				<div className='center'>
 					<small>
-						{articleData.date}, {articleData.year} | {articleData.readTime} min
-						read
+						{article.month} {article.day}, {article.year} | {article.readTime}{' '}
+						min read
 					</small>
 				</div>
-				<h1>{articleData.title}</h1>
-				<MDXRemote {...articleData.contentHtml} components={components} />
+				<h1>{article.title}</h1>
+				<p>{article.intro}</p>
+				<hr />
+				<MDXRemote {...article.contentHtml} components={components} />
 			</Article>
 		</>
 	)
@@ -57,10 +51,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-	const articleData = await getArticleData(params?.slug as string)
+	const article = await getArticleData(params?.slug as string)
 	return {
 		props: {
-			articleData,
+			article,
 		},
 	}
 }
+
+export default ArticlePage

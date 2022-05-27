@@ -8,7 +8,9 @@ export function ArticleListItem({ article }: { article: ArticleInterface }) {
     <Container>
       <div className="article-item-head">
         <div className="article-item-date">
-          <span>{article.date}</span>
+          <span>
+            {article.month} {article.day}
+          </span>
           <span>{article.year}</span>
         </div>
         <div className="article-item-title">
@@ -23,7 +25,6 @@ export function ArticleListItem({ article }: { article: ArticleInterface }) {
       <div className="article-item-excerpt">
         <p>{article.excerpt}</p>
       </div>
-      {/*<p>{article.date} </p>*/}
     </Container>
   )
 }

@@ -1,32 +1,28 @@
 ---
 title: 'Here are 5 ways to install Node.js in 2022'
-date: 'APR 12'
-year: '2022'
-excerpt: 'Lorem ipsum is very nice way to say things.'
+date: '2022-05-07'
+excerpt: 'Node.js is integral piece of technology for every JavaScript developer. It does not matter what OS you are using, you need to have Node installed. Here are 5 ways to do it in 2022.'
+intro: 'Node.js is one of the important technologies of modern web development. Every web developer should understand the basics and what Node.js can provide for us. If you do not have Node installed, continue to the tutorial, where we will learn how to install it on your machine.'
 topics: ['nodejs', 'javascript']
-image: '5-ways-to-install-nodejs-in-2019.jpeg'
+image: '5-ways-to-install-nodejs-in-2022.jpeg'
 imageAlt: 'Graphic showing 5 ways to install Node.js'
 ---
 
-**Node.js is very exciting technology.** It enables us to write JavaScript on backend, talk to the file system, build fast and simple APIs and much more.
+**These are the 5 ways to install Node.js on any machine:**
 
----
+## 1. Node Website (Mac, Windows, and Linux)
 
-**Here are 5 ways how we can install Node.js in 2019:**
+The first way you would probably encounter is the simplest and the most straightforward way. When you <MdLink url='https://nodejs.org/' text='visit the Node.js website' />, you will be shown the download options for your OS right on the homepage.
 
-## 1. Node Website (Mac, Windows and Linux)
-
-The first way you would probably encounter, is the simplest and the most straight forward way. When you [visit Node.js website](https://nodejs.org/), you will be shown the download options for your OS right on the homepage.
-
-And the installation process is very simple, download the installer and install Node.js. With this installation you also get NPM installed, it is **package manager for JavaScript**, with which you can install all of the JavaScript modules and libraries shared on NPM website.
+And the installation process is very simple, download the installer and install Node.js. With this installation you also get NPM installed. NPM is **package manager for JavaScript**, with which you can install all of the JavaScript modules and libraries shared on the <MdLink url='https://www.npmjs.com/' text='NPM website' />.
 
 ## 2. Curl (Mac)
 
-Second most common way in my opinion, at least for Mac users is by using cURL terminal program. If you use terminal, command line or any alternative, I am pretty sure you have used cURL before. cURL is amazing "command line tool for transferring data over various protocols” as stated on official wiki page. Here is how the cURL command for downloading the latest Node.js looks like:
+A second most common way in my opinion, at least for Mac users is by using the cURL terminal program. If you use the terminal, command line, or any alternative, I am pretty sure you have used cURL before. cURL is an amazing _command-line tool for transferring data over various protocols_ as stated on the official wiki page. Here is what the cURL command for downloading the latest Node.js looks like:
 
 <CodeBlock
 	language='shell'
-	fileName='boohoo.js'
+	fileName='terminal'
 	text={`
 curl "https://nodejs.org/dist/latest/node-\${VERSION:-\$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\\.pkg</a>.*|\\1|p')}.pkg" > "\$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "\$HOME/Downloads/node-latest.pkg" -target "/"
 `}
@@ -34,26 +30,26 @@ curl "https://nodejs.org/dist/latest/node-\${VERSION:-\$(wget -qO- https://nodej
 
 ## 3. Homebrew (Mac)
 
-Third way is by using the brilliant Mac package manager called Homebrew. This was quite frankly my favourite way for some time. You can download and install Homebrew with just mentioned cURL from [Homebrew website](https://brew.sh/).
+The third way is by using the brilliant Mac package manager called Homebrew. This was quite frankly my favorite way for some time. You can download and install Homebrew with just mentioned cURL from <MdLink url='https://brew.sh/' text='Homebrew website' />.
 
-It is really great tool for managing lots of needed tools for development like MySQL, PHP, Node.js and much more. You can search packages on Homebrew with simple search command like so: `brew search node`. And than once you find your package, you can install it similarly with command `brew install node`. This command would install the latest Node.js version.
+It is really great tool for managing lots of needed tools for development like MySQL, PHP, Node.js, and much more. You can search packages on Homebrew with a simple search command like so: **`brew search node`**. And once you find your package, you can install it similarly with the command **`brew install node`**. This command would install the latest Node.js version.
 
 ## 4. Chocolatey (Windows)
 
-Very similar to Homebrew, but for Windows users is Chocolatey package manager. The main requirement here, is to have Windows PowerShell so you can use Chocolatey. You can read about the requirements and installation on [Chocolatey website](https://chocolatey.org/). Similarly to Homebrew, once you have Chocolatey installed, you can search and install your packages with these commands `choco search nodejs` and `choco install nodejs`.
+Very similar to Homebrew, but for Windows users is the Chocolatey package manager. The main requirement here is to have Windows PowerShell so you can use Chocolatey. You can read about the requirements and installation on <MdLink url='https://chocolatey.org/' text='Chocolatey website' />. Similarly to Homebrew, once you have Chocolatey installed, you can search and install your packages with these commands **`choco search nodejs`** and **`choco install nodejs`**.
 
 ## 5. NVM (Mac and Linux)
 
-Last, and my favourite way to install and work with Node.js, is to use NVM, or **Node Version Manager**. And there are couple of these version managers like _n_, _nvm_ and some more, so you can pick the one that you like. The king that stands out and is basically the standard is package manager called _NVM_. You can have a look at it on their official [nvm github repo here](https://github.com/creationix/nvm). It is under active development, support and it works great. Yes, the setup is more “difficult” (not really) than with other install options, but you get lots with it.
+Last, and my favorite way to install and work with Node.js, is to use NVM, or **Node Version Manager**. And there are a couple of these version managers like _n_, _nvm_, and some more, so you can pick the one that you like. The king that stands out and is basically the standard is the package manager called _NVM_. You can have a look at it on their official <MdLink url='https://github.com/creationix/nvm' text='nvm GitHub repo here' />. It is under active development and support and it works great. Yes, the setup is more “difficult” (not really) than with other install options, but you get lots with it.
 
 > "Every serious Node.js developer needs to have NVM installed."
 
-The best thing about using Node Version Manager is, you can use different versions of Node.js on your system without any hustle. You can switch between those versions to work on legacy applications that use older node versions. It’s just amazing. I highly recommend using NVM.
+The best thing about using Node Version Manager is, that you can use different versions of Node.js on your system without any hustle. You can switch between those versions to work on legacy applications that use older node versions. It’s just amazing. I highly recommend using NVM.
 
 ## 5.1. NVM-WINDOWS (Windows)
 
-There is a Node.js version manager for Windows user also. I haven’t used it, so I’m not gonna write about it, but feel free to check it out on the [official nvm-windows github repo](https://github.com/coreybutler/nvm-windows).
+There is a Node.js version manager for Windows users also. I haven’t used it, so I’m not gonna write about it, but feel free to check it out on the <MdLink url='https://github.com/coreybutler/nvm-windows' text='official nvm-windows GitHub repo' />.
 
-Yes, there are quite a few more ways to install Node.js on your machine, but these are the ones I have decided to write about. Feel free to comment your favourite way.
+Yes, there are quite a few more ways to install Node.js on your machine, but these are the ones I have decided to write about. Feel free to comment in your favorite way.
 
-Thank you for taking your time to go thru this short list and I hope you did learn something new.
+Thank you for taking your time to go through this shortlist and I hope you did learn something new.

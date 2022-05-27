@@ -4,24 +4,19 @@ import { ArticleList } from '../components/ArticleList'
 import { ArticleInterface } from '../types/article'
 
 export default function AllPosts({
-  allArticles,
+	allArticles,
 }: {
-  allArticles: ArticleInterface[]
+	allArticles: ArticleInterface[]
 }) {
-  return (
-    <div>
-      This is AllTopics!
-      {allArticles && <ArticleList articles={allArticles} />}
-    </div>
-  )
+	return <div>{allArticles && <ArticleList articles={allArticles} />}</div>
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allArticles = getSortedArticlesData()
+	const allArticles = getSortedArticlesData()
 
-  return {
-    props: {
-      allArticles,
-    },
-  }
+	return {
+		props: {
+			allArticles,
+		},
+	}
 }
