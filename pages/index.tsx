@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { getSortedArticlesData } from '../utils/articles'
 import { Hero } from '../components/Hero'
 import { ArticleList } from '../components/ArticleList'
-import { ArticleInterface } from '../types/article'
+import { ArticleInterface } from '../types/article.types'
 
 export default function Home({
   allArticlesData,
@@ -20,7 +20,12 @@ export default function Home({
       </Head>
 
       <Hero />
-      {allArticlesData && <ArticleList articles={allArticlesData} />}
+      {allArticlesData && (
+        <ArticleList
+          articles={allArticlesData}
+          topic={{ name: 'All', slug: 'all', cssClass: 'all' }}
+        />
+      )}
     </>
   )
 }

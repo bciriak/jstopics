@@ -26,14 +26,14 @@ export function Navbar() {
           <NavItem>
             <Link href="/all-topics">
               <a className={router.pathname == '/all-topics' ? 'active' : ''}>
-                All Topics
+                Topics
               </a>
             </Link>
           </NavItem>
           <NavItem>
             <Link href="/all-posts">
               <a className={router.pathname == '/all-posts' ? 'active' : ''}>
-                All Posts
+                All Articles
               </a>
             </Link>
           </NavItem>

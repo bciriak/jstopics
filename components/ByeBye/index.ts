@@ -1,0 +1,1 @@
+export { ByeBye } from './ByeBye'

@@ -1,28 +1,13 @@
 import { GetStaticProps } from 'next'
 import { getAllTopics } from '../utils/articles'
-import Link from 'next/link'
+import { TopicList } from '../components/TopicList'
 
 export default function AllTopics({
   allTopics,
 }: {
   allTopics: { name: string; count: number; cssClass: string; slug: string }[]
 }) {
-  return (
-    <div>
-      This is AllTopics!
-      <ul>
-        {allTopics.map(({ name, count, cssClass, slug }) => (
-          <Link key={name} href={`/topics/${slug}`}>
-            <a>
-              <li className={cssClass}>
-                {name} ({count})
-              </li>
-            </a>
-          </Link>
-        ))}
-      </ul>
-    </div>
-  )
+  return <TopicList topics={allTopics} />
 }
 
 export const getStaticProps: GetStaticProps = async () => {

@@ -5,7 +5,7 @@ import matter from 'gray-matter'
 import _ from 'lodash'
 import moment from 'moment'
 
-import { ArticleInterface } from '../types/article'
+import { ArticleInterface } from '../types/article.types'
 
 interface Topic {
   name: string
@@ -16,33 +16,37 @@ interface Topic {
 
 const articlesDirectory = path.join(process.cwd(), 'articles')
 
-export function getSortedArticlesData() {
-  const fileNames = fs.readdirSync(articlesDirectory)
-  const allArticlesData = fileNames.map((fileName) => {
-    const id = fileName.replace(/\.mdx$/, '')
+function getArticleInfo(fileName: string, isSlug = false) {
+  if (isSlug) {
+    fileName = fileName + '.mdx'
+  }
 
-    const fullPath = path.join(articlesDirectory, fileName)
-    const fileContents = fs.readFileSync(fullPath, 'utf8')
+  const id = fileName.replace(/\.mdx$/, '')
+  const fullPath = path.join(articlesDirectory, fileName)
+  const fileContents = fs.readFileSync(fullPath, 'utf8')
+  const matterResult = matter(fileContents)
+  const readTime = getReadTime(matterResult.content)
+  const formattedDate = getFormattedDate(
+    moment(matterResult.data.date, 'YYYY-MM-DD')
+  )
 
-    const matterResult = matter(fileContents)
-    const readTime = Math.floor(matterResult.content.split(' ').length / 120)
+  return { id, readTime, formattedDate, matterResult }
+}
 
-    const date = moment(matterResult.data.date, 'YYYY-MM-DD')
-    const day = date.format('DD')
-    const month = date.format('MMM').toUpperCase()
-    const year = date.format('YYYY')
+function getFormattedDate(date: moment.Moment) {
+  const day = date.format('DD')
+  const month = date.format('MMM').toUpperCase()
+  const year = date.format('YYYY')
 
-    return {
-      ...(matterResult.data as ArticleInterface),
-      id,
-      readTime,
-      day,
-      month,
-      year,
-    }
-  })
+  return { day, month, year }
+}
 
-  return allArticlesData.sort((a, b) => {
+function getReadTime(content: string) {
+  return Math.floor(content.split(' ').length / 120)
+}
+
+function sortArticlesByDate(articles: ArticleInterface[]) {
+  return articles.sort((a, b) => {
     if (moment(a.date) < moment(b.date)) {
       return 1
     } else if (moment(a.date) > moment(b.date)) {
@@ -51,6 +55,22 @@ export function getSortedArticlesData() {
       return 0
     }
   })
+}
+
+export function getSortedArticlesData() {
+  const fileNames = fs.readdirSync(articlesDirectory)
+  const allArticlesData = fileNames.map((fileName) => {
+    const articleInfo = getArticleInfo(fileName)
+
+    return {
+      ...(articleInfo.matterResult.data as ArticleInterface),
+      ...articleInfo.formattedDate,
+      id: articleInfo.id,
+      readTime: articleInfo.readTime,
+    }
+  })
+
+  return sortArticlesByDate(allArticlesData)
 }
 
 export function getAllArticleSlugs() {
@@ -65,46 +85,46 @@ export function getAllArticleSlugs() {
 }
 
 export async function getArticleData(slug: string) {
-  const fullPath = path.join(articlesDirectory, `${slug}.mdx`)
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
-
-  const matterResult = matter(fileContents)
-
-  const contentHtml = await serialize(matterResult.content)
-  const readTime = Math.floor(matterResult.content.split(' ').length / 120)
-
-  const date = moment(matterResult.data.date, 'YYYY-MM-DD')
-  const day = date.format('DD')
-  const month = date.format('MMM').toUpperCase()
-  const year = date.format('YYYY')
+  const articleInfo = getArticleInfo(slug, true)
+  const contentHtml = await serialize(articleInfo.matterResult.content)
 
   return {
-    ...(matterResult.data as ArticleInterface),
+    ...(articleInfo.matterResult.data as ArticleInterface),
+    ...articleInfo.formattedDate,
     slug,
     contentHtml,
-    readTime,
-    day,
-    month,
-    year,
+    readTime: articleInfo.readTime,
   }
 }
 
 export async function getTopicArticles(slug: string) {
   const fileNames = fs.readdirSync(articlesDirectory)
 
-  return _.compact(
+  const articles = _.compact(
     fileNames.map((fileName) => {
-      const id = fileName.replace(/\.mdx$/, '')
-      const fullPath = path.join(articlesDirectory, fileName)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
+      const articleInfo = getArticleInfo(fileName)
 
-      const matterResult = matter(fileContents)
-
-      if (_.includes(matterResult.data.topics, slug)) {
-        return { ...(matterResult.data as ArticleInterface), id }
+      if (_.includes(articleInfo.matterResult.data.topics, slug)) {
+        return {
+          ...(articleInfo.matterResult.data as ArticleInterface),
+          ...articleInfo.formattedDate,
+          id: articleInfo.id,
+          readTime: articleInfo.readTime,
+          slug,
+        }
       }
     })
   )
+
+  return sortArticlesByDate(articles)
+}
+
+export function getTopic(slug: string) {
+  return {
+    name: _.capitalize(slug.replace(/-/g, ' ')),
+    cssClass: _.camelCase(slug),
+    slug: _.kebabCase(slug),
+  }
 }
 
 export function getTopicSlugs() {
@@ -123,6 +143,7 @@ export function getTopicSlugs() {
     return {
       params: {
         slug: name,
+        title: name.replace(' ', '-'),
       },
     }
   })

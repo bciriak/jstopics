@@ -1,0 +1,24 @@
+import styled from 'styled-components'
+
+export const NoteStyle = styled.div`
+	position: relative;
+	padding: 10px 20px;
+	margin: 2rem 0;
+	background: #f5f5f5;
+	border-radius: 10px;
+
+	span {
+		background: #ffe43c;
+		padding: 5px 15px;
+		top: -10px;
+		position: absolute;
+		font-size: 0.8rem;
+		font-weight: bold;
+		border-radius: 5px;
+	}
+
+	p {
+		font-size: 14px;
+		line-height: 22px;
+	}
+`

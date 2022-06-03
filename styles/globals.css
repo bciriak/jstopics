@@ -29,3 +29,27 @@ strong {
 .center {
     text-align: center;
 }
+
+.nodejs {
+    background: #6fa560;
+}
+
+.javascript {
+    background: #e9d44d;
+}
+
+.webFrameworks {
+    background: #9cb3ff;
+}
+
+.reactjs {
+    background: #62dafb;
+}
+
+.tooling {
+    background: #ff9b9b;
+}
+
+.all {
+    background: #eaeaea;
+}

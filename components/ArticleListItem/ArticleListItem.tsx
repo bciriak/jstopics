@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { Container } from './ArticleListItemStyle'
-import { ArticleInterface } from '../../types/article'
+import { ArticleInterface } from '../../types/article.types'
 
 export function ArticleListItem({ article }: { article: ArticleInterface }) {
   return (
