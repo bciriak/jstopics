@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import { Container, Intro, Form, SubmitButton } from './SubscribeCTAStyle'
 
 export function SubscribeCTA() {
   const inputEl = useRef<HTMLInputElement>(null)
-  const [message, setMessage] = useState('')
 
   const subscribe = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -23,12 +24,12 @@ export function SubscribeCTA() {
       const { error } = await res.json()
 
       if (error) {
-        setMessage(error)
+        toast.error('There was an error :( try again later.')
         return
       }
 
       inputEl.current.value = ''
-      setMessage('Success! 🎉 You are now subscribed to the newsletter.')
+      toast.success('Success! 🎉 You are now subscribed to the newsletter.')
     }
   }
 
@@ -50,6 +51,7 @@ export function SubscribeCTA() {
         />
         <SubmitButton type="submit">Join Newsletter</SubmitButton>
       </Form>
+      <ToastContainer position="bottom-right" />
     </Container>
   )
 }
