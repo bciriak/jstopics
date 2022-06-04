@@ -45,7 +45,7 @@ export const SubmitButton = styled.button`
   border: none;
   border-radius: 10px;
 
-  font :hover {
+  :hover {
     cursor: pointer;
   }
 `
