@@ -9,7 +9,7 @@ type ListProps = {
 export function TopicList({ topics }: ListProps) {
   return (
     <TopicListContainer>
-      <h3>All Topics</h3>
+      <h1>All Topics</h1>
       <p>Here are all of the topics that you can read about</p>
       <TopicsUnorderedList>
         {topics.map((topic) => (

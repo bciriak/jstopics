@@ -14,12 +14,13 @@ export default function Home({
   return (
     <>
       <Head>
-        <title>JSTopics | Learn JavaScript, TypeScript, React & more</title>
+        <title key="title">
+          JSTopics | Learn JavaScript, TypeScript, React & more
+        </title>
         <meta
           name="description"
           content="JSTopics is place where you can learn and read about topics related to JavaScript, TypeScript, React and similar."
         />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Hero />

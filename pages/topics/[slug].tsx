@@ -20,12 +20,11 @@ export default function Topic({
   return (
     <div>
       <Head>
-        <title>Browse all of JS Topics</title>
+        <title key="title">Browse all of the {topic.name} articles</title>
         <meta
           name="description"
-          content="Here you can look at all of the JavaScript topics covered in JSTopics articles."
+          content={`Here you can look at all of the ${topic.name} topics covered in JSTopics articles.`}
         />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <ArticleList articles={articlesData} topic={topic} />

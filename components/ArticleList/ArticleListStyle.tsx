@@ -5,7 +5,7 @@ import { Container } from '../Common/CommonStyle'
 export const ArticleListContainer = styled(Container)`
   padding: 2rem 0;
 
-  h3 {
+  h1 {
     text-align: center;
     font-size: 2.5rem;
 

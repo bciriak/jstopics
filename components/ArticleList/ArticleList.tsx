@@ -18,13 +18,13 @@ export function ArticleList({
   return (
     <ArticleListContainer>
       {topic ? (
-        <h3>
+        <h1>
           <span className={topic.cssClass}>{topic.name}</span> articles
-        </h3>
+        </h1>
       ) : (
-        <h3>
+        <h1>
           <span>All</span> articles
-        </h3>
+        </h1>
       )}
       <ul>
         {articles.map((article) => (

@@ -31,7 +31,7 @@ export function Navbar() {
             </Link>
           </NavItem>
           <NavItem>
-            <Link href="/all-posts">
+            <Link href="/all-articles">
               <a className={router.pathname == '/all-posts' ? 'active' : ''}>
                 All Articles
               </a>

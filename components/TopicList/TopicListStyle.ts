@@ -5,7 +5,7 @@ import { Container } from '../Common/CommonStyle'
 export const TopicListContainer = styled(Container)`
   padding: 2rem 20px;
 
-  h3 {
+  h1 {
     font-size: 2.5rem;
     text-align: center;
     margin-bottom: -0.5rem;

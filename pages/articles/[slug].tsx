@@ -29,9 +29,8 @@ function ArticlePage({ article }: { article: ArticleInterface }) {
   return (
     <>
       <Head>
+        <title key="title">{article.title} | JSTopics</title>
         <meta name="description" content={article.excerpt} />
-        <link rel="icon" href="/favicon.ico" />
-        <title>{article.title}</title>
       </Head>
       <Article>
         <Image
