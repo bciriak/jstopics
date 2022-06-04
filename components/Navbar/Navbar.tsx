@@ -1,44 +1,37 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import {
-  NavbarWrapper,
-  NavbarContainer,
-  Logo,
-  NavItems,
-  NavItem,
-} from './NavbarStyle'
-import Image from 'next/image'
+import styles from './NavbarStyle.module.scss'
 
 export function Navbar() {
   const router = useRouter()
 
   return (
-    <NavbarWrapper>
-      <NavbarContainer>
-        <Logo>
+    <div className={`wrapper ${styles.wrapperBlack}`}>
+      <div className={`container ${styles.navbarContainer}`}>
+        <div className={styles.logo}>
           <Link href="/" passHref>
             <a>JSTopics</a>
           </Link>
-        </Logo>
+        </div>
 
-        <NavItems>
-          <NavItem>
+        <ul className={styles.navItems}>
+          <li className={styles.navItem}>
             <Link href="/all-topics">
               <a className={router.pathname == '/all-topics' ? 'active' : ''}>
                 Topics
               </a>
             </Link>
-          </NavItem>
-          <NavItem>
+          </li>
+          <li className={styles.navItem}>
             <Link href="/all-articles">
               <a className={router.pathname == '/all-posts' ? 'active' : ''}>
                 All Articles
               </a>
             </Link>
-          </NavItem>
-        </NavItems>
-      </NavbarContainer>
-    </NavbarWrapper>
+          </li>
+        </ul>
+      </div>
+    </div>
   )
 }

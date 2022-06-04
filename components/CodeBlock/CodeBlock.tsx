@@ -1,34 +1,34 @@
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 
-import { Container, CodeHeader } from './CodeBlockStyle'
+import styles from './CodeBlockStyle.module.scss'
 
 type CodeBlockProps = {
-	text: string
-	language: string
-	fileName: string
-	lineNumbers: boolean
+  text: string
+  language: string
+  fileName: string
+  lineNumbers: boolean
 }
 
 export function CodeBlock({
-	text,
-	language,
-	fileName,
-	lineNumbers = true,
+  text,
+  language,
+  fileName,
+  lineNumbers = true,
 }: CodeBlockProps) {
-	return (
-		<Container>
-			<CodeHeader>
-				<span>{fileName}</span>
-				<span>{language}</span>
-			</CodeHeader>
-			<SyntaxHighlighter
-				language={language}
-				showLineNumbers={lineNumbers}
-				style={vscDarkPlus}
-			>
-				{text}
-			</SyntaxHighlighter>
-		</Container>
-	)
+  return (
+    <div className={styles.container}>
+      <div className={styles.codeHeader}>
+        <span>{fileName}</span>
+        <span>{language}</span>
+      </div>
+      <SyntaxHighlighter
+        language={language}
+        showLineNumbers={lineNumbers}
+        style={vscDarkPlus}
+      >
+        {text}
+      </SyntaxHighlighter>
+    </div>
+  )
 }

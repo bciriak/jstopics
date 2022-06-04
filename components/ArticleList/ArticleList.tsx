@@ -1,5 +1,5 @@
+import styles from './ArticleListStyle.module.scss'
 import { ArticleListItem } from '../ArticleListItem'
-import { ArticleListContainer } from './ArticleListStyle'
 import { ArticleInterface } from '../../types/article.types'
 
 export function ArticleList({
@@ -16,7 +16,7 @@ export function ArticleList({
     | undefined
 }) {
   return (
-    <ArticleListContainer>
+    <div className={`container ${styles.container}`}>
       {topic ? (
         <h1>
           <span className={topic.cssClass}>{topic.name}</span> articles
@@ -31,6 +31,6 @@ export function ArticleList({
           <ArticleListItem key={article.id} article={article} />
         ))}
       </ul>
-    </ArticleListContainer>
+    </div>
   )
 }

@@ -1,18 +1,16 @@
-import styled from 'styled-components'
-
-export const Container = styled.div`
+.container {
   padding-top: 5rem;
   padding-bottom: 3rem;
-`
+}
 
-export const Intro = styled.p`
+.intro {
   width: 55%;
 
   line-height: 2rem;
   font-weight: 200;
-`
+}
 
-export const Form = styled.form`
+.form {
   padding: 1rem 0;
 
   input {
@@ -33,9 +31,9 @@ export const Form = styled.form`
   input:focus {
     outline: none;
   }
-`
+}
 
-export const SubmitButton = styled.button`
+.submitButton {
   padding: 0.6rem 1rem;
   margin-left: 2rem;
 
@@ -48,4 +46,4 @@ export const SubmitButton = styled.button`
   :hover {
     cursor: pointer;
   }
-`
+}

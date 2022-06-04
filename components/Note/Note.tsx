@@ -1,10 +1,10 @@
-import { NoteStyle } from './NoteStyle'
+import styles from './NoteStyle.module.scss'
 
 export const Note = ({ text }: { text: string }) => {
   return (
-    <NoteStyle>
+    <div className={styles.noteStyle}>
       <span>Note:</span>
       <p>{text}</p>
-    </NoteStyle>
+    </div>
   )
 }

@@ -1,0 +1,22 @@
+.wrapper {
+  background: black;
+}
+
+.heroContainer {
+  max-width: 960px;
+
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.content {
+  padding: 5rem 0;
+  color: white;
+
+  h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    width: 90%;
+    color: white;
+  }
+}

@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { MDXRemote } from 'next-mdx-remote'
 
+import styles from '../../components/Article/ArticleStyle.module.scss'
 import { getAllArticleSlugs, getArticleData } from '../../utils/articles'
 import Button from '../../components/Button'
 import { CodeBlock } from '../../components/CodeBlock'
@@ -46,7 +47,9 @@ function ArticlePage({ article }: { article: ArticleInterface }) {
           </small>
         </div>
         <h1>{article.title}</h1>
-        <p className="intro">{article.intro}</p>
+        <p style={{ fontSize: '1.3rem', lineHeight: '2rem', fontWeight: 300 }}>
+          {article.intro}
+        </p>
         <hr />
         <MDXRemote {...article.contentHtml} components={components} />
       </Article>

@@ -1,19 +1,19 @@
 import Link from 'next/link'
 
-import { Container } from './ArticleListItemStyle'
+import styles from './ArticleListItemStyle.module.scss'
 import { ArticleInterface } from '../../types/article.types'
 
 export function ArticleListItem({ article }: { article: ArticleInterface }) {
   return (
-    <Container>
-      <div className="article-item-head">
-        <div className="article-item-date">
+    <li className={styles.container}>
+      <div className={styles.articleItemHead}>
+        <div className={styles.articleItemDate}>
           <span>
             {article.month} {article.day}
           </span>
           <span>{article.year}</span>
         </div>
-        <div className="article-item-title">
+        <div className={styles.articleItemTitle}>
           <span>{article.readTime} min read</span>
           <Link href={`/articles/${article.id}`} passHref>
             <a>
@@ -22,9 +22,9 @@ export function ArticleListItem({ article }: { article: ArticleInterface }) {
           </Link>
         </div>
       </div>
-      <div className="article-item-excerpt">
+      <div className={styles.articleItemExcerpt}>
         <p>{article.excerpt}</p>
       </div>
-    </Container>
+    </li>
   )
 }

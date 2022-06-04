@@ -1,21 +1,20 @@
-import { Container, Highlight } from '../Common/CommonStyle'
-import { HeroWrapper, Content } from './HeroStyle'
+import styles from './HeroStyle.module.scss'
 import { SubscribeCTA } from '../SubscribeCTA'
 
 export function Hero() {
   return (
-    <HeroWrapper>
-      <Container>
-        <Content>
+    <div className={styles.wrapper}>
+      <div className={`container ${styles.heroContainer}`}>
+        <div className={styles.content}>
           <h1>
             JSTopics is all about{' '}
-            <Highlight>JavaScript, TypeScript, React</Highlight> and all things
-            related.
+            <span className="highlight">JavaScript, TypeScript, React</span> and
+            all things related.
           </h1>
 
           <SubscribeCTA />
-        </Content>
-      </Container>
-    </HeroWrapper>
+        </div>
+      </div>
+    </div>
   )
 }

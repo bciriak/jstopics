@@ -1,9 +1,9 @@
-import { TodoItem } from './TodoStyle'
+import styles from './TodoStyle.module.scss'
 
 export const Todo = ({ text }: { text: string }) => {
   return (
-    <TodoItem>
+    <div className={styles.todoItem}>
       <b>TODO:</b> {text}
-    </TodoItem>
+    </div>
   )
 }

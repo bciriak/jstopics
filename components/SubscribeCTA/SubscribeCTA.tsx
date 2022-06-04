@@ -1,8 +1,8 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { Container, Intro, Form, SubmitButton } from './SubscribeCTAStyle'
+import styles from './SubscribeCTAStyle.module.scss'
 
 export function SubscribeCTA() {
   const inputEl = useRef<HTMLInputElement>(null)
@@ -34,13 +34,13 @@ export function SubscribeCTA() {
   }
 
   return (
-    <Container>
-      <Intro>
+    <div className={styles.container}>
+      <p className={styles.intro}>
         Join our newsletter, to receive <b>JavaScript</b>, <b>TypeScript</b>,{' '}
         <b>React.js</b> and more news, tips and other goodies right into your
         mail box 📥. You can unsubscribe at any time.
-      </Intro>
-      <Form onSubmit={subscribe}>
+      </p>
+      <form className={styles.form} onSubmit={subscribe}>
         <input
           type="email"
           placeholder="Your Email"
@@ -49,9 +49,11 @@ export function SubscribeCTA() {
           ref={inputEl}
           required
         />
-        <SubmitButton type="submit">Join Newsletter</SubmitButton>
-      </Form>
+        <button className={styles.submitButton} type="submit">
+          Join Newsletter
+        </button>
+      </form>
       <ToastContainer position="bottom-right" />
-    </Container>
+    </div>
   )
 }

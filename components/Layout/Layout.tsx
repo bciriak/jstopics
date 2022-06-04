@@ -4,7 +4,6 @@ import Script from 'next/script'
 import Head from 'next/head'
 
 export function Layout({
-  // home, // TODO
   children,
 }: {
   children: React.ReactNode

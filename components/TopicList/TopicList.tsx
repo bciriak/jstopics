@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { TopicListContainer, TopicsUnorderedList } from './TopicListStyle'
+
+import styles from './TopicListStyle.module.scss'
 import { TopicInterface } from '../../types/topic.types'
 
 type ListProps = {
@@ -8,10 +9,10 @@ type ListProps = {
 
 export function TopicList({ topics }: ListProps) {
   return (
-    <TopicListContainer>
+    <div className={`container ${styles.topicListContainer}`}>
       <h1>All Topics</h1>
       <p>Here are all of the topics that you can read about</p>
-      <TopicsUnorderedList>
+      <ul className={styles.topicsUnorderedList}>
         {topics.map((topic) => (
           <li key={topic.slug} className={topic.cssClass}>
             <Link key={topic.slug} href={`/topics/${topic.slug}`}>
@@ -19,7 +20,7 @@ export function TopicList({ topics }: ListProps) {
             </Link>
           </li>
         ))}
-      </TopicsUnorderedList>
-    </TopicListContainer>
+      </ul>
+    </div>
   )
 }
