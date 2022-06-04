@@ -2,7 +2,12 @@ import path from 'path'
 import fs from 'fs'
 import { serialize } from 'next-mdx-remote/serialize'
 import matter from 'gray-matter'
-import _ from 'lodash'
+import capitalize from 'lodash/capitalize'
+import concat from 'lodash/concat'
+import camelCase from 'lodash/camelCase'
+import kebabCase from 'lodash/kebabCase'
+import compact from 'lodash/compact'
+import includes from 'lodash/includes'
 import moment from 'moment'
 
 import { ArticleInterface } from '../types/article.types'
@@ -100,11 +105,11 @@ export async function getArticleData(slug: string) {
 export async function getTopicArticles(slug: string) {
   const fileNames = fs.readdirSync(articlesDirectory)
 
-  const articles = _.compact(
+  const articles = compact(
     fileNames.map((fileName) => {
       const articleInfo = getArticleInfo(fileName)
 
-      if (_.includes(articleInfo.matterResult.data.topics, slug)) {
+      if (includes(articleInfo.matterResult.data.topics, slug)) {
         return {
           ...(articleInfo.matterResult.data as ArticleInterface),
           ...articleInfo.formattedDate,
@@ -121,9 +126,9 @@ export async function getTopicArticles(slug: string) {
 
 export function getTopic(slug: string) {
   return {
-    name: _.capitalize(slug.replace(/-/g, ' ')),
-    cssClass: _.camelCase(slug),
-    slug: _.kebabCase(slug),
+    name: capitalize(slug.replace(/-/g, ' ')),
+    cssClass: camelCase(slug),
+    slug: kebabCase(slug),
   }
 }
 
@@ -139,7 +144,7 @@ export function getTopicSlugs() {
     return matterResult.data.topics
   })
 
-  return _.concat(...allTopics).map((name) => {
+  return concat(...allTopics).map((name) => {
     return {
       params: {
         slug: name,
@@ -173,10 +178,10 @@ export function getAllTopics() {
 
   for (let topic in topics) {
     topicsObj.push({
-      name: _.capitalize(topic.replace(/-/g, ' ')),
+      name: capitalize(topic.replace(/-/g, ' ')),
       count: topics[topic],
-      cssClass: _.camelCase(topic),
-      slug: _.kebabCase(topic),
+      cssClass: camelCase(topic),
+      slug: kebabCase(topic),
     })
   }
 

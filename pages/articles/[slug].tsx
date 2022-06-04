@@ -26,7 +26,6 @@ const components: MDXComponents = {
 }
 
 function ArticlePage({ article }: { article: ArticleInterface }) {
-  // @ts-ignore
   return (
     <>
       <Head>
