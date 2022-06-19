@@ -18,7 +18,11 @@ export function Navbar() {
         <ul className={styles.navItems}>
           <li className={styles.navItem}>
             <Link href="/all-topics">
-              <a className={router.pathname == '/all-topics' ? 'active' : ''}>
+              <a
+                className={
+                  router.pathname == '/all-topics-delete' ? 'active' : ''
+                }
+              >
                 Topics
               </a>
             </Link>

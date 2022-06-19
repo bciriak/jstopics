@@ -11,33 +11,58 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/javascript/javascript-include-file',
-        destination: '/articles/javascript-include-file',
+        source: '/articles/javascript-include-file',
+        destination: '/javascript/javascript-include-file',
         permanent: true,
       },
       {
-        source: '/javascript/javascript-for-loops',
-        destination: '/articles/javascript-for-loops',
+        source: '/articles/javascript-for-loops',
+        destination: '/javascript/javascript-for-loops',
         permanent: true,
       },
       {
-        source: '/nodejs/5-ways-to-install-nodejs-in-2019',
-        destination: '/articles/5-ways-to-install-nodejs-in-2022',
+        source: '/articles/5-ways-to-install-nodejs-in-2019',
+        destination: '/nodejs/5-ways-to-install-nodejs-in-2022',
         permanent: true,
       },
       {
-        source: '/web-frameworks/nodejs-and-koajs-hello-world-example',
-        destination: '/articles/nodejs-and-koajs-hello-world-example',
+        source: '/articles/5-ways-to-install-nodejs-in-2022',
+        destination: '/nodejs/5-ways-to-install-nodejs-in-2022',
         permanent: true,
       },
       {
-        source: '/web-frameworks/single-page-application-example',
-        destination: '/articles/single-page-application-example',
+        source: '/articles/nodejs-and-koajs-hello-world-example',
+        destination: '/web-frameworks/nodejs-and-koajs-hello-world-example',
         permanent: true,
       },
       {
-        source: '/web-frameworks/web-frameworks-what-are-they',
-        destination: '/articles/web-frameworks-what-are-they',
+        source: '/articles/single-page-application-example',
+        destination: '/web-frameworks/single-page-application-example',
+        permanent: true,
+      },
+      {
+        source: '/articles/web-frameworks-what-are-they',
+        destination: '/web-frameworks/web-frameworks-what-are-they',
+        permanent: true,
+      },
+      {
+        source: '/articles/useref-in-react',
+        destination: '/reactjs/useref-in-react',
+        permanent: true,
+      },
+      {
+        source: '/articles/react-router-v6-redirect',
+        destination: '/reactjs/react-router-v6-redirect',
+        permanent: true,
+      },
+      {
+        source: '/articles/vite-create-react-app',
+        destination: '/reactjs/vite-create-react-app',
+        permanent: true,
+      },
+      {
+        source: '/articles/what-is-react-js',
+        destination: '/reactjs/what-is-react-js',
         permanent: true,
       },
       {
@@ -51,18 +76,18 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/javascript',
-        destination: '/topics/javascript',
+        source: '/topics/javascript',
+        destination: '/javascript',
         permanent: true,
       },
       {
-        source: '/web-frameworks',
-        destination: '/topics/web-frameworks',
+        source: '/topics/web-frameworks',
+        destination: '/web-frameworks',
         permanent: true,
       },
       {
-        source: '/nodejs',
-        destination: '/topics/nodejs',
+        source: '/topics/nodejs',
+        destination: '/nodejs',
         permanent: true,
       },
     ]

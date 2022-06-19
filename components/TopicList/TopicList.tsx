@@ -15,7 +15,7 @@ export function TopicList({ topics }: ListProps) {
       <ul className={styles.topicsUnorderedList}>
         {topics.map((topic) => (
           <li key={topic.slug} className={topic.cssClass}>
-            <Link key={topic.slug} href={`/topics/${topic.slug}`}>
+            <Link key={topic.slug} href={`/${topic.slug}`}>
               {`${topic.name} (${topic.count})`}
             </Link>
           </li>

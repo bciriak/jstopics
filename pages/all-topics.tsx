@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next'
-import { getAllTopics } from '../utils/articles'
+import { getAllCategories } from '../utils/articles'
 import { TopicList } from '../components/TopicList'
 import Head from 'next/head'
 
@@ -23,7 +23,7 @@ export default function AllTopics({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allTopics = getAllTopics()
+  const allTopics = getAllCategories()
 
   return {
     props: {

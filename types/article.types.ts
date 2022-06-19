@@ -8,6 +8,8 @@ export interface ArticleInterface {
   year: string
   excerpt: string
   id: string
+  category: string
+  slug: string
   readTime: number
   image: string
   imageAlt: string

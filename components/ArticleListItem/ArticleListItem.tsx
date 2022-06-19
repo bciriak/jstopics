@@ -15,7 +15,7 @@ export function ArticleListItem({ article }: { article: ArticleInterface }) {
         </div>
         <div className={styles.articleItemTitle}>
           <span>{article.readTime} min read</span>
-          <Link href={`/articles/${article.id}`} passHref>
+          <Link href={`/${article.category}/${article.id}`} passHref>
             <a>
               <h2>{article.title}</h2>
             </a>

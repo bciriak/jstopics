@@ -3,11 +3,10 @@ import fs from 'fs'
 import { serialize } from 'next-mdx-remote/serialize'
 import matter from 'gray-matter'
 import capitalize from 'lodash/capitalize'
-import concat from 'lodash/concat'
 import camelCase from 'lodash/camelCase'
 import kebabCase from 'lodash/kebabCase'
 import compact from 'lodash/compact'
-import includes from 'lodash/includes'
+import uniq from 'lodash/uniq'
 import moment from 'moment'
 
 import { ArticleInterface } from '../types/article.types'
@@ -70,6 +69,7 @@ export function getSortedArticlesData() {
     return {
       ...(articleInfo.matterResult.data as ArticleInterface),
       ...articleInfo.formattedDate,
+      slug: fileName.replace(/\.mdx$/, ''),
       id: articleInfo.id,
       readTime: articleInfo.readTime,
     }
@@ -109,7 +109,7 @@ export async function getTopicArticles(slug: string) {
     fileNames.map((fileName) => {
       const articleInfo = getArticleInfo(fileName)
 
-      if (includes(articleInfo.matterResult.data.topics, slug)) {
+      if (articleInfo.matterResult.data.category === slug) {
         return {
           ...(articleInfo.matterResult.data as ArticleInterface),
           ...articleInfo.formattedDate,
@@ -132,7 +132,7 @@ export function getTopic(slug: string) {
   }
 }
 
-export function getTopicSlugs() {
+export function getTopicsSlugs() {
   const fileNames = fs.readdirSync(articlesDirectory)
 
   const allTopics = fileNames.map((fileName) => {
@@ -141,32 +141,32 @@ export function getTopicSlugs() {
 
     const matterResult = matter(fileContents)
 
-    return matterResult.data.topics
+    return matterResult.data.category
   })
 
-  return concat(...allTopics).map((name) => {
+  return uniq(allTopics).map((name) => {
     return {
       params: {
         slug: name,
-        title: name.replace(' ', '-'),
+        title: name.replace('-', ' '),
       },
     }
   })
 }
 
-export function getAllTopics() {
+export function getAllCategories() {
   const fileNames = fs.readdirSync(articlesDirectory)
   const topics: any = {}
   const topicsObj: Topic[] = []
 
-  const allTopics = fileNames.reduce((arr, fileName) => {
+  const allTopics = fileNames.map((fileName) => {
     const fullPath = path.join(articlesDirectory, fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
 
     const matterResult = matter(fileContents)
 
-    return arr.concat(matterResult.data.topics)
-  }, [])
+    return matterResult.data.category
+  })
 
   allTopics.map((topic) => {
     if (topic in topics) {
