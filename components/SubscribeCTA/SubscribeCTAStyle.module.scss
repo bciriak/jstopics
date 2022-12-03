@@ -3,13 +3,33 @@
   padding-bottom: 3rem;
 }
 
-.intro {
-  width: 55%;
+.light {
+  background: #e7e7e7;
+  padding: 10px 30px;
+  border-radius: 10px;
+  color: black;
+  .intro {
+    width: 100%;
 
-  line-height: 2rem;
-  font-weight: 200;
+    line-height: 2rem;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .form {
+    input {
+      color: black;
+    }
+  }
 }
 
+.dark {
+  .intro {
+    width: 55%;
+
+    line-height: 2rem;
+    font-weight: 200;
+  }
+}
 .form {
   padding: 1rem 0;
 
@@ -42,8 +62,9 @@
   font-weight: bold;
   border: none;
   border-radius: 10px;
+}
 
-  :hover {
-    cursor: pointer;
-  }
+.submitButton:hover {
+  cursor: pointer;
+  background: #ffe43c;
 }

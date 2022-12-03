@@ -7,6 +7,7 @@ import Button from '../../components/Button'
 import { CodeBlock } from '../../components/CodeBlock'
 import { MdLink } from '../../components/MdLink'
 import { MdLinkInternal } from '../../components/MdLinkInternal'
+import { SubscribeCTA } from '../../components/SubscribeCTA'
 import { MdImage } from '../../components/MdImage'
 import { Article } from '../../components/Article'
 import { Todo } from '../../components/Todo'
@@ -21,6 +22,7 @@ const components: MDXComponents = {
   MdLink,
   MdLinkInternal,
   MdImage,
+  SubscribeCTA,
   Todo,
   Note,
 }

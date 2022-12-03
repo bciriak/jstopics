@@ -46,6 +46,8 @@ After we import **`useRef`** from React, we instantiate our **`spanElement`** co
 
 In JSX we are rendering two elements, _a button and a span_. We grab the reference to the span element with **`ref={spanElement}`** and notice the initial text: **`Hi 👋`**. Thanks to the reference, we can access native properties and methods (if the element has some) of this DOM element, in our case **`span`**, which has property **`innerText`**.
 
+<SubscribeCTA isOnDarkBg={false} />
+
 When we click on the button, the **`changeText`** function fires and changes the text of the span. You might notice we are accessing the **`innerText`** through this **`current`** property. That is what the **`useRef`** hook gives us back, object with **`current`** property.
 
 <Note text='Thing to mention is, that changing the text of the span will not re-render our component. Give it a try, put a console.log right below the const spanElement.' />

@@ -63,6 +63,8 @@ export default PrivateRoute`} />
 
 This piece of code shows how we can conditionally redirect in our components. You may be asking what is that **`replace`** prop doing and that is a good question. Without this property, a **new entry is added to React Router history** and this can cause unwanted behavior e.g. user tries to click back in the browser but can't get back because we might have a couple of the same entries in our history.
 
+<SubscribeCTA isOnDarkBg={false} />
+
 ## React Router v6 Redirect examples
 
 Now let's look at some common use cases that we might want to solve in our applications. One of those is _Some user wants to access private/protected route without being logged in_.
