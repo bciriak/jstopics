@@ -1,4 +1,6 @@
 import Script from 'next/script'
+import { useRef } from 'react'
+import { useScript } from '../../hooks/useScript'
 
 import { ByeBye } from '../ByeBye'
 import styles from './ArticleStyle.module.scss'
@@ -8,6 +10,9 @@ type ArticleProps = {
 }
 
 export function Article({ children }: ArticleProps) {
+  const script = useRef<HTMLDivElement>(null)
+  useScript('https://giscus.app/client.js', script)
+
   return (
     <div className="wrapper">
       <div className={`container ${styles.articleContainer}`}>
@@ -15,21 +20,7 @@ export function Article({ children }: ArticleProps) {
         <ByeBye />
         <div className={`giscus ${styles.comments}`} />
       </div>
-      <Script
-        src="https://giscus.app/client.js"
-        data-repo="bciriak/jstopics"
-        data-repo-id="R_kgDOHV9ZQA"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOHV9ZQM4CPITS"
-        data-mapping="url"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="light"
-        data-lang="en"
-        crossOrigin="anonymous"
-        async
-      ></Script>
+      <div ref={script}></div>
     </div>
   )
 }
