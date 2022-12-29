@@ -11,21 +11,21 @@
 	},
 	"dependencies": {
 		"@mailchimp/mailchimp_marketing": "^3.0.75",
+		"@sendinblue/client": "^3.2.2",
 		"@types/mailchimp__mailchimp_marketing": "^3.0.4",
 		"gray-matter": "^4.0.3",
 		"lodash": "^4.17.21",
 		"moment": "^2.29.3",
-		"next": "12.1.4",
-		"next-mdx-remote": "^4.0.2",
+		"next": "^13.1.1",
+		"next-mdx-remote": "^4.2.0",
 		"next-sitemap": "^3.0.5",
 		"normalize.css": "^8.0.1",
-		"react": "^17.0.2",
-		"react-dom": "^17.0.2",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
 		"react-syntax-highlighter": "^15.5.0",
 		"react-toastify": "^9.0.3",
 		"remark": "^14.0.2",
-		"remark-html": "^15.0.1",
-		"sib-api-v3-typescript": "^2.2.2"
+		"remark-html": "^15.0.1"
 	},
 	"devDependencies": {
 		"@types/lodash": "^4.14.182",
@@ -33,8 +33,6 @@
 		"@types/react": "17.0.43",
 		"@types/react-dom": "17.0.14",
 		"@types/react-syntax-highlighter": "^13.5.2",
-		"eslint": "8.12.0",
-		"eslint-config-next": "12.1.4",
 		"prettier": "2.6.2",
 		"sass": "^1.52.2",
 		"typescript": "4.6.3"

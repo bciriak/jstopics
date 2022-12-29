@@ -11,13 +11,13 @@ export function Navbar() {
       <div className={`container ${styles.navbarContainer}`}>
         <div className={styles.logo}>
           <Link href="/" passHref>
-            <a>JSTopics</a>
+            JSTopics
           </Link>
         </div>
 
         <ul className={styles.navItems}>
           <li className={styles.navItem}>
-            <Link href="/all-topics">
+            <Link legacyBehavior href="/all-topics">
               <a
                 className={
                   router.pathname == '/all-topics-delete' ? 'active' : ''
@@ -28,7 +28,7 @@ export function Navbar() {
             </Link>
           </li>
           <li className={styles.navItem}>
-            <Link href="/all-articles">
+            <Link legacyBehavior href="/all-articles">
               <a className={router.pathname == '/all-posts' ? 'active' : ''}>
                 All Articles
               </a>

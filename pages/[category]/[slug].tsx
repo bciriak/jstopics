@@ -36,8 +36,9 @@ function ArticlePage({ article }: { article: ArticleInterface }) {
       </Head>
       <Article>
         <Image
-          height="750px"
-          width="1500px"
+          priority
+          height={340}
+          width={720}
           alt={article.imageAlt}
           src={`/images/covers/${article.image}`}
         />
