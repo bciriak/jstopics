@@ -28,7 +28,7 @@ export function SubscribeCTA({isOnDarkBg = true}: SubscribeCTAProps) {
       const { error } = await res.json()
 
       if (error) {
-        toast.error('There was an error :( try again later.')
+        toast.error(error)
         return
       }
 

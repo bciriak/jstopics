@@ -1,10 +1,9 @@
-import mailchimp from '@mailchimp/mailchimp_marketing'
 import { NextApiRequest, NextApiResponse } from 'next'
-
-mailchimp.setConfig({
-  apiKey: process.env.MAILCHIMP_API_KEY,
-  server: process.env.MAILCHIMP_API_SERVER,
-})
+import * as SibApiV3Sdk from 'sib-api-v3-typescript'
+let apiInstance = new SibApiV3Sdk.ContactsApi()
+// @ts-ignore
+apiInstance.setApiKey(SibApiV3Sdk.AccountApiApiKeys.apiKey, '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')
+let createContact = new SibApiV3Sdk.CreateContact();
 
 export default async function handler(
   req: NextApiRequest,
@@ -16,17 +15,17 @@ export default async function handler(
     return res.status(400).json({ error: 'Email is required' })
   }
 
+  createContact.email = email;
+  createContact.listIds = [2];
+
   try {
-    if (process.env.MAILCHIMP_AUDIENCE_ID) {
-      await mailchimp.lists.addListMember(process.env.MAILCHIMP_AUDIENCE_ID, {
-        email_address: email,
-        status: 'subscribed',
-      })
+    await apiInstance.createContact(createContact)
+    return res.status(201).json({error: ''})
+  } catch (error: any) {
+    if (error.statusCode === 400) {
+      return res.status(400).json({error: error.response.body.message})
     }
 
-    return res.status(201).json({ error: '' })
-  } catch (error: any) {
-    console.log(error)
-    return res.status(500).json({ error: error.message || error.toString() })
+    return res.status(500).json({error: error})
   }
 }

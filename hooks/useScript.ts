@@ -18,19 +18,6 @@ export const useScript = (url: string, ref: RefObject<HTMLDivElement>) => {
     script.setAttribute('data-lang', 'en')
     script.crossOrigin = 'anonymous'
 
-    // data-repo="bciriak/jstopics"
-    // data-repo-id=""
-    // data-category="Announcements"
-    // data-category-id="DIC_kwDOHV9ZQM4CPITS"
-    // data-mapping="url"
-    // data-reactions-enabled="1"
-    // data-emit-metadata="0"
-    // data-input-position="bottom"
-    // data-theme="light"
-    // data-lang="en"
-    // crossOrigin="anonymous"
-    // async
-
     if (ref.current) {
       ref.current.appendChild(script)
     }
