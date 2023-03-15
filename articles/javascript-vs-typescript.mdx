@@ -1,0 +1,100 @@
+---
+title: 'TypeScript vs JavaScript'
+date: '2023-03-15'
+excerpt: 'Why would you as a JavaScript developer use TypeScript? What are the advantages? Are there any?'
+intro: 'What is the difference between the two major "front-end languages", JavaScript and TypeScript? Why would you use one over the other? Or rather, why would you use TypeScript instead of JavaScript?'
+category: 'typescript'
+image: 'javascript-vs-typescript.jpeg'
+imageAlt: 'JavaScript vs TypeScript'
+---
+
+## Why would you use TypeScript over JavaScript?
+
+I have been asked this question in one interview and gave a pretty bleak answer. Honestly, at that moment, I didn't come up with anything better than the simple answer: _because of TypeScripts' **types**_.
+
+After the interview I wanted to research this topic, to be ready if I would get asked this in the future, so I decided to write this article.
+
+Keep in mind, this is not a depth article on TypeScript. 
+
+### JavaScript in 60 seconds
+
+JavaScript is one of the 3 main building blocks of today's web, together with HTML and CSS. It is the part that **allows us to create interactive, dynamic websites**. JavaScript was created in 1995 by Brendan Eich.
+
+JavaScript became arguably one of the most popular programming languages thanks to JavaScript frameworks and libraries like jQuery, Angular, React.js, Backbone.js, and many more that are popping up daily.
+
+Popularity brought up the problems that JavaScript always had. Dynamic typing is among the main ones. **Thanks to the dynamic typing, hard-to-find bugs were introduced into code, and this is where TypeScript comes in**.
+
+## TypeScript is "documentation" for JavaScript
+
+TypeScript was created by Microsoft in 2012 and is **strongly typed language build on top of JavaScript**. 
+
+By writing TypeScript, we are forced to follow its rules, which in turn give us huge advantages in comparison to JavaScript. You gain these training wheels, that will not let you do silly mistakes and introduce easy-to-make bugs.
+
+Let's look at a simple example in JavaScript: 
+
+<CodeBlock language='javascript' fileName='app.js' text={`let name = "Brano"
+console.log(name) // Brano
+
+name = 45
+console.log(name) // 45`} />
+
+This is all valid and working JavaScript, and now in TypeScript:
+
+<CodeBlock language='typescript' fileName='app.ts' text={`let name: string = "Brano"
+console.log(name) // Brano
+
+name = 45 // we get squiggly under the name: Type 'number' is not assignable to type 'string'.`} />
+
+By us specifying what type the `name` variable is (`string`), we ensure that down the line we will not make a silly mistake by assigning it the wrong type.
+
+Let's look at two more obvious examples:
+
+![Add function in TypeScript](/images/articles/javascript-vs-typescript/add-function-in-typescript.png 'Add function in TypeScript')
+
+When we define a function in TypeScript, our IDE automatically picks up all of our "documentation" for that function. The function `add` is taking 2 parameters, both of the type `number` and it will return `number`. 
+
+The same function written in JavaScript could easily add strings and numbers together, possibly resulting in a hard-to-find bug.
+
+![Object in TypeScript](/images/articles/javascript-vs-typescript/object-in-typescript.png 'Object in TypeScript')
+
+Here we have defined our own type: `BlogPost`, and this is one of the TypeScripts superpowers. We can define our types, interfaces, and classes that document our code even further.
+
+Since we have defined `blogPost` as a `BlogPost` type, thanks to TypeScript, our IDE knows that our object has two properties: `title` and `rating`.
+
+These are just very basic examples that show glimpses of the power that TypeScript gives us.
+
+## In the end, we are delivering JavaScript
+
+Yes, that is true. When deploying our code to production, TypeScript gets compiled into the same ol' JavaScript, because **we can't run TypeScript in the browser or Node.js**.
+
+This process has many advantages. Like choosing which version of JavaScript we want our code to be, meaning we can support older browsers just by telling our compiler. 
+
+Another advantage is, our final JS will be of much higher quality, more predictable, and with fewer bugs. 
+
+### Great IDE experience
+
+TypeScript was literally made to make the developer experience better when delivering JavaScript code. It does not improve the performance, efficiency, or speed of **our applications**. As stated before, the written code ends up being JavaScript.
+
+But the benefits are apparent when we start writing code.
+
+### Code completion, IDE suggestions, refactoring
+
+You might say, you don't care about code completion, you want your app to be working and delivered as fast as possible. Yes, this might be true if you are a solo developer working on a small app. But when you work in a team of developers, this perspective changes. 
+
+By writing TypeScript, we are documenting the code that we write. This is extremely helpful in situations where you are using some class that your colleague has written, or better yet, using some open-source library. Productivity is immediately increased because we understand the code better.
+
+**Ratio between reading and writing code is well over 10:1 and TypeScript helps us read/understand code better.**
+
+## Why should I use TypeScript?
+
+If you are writing a lot of JavaScript, you should definitely at least try TypeScript, just to widen your horizon. 
+
+**Here is a summary of why is that a good idea:**
+
+- self-documented code
+- much smarter & helpful IDE
+- catch bugs/syntax errors right away
+- deliver any JavaScript version
+- more predictable code
+- more scalable code
+- easier to understand code

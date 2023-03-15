@@ -28,10 +28,12 @@ const components: MDXComponents = {
 }
 
 function ArticlePage({ article }: { article: ArticleInterface }) {
+  const metaTitle = `${article.title} | JSTopics`
+
   return (
     <>
       <Head>
-        <title key="title">{article.title} | JSTopics</title>
+        <title key="title">{metaTitle}</title>
         <meta name="description" content={article.excerpt} />
       </Head>
       <Article>
