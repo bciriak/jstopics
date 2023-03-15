@@ -1,4 +1,3 @@
-import Script from 'next/script'
 import { useRef } from 'react'
 import { useScript } from '../../hooks/useScript'
 

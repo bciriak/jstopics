@@ -99,3 +99,7 @@ strong > code, p > code {
 code::selection {
 	background: gray;
 }
+
+.not-found {
+  padding: 10rem 0;
+}
