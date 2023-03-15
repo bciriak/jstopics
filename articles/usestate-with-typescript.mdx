@@ -1,0 +1,232 @@
+---
+title: 'UseState with TypeScript'
+date: '2023-03-16'
+excerpt: ''
+intro: ''
+category: 'reactjs'
+image: ''
+imageAlt: ''
+---
+
+UseState is one of the simple but important React hooks. We handle state in functional components with this hook. But what is **state** in React components? Let's have a look.
+
+## What is state in React.js Component?
+
+We can think of a state as a small piece of memory that holds our components data. It can be variable called `showModal`. This variable holds data (`boolean`) that tell our component if it should show a modal. 
+
+This value usually changes on user input. User clicks on button and modal will be shown. Let's look at basic state example:
+
+<CodeBlock language='typescript' fileName='App.tsx' text={`import { useState } from 'react'
+
+function App() {
+  const [showModal, setShowModal] = useState(false)
+
+  const toggleModal = () =>  {
+    setShowModal(!showModal)
+  }
+
+  return (
+    <div>
+      <button onClick={toggleModal}>Toggle Modal</button>
+      {showModal && <p>Modal</p>}
+    </div>
+  )
+}
+
+export default App`} />
+
+First, we import `useState` hook from React and initialise it at the beginning of our component. As you can see, we use _array destructuring_ syntax to create state.
+
+<CodeBlock language='typescript' fileName='App.tsx' text={`const [showModal, setShowModal] = useState(false)`} />
+
+First element is the piece of state in our case `boolean` called `showModal` and second element is the so called **Dispatch function** that updates this piece of state. Names of these elements should follow this naming convention: `name` and `setName`. 
+
+Note that we gave the `useState` hook one parameter, and this is called the initial state. With simple state like this (boolean), TypeScript will infer the type of this initial state, but we can type our `useState` if we wanted to. This would be handy with more complex data, which we will get to a bit later.
+
+Next we have simple function `toggleModal`, which calls `setShowModal` function with opposite boolean value (so that we toggle the boolean).
+
+<CodeBlock language='typescript' fileName='App.tsx' text={`const toggleModal = () =>  {
+  setShowModal(!showModal)
+}`} />
+
+And at last, we have our JSX with simple button and conditionally rendered paragraph.
+
+<CodeBlock language='typescript' fileName='App.tsx' text={`return (
+  <div>
+    <button onClick={toggleModal}>Toggle Modal</button>
+    {showModal && <p>Modal</p>}
+  </div>
+)`} />
+
+### Aside: useState vs variable
+
+Some of the newcomers to the world of JavaScript and React might not realise simple but very important truth about React. I know I was a bit confused when first starting.
+
+Why can't we use regular JavaScript variable and do something like this?
+
+<CodeBlock language='typescript' fileName='App.tsx' text={`function App() {
+  let showModal = false
+
+  const toggleModal = () =>  {
+    showModal = !showModal
+  }
+
+  return (
+    <div>
+      <button onClick={toggleModal}>Toggle Modal</button>
+      {showModal && <p>Modal</p>}
+    </div>
+  )
+}
+
+export default App`} />
+
+Well, simply because it will not work. React will not re-render the component.
+
+If we were to write this piece of code in vanilla JavaScript/TypeScript, it could look something like this:
+
+<CodeBlock language='typescript' fileName='app.ts' text={`document.querySelector<HTMLDivElement>('#app')!.innerHTML = \`
+  <div id="component">
+    <button id="toggler">Toggle Modal</button>
+  </div>
+\`
+
+let component = document.querySelector<HTMLButtonElement>('#component')!
+let button = document.querySelector<HTMLButtonElement>('#toggler')!
+let modal = document.createElement('p')
+modal.innerHTML = "Modal"
+let showModal = false
+
+const toggleModal = () => {
+  showModal = !showModal
+
+  if (showModal) {
+    component.appendChild(modal)
+  } else {
+    component.removeChild(modal)
+  }
+}
+
+button.addEventListener('click', () => toggleModal())`} />
+
+Which is definitely worse looking than our React component. 
+
+So it is important to realise, React does a ton of work for us behind the scenes. One of the big ones is, watching for changes and re-rendering UI. Aside end!
+
+## When does React re-renders component?
+
+If you want **great in depth look** on how and when React re-renders, have a look at [React re-renders guide](https://www.developerway.com/posts/react-re-renders-guide). 
+
+There are 4 reasons why React will re-render a component:
+
+- **state changes**
+- parent re-renders
+- context changes
+- hook changes
+
+and `useState` hook is one of the state changes that React watches.
+
+## useState with TypeScript
+
+Let's have a look at 2 more use cases with a bit more complex data. One common use case is fetching data and displaying them in component.
+
+### Fetch data and useState
+
+<CodeBlock language='typescript' fileName='App.tsx' text={`import { useState, useEffect } from 'react'
+
+type User = {
+  id: string
+  username: string
+}
+
+function App() {
+  const [users, setUsers] = useState<User[]>([])
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const data = await fetch('https://my-json-server.typicode.com/jstopics/placeholders/users')
+      setUsers(await data.json())
+    }
+
+    fetchUsers()
+  }, [])
+  
+  return (
+    <div>
+      {users.length > 0 && <ul>
+        {users.map(user => <li key={user.id}>{user.username}</li>)}
+      </ul>}
+    </div>
+  )
+}
+
+export default App`} />
+
+We can see here, that TypeScript is more evident in this example in comparison to the first one.
+
+When fetching data from some API, we need to know the structure of that data so that we can nicely type it. Here we know that the `User` has `id` and `username`, both of type string so we can create our `User` type and provide it to our `useState` hook. This will tell TypeScript what kind of data it can expect. 
+
+We use another React hook `useEffect` to fetch our data when the component loads up. By providing empty array as a second argument, this hook will only run once. 
+
+And the last thing is to show our data if the array is not empty. Our IDE will nicely suggest properties of user thanks to TypeScript.
+
+### Form data with useState and TypeScript
+
+Another common use case is handling form data with `useState`. Let's look at this example:
+
+<CodeBlock language='typescript' fileName='Form.tsx' text={`import { useState } from 'react'
+
+type FormData = {
+  username: string
+  password: string
+}
+
+const initialState: FormData = {
+  username: '',
+  password: ''
+}
+
+function Form() {
+  const [formData, setFormData] = useState<FormData>(initialState)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    const value = e.target.value
+    const prop = e.target.name
+
+    setFormData({...state, [prop]: value})
+  }
+
+  return (
+    <form>
+      <div>
+        <label htmlFor="username">Username</label>
+        <input 
+          type="text" 
+          name="username"
+          value={formData.username} 
+          onChange={handleChange} 
+        />
+      </div>
+      <div>
+        <label htmlFor="password">Password</label>
+        <input 
+          type="password" 
+          name="password"
+          value={formData.password} 
+          onChange={handleChange} 
+        />
+      </div>
+      <button 
+        type="button" 
+        onClick={() => {console.log(formData)}}
+      >
+        Log In
+      </button>
+    </form>
+  )
+}
+
+export default Form`} />
+
+First, we define our form data type, what types of data do we want our form to handle. 
