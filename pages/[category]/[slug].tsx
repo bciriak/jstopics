@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { MDXRemote } from 'next-mdx-remote'
+import styled from 'styled-components'
 
 import { getArticleData, getSortedArticlesData } from '../../utils/articles'
 import Button from '../../components/Button'
@@ -15,6 +16,14 @@ import { Note } from '../../components/Note'
 import Image from 'next/image'
 import { ArticleInterface } from '../../types/article.types'
 import { MDXComponents } from 'mdx/types'
+
+const Avatar = styled.div`
+  padding-top: 1rem;
+  img {
+    width: 80px;
+    border-radius: 100px;
+  }
+`
 
 const components: MDXComponents = {
   Button,
@@ -44,7 +53,12 @@ function ArticlePage({ article }: { article: ArticleInterface }) {
           alt={article.imageAlt}
           src={`/images/covers/${article.image}`}
         />
+
         <div className="center">
+          <Avatar>
+            <img src="/webResult3.jpeg" alt="Avatar" />
+          </Avatar>
+          <b>by BCiriak</b>
           <small>
             {article.month} {article.day}, {article.year} | {article.readTime}{' '}
             min read
