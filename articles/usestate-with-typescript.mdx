@@ -37,9 +37,11 @@ First, we import `useState` hook from React and initialize it at the beginning o
 
 <CodeBlock language='typescript' fileName='App.tsx' text={`const [showModal, setShowModal] = useState(false)`} />
 
-The first element is the piece of state in our case `boolean` called `showModal` and the second element is the so-called **Dispatch function** that updates this piece of state. Names of these elements should follow this naming convention: `name` and `setName`. 
+The first element is the piece of state in our case `boolean` called `showModal` and the second element is the so-called **dispatch function** that updates this piece of state. Names of these elements should follow this naming convention: `name` and `setName`. 
 
 Note that we gave the `useState` hook one parameter, and this is called the initial state. With a simple state like this (boolean), TypeScript will infer the type of this initial state, but we can type our `useState` if we wanted to. This would be handy with more complex data, which we will get to a bit later.
+
+Just an aside, we can handle more complex data with another React hook, `useReducer`. <MdLink url='/reactjs/usereducer-with-typescript' text='Learn more about useReducer with TypeScript.' />
 
 Next, we have a simple function `toggleModal`, which calls `setShowModal` function with the opposite boolean value (so that we toggle the boolean).
 

@@ -15,6 +15,8 @@ The useRef hook is one of the handy React hooks that we can use to solve some of
 - grabbing a reference to DOM element to manipulate it as in vanilla JavaScript
 - creating variable "container" that behaves like a mixture of plain variable in component and variable handled by **`useState`**
 
+<MdLink url='/reactjs/usestate-with-typescript' text='Read this article for more info about `useState`'/>.
+
 You can have a look at the finished code here:
 - <MdLink url='https://github.com/jstopics/05-react-js-useref' text='React useRef examples JavaScript' />
 - <MdLink url='https://github.com/jstopics/05-react-ts-useref' text='React useRef examples TypeScript' />
@@ -87,7 +89,7 @@ Okay, this may be a really simple and dumb example but I want to point out some 
 
 ## Variables with useState hook
 
-When we click on the button, our _useState_ variable will change to the new text. We see the change on screen thanks to the re-render that React runs after this variable changes and **only** because of this reason.
+When we click on the button, our _<MdLink url='/reactjs/usestate-with-typescript' text='useState' />_ variable will change to the new text. We see the change on screen thanks to the re-render that React runs after this variable changes and **only** because of this reason.
 
 ## Variables with useRef hook
 
@@ -99,7 +101,9 @@ And these are the big differences between these three variables.
 
 ## Bonus: useRef and TypeScript examples
 
-The first example is a simple one but there are some heads up that we need to know to not get confused when using TypeScript with React hooks.
+The first example is a simple one but there are some heads ups that we need to know, not to get confused when using TypeScript with React hooks.
+
+<MdLink url='/typescript/javascript-vs-typescript' text='Why should you use TypeScript instead of JavaScript?' />
 
 <CodeBlock language='typescript' fileName='App.tsx' text={`import {useEffect, useRef} from 'react'
 
