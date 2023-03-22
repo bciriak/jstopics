@@ -15,7 +15,7 @@ export function SubscribeCTA({isOnDarkBg = true}: SubscribeCTAProps) {
     e.preventDefault()
 
     if (inputEl.current) {
-      const res = await fetch('/api/subscribe', {
+      const res = await fetch('/api/subscribe-mailchimp', {
         body: JSON.stringify({
           email: inputEl.current.value,
         }),
