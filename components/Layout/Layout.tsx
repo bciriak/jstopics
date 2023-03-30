@@ -29,7 +29,7 @@ export function Layout({
         async
         defer
         data-website-id="9ce0296d-e697-42ac-a587-78a197e87b5a"
-        src="https://umami-rose-one.vercel.app/umami.js"
+        src="https://umami.jstopics.com/umami.js"
       ></Script>
       <Head>
         <title key="title">
