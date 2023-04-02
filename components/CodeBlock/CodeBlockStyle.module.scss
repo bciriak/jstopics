@@ -2,6 +2,11 @@
   margin: 40px 0px;
 }
 
+.content {
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
 .codeHeader {
   display: flex;
   margin-bottom: -7px;

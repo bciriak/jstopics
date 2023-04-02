@@ -35,7 +35,7 @@ export default App`} />
 
 First, we import `useState` hook from React and initialize it at the beginning of our component. As you can see, we use _array destructuring_ syntax to create the state.
 
-<CodeBlock language='typescript' fileName='App.tsx' text={`const [showModal, setShowModal] = useState(false)`} />
+<CodeBlock language='typescript' startingLineNumber={4} fileName='App.tsx' text={`const [showModal, setShowModal] = useState(false)`} />
 
 The first element is the piece of state in our case `boolean` called `showModal` and the second element is the so-called **dispatch function** that updates this piece of state. Names of these elements should follow this naming convention: `name` and `setName`. 
 
@@ -45,13 +45,13 @@ Just an aside, we can handle more complex data with another React hook, `useRedu
 
 Next, we have a simple function `toggleModal`, which calls `setShowModal` function with the opposite boolean value (so that we toggle the boolean).
 
-<CodeBlock language='typescript' fileName='App.tsx' text={`const toggleModal = () =>  {
+<CodeBlock language='typescript' fileName='App.tsx' startingLineNumber={6} text={`const toggleModal = () =>  {
   setShowModal(!showModal)
 }`} />
 
 And at last, we have our JSX with a simple button and conditionally rendered paragraph.
 
-<CodeBlock language='typescript' fileName='App.tsx' text={`return (
+<CodeBlock language='typescript' fileName='App.tsx' startingLineNumber={10} text={`return (
   <div>
     <button onClick={toggleModal}>Toggle Modal</button>
     {showModal && <p>Modal</p>}
@@ -134,14 +134,14 @@ Let's have a look at 2 more use cases with a bit more complex data. One common u
 
 First, we define data coming from API. I am using a dummy JSON endpoint that returns objects looking like this: `{ id: string, username: string}`. This is exactly how our `User` type is gonna look like.
 
-<CodeBlock language='typescript' fileName='App.tsx' text={`type User = {
+<CodeBlock language='typescript' fileName='App.tsx' startingLineNumber={3} text={`type User = {
   id: string
   username: string
 }`} />
 
 Now we can type our `useState` hook with this custom type and initialize it to an empty array.
 
-<CodeBlock language='typescript' fileName='App.tsx' text={`const [users, setUsers] = useState<User[]>([])
+<CodeBlock language='typescript' fileName='App.tsx' startingLineNumber={9} text={`const [users, setUsers] = useState<User[]>([])
 
 // to specify what types will our array hold, we do it by writing the type and []
 // array of strings => string[]
@@ -149,7 +149,7 @@ Now we can type our `useState` hook with this custom type and initialize it to a
 
 This piece of state is gonna hold our fetched API data. We fetch the data when the component loads, which means we want to call the API in another React hook `useEffect`.
 
-<CodeBlock language='typescript' fileName='App.tsx' text={`useEffect(() => {
+<CodeBlock language='typescript' fileName='App.tsx' startingLineNumber={11} text={`useEffect(() => {
   const fetchUsers = async () => {
     const data = await fetch('https://my-json-server.typicode.com/jstopics/placeholders/users')
     setUsers(await data.json())
@@ -200,14 +200,14 @@ Another common use case is handling form data with `useState`. Simple forms can 
 
 Again we start with defining the type of data we want to handle with our form. Let's say it's going to be a login form:
 
-<CodeBlock language='typescript' fileName='Form.tsx' text={`type FormData = {
+<CodeBlock language='typescript' fileName='Form.tsx' startingLineNumber={3} text={`type FormData = {
   username: string
   password: string
 }`} />
 
 And now we want to define some initial state of the form. This will also help us to reset the form after we send the data.
 
-<CodeBlock language='typescript' fileName='Form.tsx' text={`const initialState: FormData = {
+<CodeBlock language='typescript' fileName='Form.tsx' startingLineNumber={8} text={`const initialState: FormData = {
   username: '',
   password: ''
 }`} />
@@ -216,11 +216,11 @@ These are just an empty string, as we would expect to see in the login form 😑
 
 We can now initialize our state:
 
-<CodeBlock language='typescript' fileName='Form.tsx' text={`const [formData, setFormData] = useState<FormData>(initialState)`} />
+<CodeBlock language='typescript' fileName='Form.tsx' startingLineNumber={14} text={`const [formData, setFormData] = useState<FormData>(initialState)`} />
 
 Be careful with the `FormData` type, IDE can pull in the original `FormData` type. Also, note the `initialState` parameter. And the JSX:
 
-<CodeBlock language='typescript' fileName='Form.tsx' text={`return (
+<CodeBlock language='typescript' fileName='Form.tsx' startingLineNumber={24} text={`return (
   <form>
     <div>
       <label htmlFor="username">Username</label>
@@ -251,7 +251,7 @@ Be careful with the `FormData` type, IDE can pull in the original `FormData` typ
 
 We just wire our `input` elements with our state. The last piece left to do is to implement the `onChange` event. We can create one function, that will look at the input `name` attribute and update the piece of state with that key.
 
-<CodeBlock language='typescript' fileName='Form.tsx' text={`const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+<CodeBlock language='typescript' fileName='Form.tsx' startingLineNumber={16} text={`const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   e.preventDefault()
   const value = e.target.value
   const prop = e.target.name

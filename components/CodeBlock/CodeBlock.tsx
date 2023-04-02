@@ -8,6 +8,8 @@ type CodeBlockProps = {
   language: string
   fileName: string
   lineNumbers: boolean
+  startingLineNumber: number
+  enableScroll: boolean
 }
 
 export function CodeBlock({
@@ -15,6 +17,8 @@ export function CodeBlock({
   language,
   fileName,
   lineNumbers = true,
+  startingLineNumber = 1,
+  enableScroll = false,
 }: CodeBlockProps) {
   return (
     <div className={styles.container}>
@@ -22,13 +26,16 @@ export function CodeBlock({
         <span>{fileName}</span>
         <span>{language}</span>
       </div>
-      <SyntaxHighlighter
-        language={language}
-        showLineNumbers={lineNumbers}
-        style={vscDarkPlus}
-      >
-        {text}
-      </SyntaxHighlighter>
+      <div className={enableScroll ? styles.content : ''}>
+        <SyntaxHighlighter
+          language={language}
+          showLineNumbers={lineNumbers}
+          startingLineNumber={startingLineNumber}
+          style={vscDarkPlus}
+        >
+          {text}
+        </SyntaxHighlighter>
+      </div>
     </div>
   )
 }
