@@ -29,7 +29,10 @@ function getArticleInfo(fileName: string, isSlug = false) {
   const fullPath = path.join(articlesDirectory, fileName)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const matterResult = matter(fileContents)
-  const readTime = getReadTime(matterResult.content)
+  const readTime =
+    getReadTime(matterResult.content) < 15
+      ? getReadTime(matterResult.content)
+      : 15
   const formattedDate = getFormattedDate(
     moment(matterResult.data.date, 'YYYY-MM-DD')
   )
@@ -46,7 +49,7 @@ function getFormattedDate(date: moment.Moment) {
 }
 
 function getReadTime(content: string) {
-  return Math.floor(content.split(' ').length / 120)
+  return Math.floor(content.split(' ').length / 150)
 }
 
 function sortArticlesByDate(articles: ArticleInterface[]) {
