@@ -18,6 +18,7 @@ export function Article({ children }: ArticleProps) {
   useScript('https://giscus.app/client.js', script)
 
   useEffect(() => {
+    console.log('useEffect')
     if (shouldShowPopup()) {
       timer = setTimeout(() => {
         setShowPopup(true)

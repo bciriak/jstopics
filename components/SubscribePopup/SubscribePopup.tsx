@@ -104,7 +104,6 @@ export function SubscribePopup({ closePopup }: Props) {
   }
 
   const closePopupAfterSubmit = () => {
-    console.log('closePopupAfterSubmit')
     saveToLocalStorage(
       LocalStorageKeys.popupTimestamp,
       JSON.stringify(Date.now() + popupConfig.timeAfterSubscribe)
