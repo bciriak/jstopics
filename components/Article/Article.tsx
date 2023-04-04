@@ -6,6 +6,7 @@ import { SubscribePopup } from '../SubscribePopup'
 import styles from './ArticleStyle.module.scss'
 import { LocalStorageKeys } from '../../utils/localStorage'
 import { popupConfig } from '../../utils/popupConfig'
+import { trackEvent } from '../../utils/umami'
 
 type ArticleProps = {
   children: React.ReactNode
@@ -21,6 +22,7 @@ export function Article({ children }: ArticleProps) {
     if (shouldShowPopup()) {
       timer = setTimeout(() => {
         setShowPopup(true)
+        trackEvent('Show popup subscribe form')
       }, popupConfig.timeToShow)
       return () => clearTimeout(timer)
     }
