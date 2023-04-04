@@ -18,7 +18,6 @@ export function Article({ children }: ArticleProps) {
   useScript('https://giscus.app/client.js', script)
 
   useEffect(() => {
-    console.log('useEffect')
     if (shouldShowPopup()) {
       timer = setTimeout(() => {
         setShowPopup(true)
@@ -29,7 +28,11 @@ export function Article({ children }: ArticleProps) {
 
   const shouldShowPopup = (): boolean => {
     const popupTimestamp = localStorage.getItem(LocalStorageKeys.popupTimestamp)
-    if (popupTimestamp && Date.now() > +popupTimestamp) {
+    if (!popupTimestamp) {
+      return true
+    }
+
+    if (Date.now() > +popupTimestamp) {
       return true
     }
     return false
