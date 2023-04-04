@@ -50,8 +50,6 @@ So dispatch is the messenger and **action** is the message.
 
 Now we come to the last piece of **`useReducer`**, the brains. **Reducer** itself is where all of the logic happens. **Reducer** is pure function, that looks at action and decides how to change state. It has access to _currentState_ and that is how we update it. But we never mutate state in **reducer**, we just copy it and return new state.
 
-<SubscribeCTA isOnDarkBg={false} />
-
 ## Back to the Todo App
 
 Looking at the previous picture, we see that there is already some initial state, **todos** array. If we want to add a Todo to this array, we would click on **Add Todo** button, which would fire useReducers' **dispatch** function with appropriate action. In this case "ADD_TODO", and it would be handled by **reducer**, which would update the state. React would look at the state, see the change and re-render our UI.

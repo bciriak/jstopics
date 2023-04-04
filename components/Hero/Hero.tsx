@@ -11,7 +11,6 @@ export function Hero() {
             <span className="highlight">JavaScript, TypeScript, React</span> and
             all things related.
           </h1>
-
           <SubscribeCTA />
         </div>
       </div>

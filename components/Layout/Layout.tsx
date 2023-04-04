@@ -25,12 +25,14 @@ export function Layout({
                     });
                 `}
       </Script>
-      <Script
-        async
-        defer
-        data-website-id="9ce0296d-e697-42ac-a587-78a197e87b5a"
-        src="https://umami.jstopics.com/umami.js"
-      ></Script>
+      {process.env.NEXT_PUBLIC_SHOW_ANALYTICS === 'true' && (
+        <Script
+          async
+          defer
+          data-website-id="9ce0296d-e697-42ac-a587-78a197e87b5a"
+          src="https://umami.jstopics.com/umami.js"
+        ></Script>
+      )}
       <Head>
         <title key="title">
           JSTopics is all about JavaScript, TypeScript, React and all things

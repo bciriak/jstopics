@@ -4,6 +4,8 @@ import { useScript } from '../../hooks/useScript'
 import { ByeBye } from '../ByeBye'
 import { SubscribePopup } from '../SubscribePopup'
 import styles from './ArticleStyle.module.scss'
+import { LocalStorageKeys } from '../../utils/localStorage'
+import { popupConfig } from '../../utils/popupConfig'
 
 type ArticleProps = {
   children: React.ReactNode
@@ -12,16 +14,25 @@ type ArticleProps = {
 export function Article({ children }: ArticleProps) {
   const [showPopup, setShowPopup] = useState(false)
   const script = useRef<HTMLDivElement>(null)
-  let timer: NodeJS.Timeout 
+  let timer: NodeJS.Timeout
   useScript('https://giscus.app/client.js', script)
 
   useEffect(() => {
-    timer = setTimeout(() => {
-    setShowPopup(true)
-    console.log('showing?')
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
+    if (shouldShowPopup()) {
+      timer = setTimeout(() => {
+        setShowPopup(true)
+      }, popupConfig.timeToShow)
+      return () => clearTimeout(timer)
+    }
+  }, [])
+
+  const shouldShowPopup = (): boolean => {
+    const popupTimestamp = localStorage.getItem(LocalStorageKeys.popupTimestamp)
+    if (popupTimestamp && Date.now() > +popupTimestamp) {
+      return true
+    }
+    return false
+  }
 
   const close = () => {
     const closeTimeout = setTimeout(() => {
