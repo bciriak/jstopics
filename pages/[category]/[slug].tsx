@@ -15,6 +15,7 @@ import { Note } from '../../components/Note'
 import Image from 'next/image'
 import { ArticleInterface } from '../../types/article.types'
 import { MDXComponents } from 'mdx/types'
+import { Quiz } from '../../components/Quiz'
 
 const Avatar = styled.div`
   padding-top: 1rem;
@@ -51,7 +52,6 @@ function ArticlePage({ article }: { article: ArticleInterface }) {
           alt={article.imageAlt}
           src={`/images/covers/${article.image}`}
         />
-
         <div className="center">
           <Avatar>
             <Image
@@ -73,6 +73,7 @@ function ArticlePage({ article }: { article: ArticleInterface }) {
         </p>
         <hr />
         <MDXRemote {...article.contentHtml} components={components} />
+        <Quiz />
       </Article>
     </>
   )

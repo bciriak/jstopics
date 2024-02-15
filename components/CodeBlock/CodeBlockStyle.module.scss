@@ -18,3 +18,9 @@
   background: #e4e4e4;
   font-size: 13px;
 }
+
+.noHighlight {
+  ::selection {
+    background: rgb(85, 85, 85);
+  }
+}

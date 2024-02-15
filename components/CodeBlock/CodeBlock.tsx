@@ -26,7 +26,11 @@ export function CodeBlock({
         <span>{fileName}</span>
         <span>{language}</span>
       </div>
-      <div className={enableScroll ? styles.content : ''}>
+      <div
+        className={`${enableScroll ? styles.content : ''} ${
+          styles.noHighlight
+        }`}
+      >
         <SyntaxHighlighter
           language={language}
           showLineNumbers={lineNumbers}

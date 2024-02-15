@@ -7,6 +7,7 @@ import styles from './ArticleStyle.module.scss'
 import { LocalStorageKeys } from '../../utils/localStorage'
 import { popupConfig } from '../../utils/popupConfig'
 import { trackEvent } from '../../utils/umami'
+import { Quiz } from '../Quiz'
 
 type ArticleProps = {
   children: React.ReactNode
@@ -53,6 +54,7 @@ export function Article({ children }: ArticleProps) {
       {showPopup && <SubscribePopup closePopup={close} />}
       <div className={`container ${styles.articleContainer}`}>
         {children}
+        <Quiz />
         <ByeBye />
         <div className={`giscus ${styles.comments}`} />
       </div>

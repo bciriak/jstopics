@@ -35,5 +35,10 @@ yarn-error.log*
 *.tsbuildinfo
 
 todos.todo
+TODO
 .idea
 _in-progress
+
+# quizes
+quizes/*
+!quizes/db.json
