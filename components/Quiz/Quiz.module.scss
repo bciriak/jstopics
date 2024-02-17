@@ -1,41 +1,142 @@
-.quiz {
+.quizWrapper {
   padding: 14px;
   border: 1px solid lightgrey;
-  border-radius: 5px;
 
   h3 {
     margin-top: 0;
-    font-size: 1.6rem;
-    margin-bottom: 0;
+    font-size: 1.8rem;
+    margin-bottom: 6px;
   }
+
   h4 {
-    margin-bottom: 8px;
+    margin-bottom: 26px;
+    text-align: center;
   }
-  p {
-    padding-top: 0;
-    margin-top: 0;
-    font-size: 1.4rem;
+
+  h5 {
+    font-size: 1.1rem;
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid lightgray;
+  }
+
+  code {
+    background: #e8e8e8;
+    border-radius: 2px;
+    padding: 2px 5px;
+    font-size: 0.8em;
+    font-weight: 600;
+  }
+
+  .startQuiz {
+    display: flex;
+    align-items: center;
+
+    button {
+      display: block;
+    }
   }
 
   .answers {
-    button {
-      background: none;
-      border: none;
-      display: block;
-      padding: 5px;
-      margin-bottom: 5px;
-      border: 2px solid transparent;
-      border-radius: 5px;
-      transition: all 100ms;
-    }
-    button:hover {
-      cursor: pointer;
-      border-radius: 5px;
-      border: 2px solid gray;
+    .answerButton {
+      button {
+        border-radius: 5px;
+        display: flex;
+        background: #f1f1f1;
+        width: 100%;
+        text-align: left;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 2px solid transparent;
+        transition: all 100ms;
+
+        b {
+          margin-right: 5px;
+        }
+      }
+
+      button:hover {
+        cursor: pointer;
+        border-radius: 5px;
+        border: 2px solid gray;
+      }
     }
 
     .selectedAnswer {
       background: green;
+    }
+  }
+
+  .quiz {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 200ms;
+    visibility: visible;
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+
+    .quizContainer {
+      position: relative;
+      opacity: 1;
+      width: 600px;
+      margin-top: 80px;
+
+      .quizInner {
+        padding: 0 30px 30px;
+        background: white;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+
+        .quizHeader {
+          padding-bottom: 10px;
+
+          span {
+            float: right;
+            top: 0;
+            display: block;
+            font-size: 2rem;
+          }
+
+          span:hover {
+            cursor: pointer;
+          }
+        }
+
+        .progressBar {
+          margin-bottom: 20px;
+          margin-left: -30px;
+          margin-right: -30px;
+          display: flex;
+          background: #e7e7e7;
+          border-top-left-radius: 5px;
+          border-top-right-radius: 5px;
+
+          .barItem {
+            flex: 1;
+
+            .barItemInner {
+              height: 8px;
+              width: 0;
+              transition: width 500ms;
+            }
+          }
+        }
+
+        .question {
+          .buttonsWrapper {
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            text-align: right;
+          }
+        }
+      }
+
     }
   }
 }

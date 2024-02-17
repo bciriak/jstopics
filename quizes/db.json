@@ -1,54 +1,123 @@
 [
   {
+    "id": "omit-quiz.json",
     "questions": [
       {
-        "id": "1",
-        "question": "What does Omit do?",
+        "id": "basic-understanding",
+        "question": "What does the `Omit<T, K>` utility type do in TypeScript?",
+        "correctAnswer": "C",
         "answers": [
           {
             "key": "A",
-            "value": "Adds attribute to the type"
+            "value": "Creates a new type by adding properties from `T` not present in `K`."
           },
           {
             "key": "B",
-            "value": "Removes attribute from the type"
+            "value": "Creates a new type by including only the properties from `T` specified in `K`."
           },
           {
             "key": "C",
-            "value": "Substitutes attribute from the type"
+            "value": "Creates a new type by removing properties from `T` specified in `K`."
           },
           {
             "key": "D",
-            "value": "None of the above"
+            "value": "Merges two types `T` and `K` into a single new type."
           }
-        ],
-        "correctAnswer": "B"
+        ]
       },
       {
-        "id": "2",
-        "question": "What is the best color?",
+        "id": "advanced-use-cases",
+        "question": "How can you use the `Omit` utility type to remove multiple properties from a type?",
+        "correctAnswer": "A",
         "answers": [
           {
             "key": "A",
-            "value": "White"
+            "value": "By using a union type for the second parameter."
           },
           {
             "key": "B",
-            "value": "Blue"
+            "value": "By calling `Omit` multiple times for each property."
           },
           {
             "key": "C",
-            "value": "Black"
+            "value": "By using an array of property names."
           },
           {
             "key": "D",
-            "value": "Yellow"
+            "value": "By nesting `Omit` within another `Omit`."
           }
-        ],
-        "correctAnswer": "C"
+        ]
+      },
+      {
+        "id": "combining-utility-types",
+        "question": "Which is a correct way to use the `Omit` utility type in combination with `Partial` to create a new type?",
+        "correctAnswer": "A",
+        "answers": [
+          {
+            "key": "A",
+            "value": "`type NewType = Partial<Omit<T, \"key\">>;`"
+          },
+          {
+            "key": "B",
+            "value": "`type NewType = Omit<Partial<T>, \"key\">;`"
+          },
+          {
+            "key": "C",
+            "value": "`type NewType = Partial<T> & Omit<T, \"key\">;`"
+          },
+          {
+            "key": "D",
+            "value": "`type NewType = Omit<T, Partial<\"key\">>;`"
+          }
+        ]
+      },
+      {
+        "id": "real-world-application",
+        "question": "In what scenario is using the `Omit` utility type particularly beneficial in a TypeScript project?",
+        "correctAnswer": "B",
+        "answers": [
+          {
+            "key": "A",
+            "value": "When needing to enforce that all properties of a type are included."
+          },
+          {
+            "key": "B",
+            "value": "When creating a subset of a type that excludes certain properties for component props."
+          },
+          {
+            "key": "C",
+            "value": "When merging two types into one."
+          },
+          {
+            "key": "D",
+            "value": "When duplicating the structure of a type without any modifications."
+          }
+        ]
+      },
+      {
+        "id": "typescript-version-compatibility",
+        "question": "From which version of TypeScript is the `Omit` utility type available?",
+        "correctAnswer": "C",
+        "answers": [
+          {
+            "key": "A",
+            "value": "Since version 2.1"
+          },
+          {
+            "key": "B",
+            "value": "Since version 2.8"
+          },
+          {
+            "key": "C",
+            "value": "Since version 3.5"
+          },
+          {
+            "key": "D",
+            "value": "Since version 4.0"
+          }
+        ]
       }
-    ],
-    "id": "omit-quiz.json"
+    ]
   },
   {
     "questions": [

@@ -15,4 +15,5 @@ export interface ArticleInterface {
   imageAlt: string
   intro: string
   contentHtml: MDXRemoteSerializeResult
+  quizId: string | undefined
 }

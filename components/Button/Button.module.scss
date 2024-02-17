@@ -1,0 +1,32 @@
+.button {
+  padding: 0.6rem 1rem;
+  margin-top: 1rem;
+
+  color: white;
+  background: black;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+}
+
+.inverse {
+  background: white;
+  color: black;
+}
+
+.primary:hover {
+  cursor: pointer;
+  background: #343434;
+}
+
+.inverse:hover {
+  cursor: pointer;
+  background: #ffe43c;
+}
+
+.button:disabled {
+  background: lightgray;
+}
+.button:disabled:hover {
+  cursor: auto;
+}

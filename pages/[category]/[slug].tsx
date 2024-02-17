@@ -1,10 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { MDXRemote } from 'next-mdx-remote'
-import styled from 'styled-components'
 
 import { getArticleData, getSortedArticlesData } from '../../utils/articles'
-import Button from '../../components/Button'
+import Button from '../../components/Button/Button'
 import { CodeBlock } from '../../components/CodeBlock'
 import { MdLink } from '../../components/MdLink'
 import { MdLinkInternal } from '../../components/MdLinkInternal'
@@ -12,18 +11,14 @@ import { MdImage } from '../../components/MdImage'
 import { Article } from '../../components/Article'
 import { Todo } from '../../components/Todo'
 import { Note } from '../../components/Note'
-import Image from 'next/image'
 import { ArticleInterface } from '../../types/article.types'
 import { MDXComponents } from 'mdx/types'
 import { Quiz } from '../../components/Quiz'
-
-const Avatar = styled.div`
-  padding-top: 1rem;
-  img {
-    width: 80px;
-    border-radius: 100px;
-  }
-`
+import { Video } from '../../components/Video'
+import { ArticleHeader } from '../../components/ArticleHeader/ArticleHeader'
+import { useState } from 'react'
+import styled from 'styled-components'
+import { Comments } from '../../components/Comments/Comments'
 
 const components: MDXComponents = {
   Button,
@@ -35,47 +30,46 @@ const components: MDXComponents = {
   Note,
 }
 
+const Buttons = styled.div`
+  margin: 0 auto 30px;
+  display: flex;
+  justify-content: center;
+`
+
+const ArticlePageContainer = styled.div`
+  max-width: 720px;
+  margin: 0 auto;
+`
+
 function ArticlePage({ article }: { article: ArticleInterface }) {
   const metaTitle = `${article.title} | JSTopics`
+  const [isVideoVisible, setIsVideoVisible] = useState(false)
 
   return (
-    <>
+    <ArticlePageContainer>
       <Head>
         <title key="title">{metaTitle}</title>
         <meta name="description" content={article.excerpt} />
       </Head>
-      <Article>
-        <Image
-          priority
-          height={340}
-          width={720}
-          alt={article.imageAlt}
-          src={`/images/covers/${article.image}`}
-        />
-        <div className="center">
-          <Avatar>
-            <Image
-              src="/bciriak.jpeg"
-              alt="BCiriak Avatar"
-              width={80}
-              height={80}
-            />
-          </Avatar>
-          <b>by BCiriak</b>
-          <small>
-            {article.month} {article.day}, {article.year} | {article.readTime}{' '}
-            min read
-          </small>
-        </div>
-        <h1>{article.title}</h1>
-        <p style={{ fontSize: '1.3rem', lineHeight: '2rem', fontWeight: 300 }}>
-          {article.intro}
-        </p>
-        <hr />
-        <MDXRemote {...article.contentHtml} components={components} />
-        <Quiz />
-      </Article>
-    </>
+      <ArticleHeader article={article} />
+      <Buttons>
+        <button onClick={() => setIsVideoVisible(true)}>Give me video</button>
+        <button onClick={() => setIsVideoVisible(false)}>
+          Give me article
+        </button>
+      </Buttons>
+      {isVideoVisible ? (
+        <Video />
+      ) : (
+        <Article>
+          <MDXRemote {...article.contentHtml} components={components} />
+        </Article>
+      )}
+      {/*<div className="container">*/}
+      {article.quizId && <Quiz quizId={article.quizId} />}
+      <Comments />
+      {/*</div>*/}
+    </ArticlePageContainer>
   )
 }
 

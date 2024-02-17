@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { toast } from 'react-toastify'
 import styled from 'styled-components'
 import { trackEvent } from '../../utils/umami'
+import Button from '../Button/Button'
 
 const Form = styled.form`
   padding: 1rem 0;
@@ -25,20 +26,20 @@ const Input = styled.input`
   }
 `
 
-const Button = styled.button`
-  padding: 0.6rem 1rem;
-  margin-top: 1rem;
-
-  color: black;
-  background: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
-  :hover {
-    cursor: pointer;
-    background: #ffe43c;
-  }
-`
+// const Button = styled.button`
+//   padding: 0.6rem 1rem;
+//   margin-top: 1rem;
+//
+//   color: black;
+//   background: white;
+//   font-weight: bold;
+//   border: none;
+//   border-radius: 10px;
+//   :hover {
+//     cursor: pointer;
+//     background: #ffe43c;
+//   }
+// `
 
 type Props = {
   buttonText?: string
@@ -50,7 +51,7 @@ export default function SubscribeForm({
   afterSubmit,
 }: Props) {
   const inputEl = useRef<HTMLInputElement>(null)
-  const subscribe = async (e: React.FormEvent<HTMLFormElement>) => {
+  const subscribe = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
     trackEvent('Subscribe to newsletter clicked')
     afterSubmit && afterSubmit()
@@ -79,7 +80,7 @@ export default function SubscribeForm({
   }
 
   return (
-    <Form onSubmit={subscribe}>
+    <Form>
       <Input
         type="email"
         placeholder="Your Email"
@@ -88,7 +89,11 @@ export default function SubscribeForm({
         ref={inputEl}
         required
       />
-      <Button type="submit">{buttonText}</Button>
+      <Button
+        label="Join Newsletter"
+        buttonStyle="inverse"
+        onClick={(e: React.MouseEvent<HTMLElement>) => subscribe(e)}
+      />
     </Form>
   )
 }
