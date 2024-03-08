@@ -1,0 +1,50 @@
+{
+  "questions": [
+    {
+      "id": "1",
+      "question": "What does Pick do?",
+      "answers": [
+        {
+          "key": "A",
+          "value": "Nothing"
+        },
+        {
+          "key": "B",
+          "value": "Whatever you want"
+        },
+        {
+          "key": "C",
+          "value": "Something"
+        },
+        {
+          "key": "D",
+          "value": "None of the above"
+        }
+      ],
+      "correctAnswer": "B"
+    },
+    {
+      "id": "2",
+      "question": "What can you put into sushi?",
+      "answers": [
+        {
+          "key": "A",
+          "value": "Avocado"
+        },
+        {
+          "key": "B",
+          "value": "Cats"
+        },
+        {
+          "key": "C",
+          "value": "Stones"
+        },
+        {
+          "key": "D",
+          "value": "Banana"
+        }
+      ],
+      "correctAnswer": "C"
+    }
+  ]
+}
