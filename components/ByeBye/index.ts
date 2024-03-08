@@ -1,1 +1,0 @@
-export { ByeBye } from './ByeBye'
