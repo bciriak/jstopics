@@ -1,7 +1,14 @@
+import { Noto_Sans } from 'next/font/google'
 import { Footer } from './Footer'
 import { Navbar } from './Navbar'
 import Script from 'next/script'
 import Head from 'next/head'
+
+const inter = Noto_Sans({
+  weight: ['100', '200', '300', '400', '600'],
+  style: 'normal',
+  subsets: ['latin'],
+})
 
 export function Layout({
   children,
@@ -61,7 +68,7 @@ export function Layout({
         <meta name="theme-color" content="#ffffff" />
       </Head>
       <Navbar />
-      <main>{children}</main>
+      <main className={inter.className}>{children}</main>
       <Footer />
     </>
   )

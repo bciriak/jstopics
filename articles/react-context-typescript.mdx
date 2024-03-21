@@ -1,16 +1,16 @@
 ---
-title: 'React Context API with TypeScript'
-date: '2023-04-03'
-excerpt: 'Handle your global application state in React natively with Context API, useReducer and TypeScript.'
-intro: 'How can we manage React application state without the use of any external library? We can use the Context API that comes with React. In this article, we will look at how to use it with TypeScript.'
-category: 'reactjs'
-image: 'react-context-with-typescript.jpeg'
-imageAlt: 'React Context API with TypeScript'
+title: React Context API with TypeScript
+date: 2023-04-03
+excerpt: Handle your global application state in React natively with Context API, useReducer and TypeScript.
+intro: How can we manage React application state without the use of any external library? We can use the Context API that comes with React. In this article, we will look at how to use it with TypeScript.
+category: reactjs
+image: react-context-with-typescript.jpeg
+imageAlt: React Context API with TypeScript
 ---
 
 ### Too many state management libraries
 
-Application state management can feel a bit overwhelming for beginner React developers, especially if they have to pick one of the many libraries we have nowadays. <MdLink url='https://redux.js.org/' text='Redux' />? <MdLink url='https://mobx.js.org/README.html' text='Mobx' />? <MdLink url='https://jotai.org/' text='Jotai' />? <MdLink url='https://github.com/pmndrs/zustand' text='Zustand' />? 
+Application state management can feel a bit overwhelming for beginner React developers, especially if they have to pick one of the many libraries we have nowadays. <a href="https://redux.js.org/" target="_blank" alt="Official Redux website" >Redux</a>? <a href="https://mobx.js.org/README.html" target="_blank" alt="Official Mobx website" >Mobx</a>? <a href="https://jotai.org/" target="_blank" alt="Official Jotai website" >Jotai</a>? <a href="https://github.com/pmndrs/zustand" target="_blank" alt="Official Zustand website" >Zustand</a>? 
 
 As you might already know, there is one more choice and it is the **Context API**. It comes with React, so we don't have to install anything to manage our global application state.
 
@@ -30,34 +30,39 @@ As you might already know, there is one more choice and it is the **Context API*
 
 One very common use case for Context API is to manage our application theme/mode. Let's see how we can manage it with `useContext` and `useState`.
 
-<MdLink url='/reactjs/usestate-with-typescript' text='Learn more about usage of useState with TypeScript.' />
+[Learn more about usage of useState with TypeScript.](/reactjs/usestate-with-typescript)
 
 Here is a GitHub repo to a starter React app created with Vite, if you want to follow along just clone it:
 
-<MdLink url='https://github.com/jstopics/react-starter' text='Vite Starter App' />
+<a href="https://github.com/jstopics/react-starter" target="_blank" alt="Vite Starter App" >Vite Starter App</a>
 
 ## createContext with TypeScript
 
 First we need to create our `ThemeContext` and give it a type of `Theme`.
 
-<CodeBlock language='typescript' fileName='./App.tsx' text={`type Theme = {
+```tsx title="./App.tsx"
+type Theme = {
   darkMode: boolean
   toggleTheme: () => void
 }
 
-const ThemeContext = createContext<Theme | null>(null)`} startingLineNumber={3} />
+const ThemeContext = createContext<Theme | null>(null)
+```
 
 The `Theme` type has two properties, first one is `boolean` to track the state of our theme and second, `toggleTheme` is function that will actually change the state.
 
 Now we can use it in our `App` component. There is one thing we need to understand about Context, it is basically a container that will hold values specified by us. In case of the `ThemeContext`, we will assign it a `useState` piece that will also update the context by `setState` function.
 
-<CodeBlock language='typescript' fileName='./App.tsx' text={`const [darkMode, setDarkMode] = useState(false)`} startingLineNumber={11} />
+```tsx title="./App.tsx"
+const [darkMode, setDarkMode] = useState(false)
+```
 
 Simple `useState` to hold the boolean value and to update the value.
 
 Now if we want to use the context, we need to wrap a component with it. By doing so, we enable the `ThemeContext` in that component and all of its' children.
 
-<CodeBlock language='typescript' fileName='./App.tsx' text={`<ThemeContext.Provider
+```tsx title="./App.tsx"
+<ThemeContext.Provider
   value={{
 	darkMode,
 	toggleTheme: () => setDarkMode(!darkMode),
@@ -69,13 +74,15 @@ Now if we want to use the context, we need to wrap a component with it. By doing
       {darkMode ? 'Dark Mode' : 'Light Mode'}
     </button>
   </div>
-</ThemeContext.Provider>`} startingLineNumber={22} />
+</ThemeContext.Provider>
+```
 
 Here we have wrapped the `div` in `ThemeContext.Provider` and added `button` to toggle between the Light and Dark mode.
 
 Here is the whole component:
 
-<CodeBlock language='typescript' fileName='./App.tsx' enableScroll={true} text={`import { createContext, useEffect, useState } from 'react'
+```tsx title="./App.tsx" showLineNumbers
+import { createContext, useEffect, useState } from 'react'
 
 type Theme = {
   darkMode: boolean
@@ -112,17 +119,20 @@ function App() {
   )
 }
 
-export default App`} />
+export default App
+```
 
 The `useEffect` that we are using is only adding and removing class to our `body` tag, which adds these styles:
 
-<CodeBlock language='css' fileName='./index.css' text={`.dark {
+```css title="index.css"
+.dark {
   @apply bg-gray-800 text-white;
 }
 
 .btn {
   @apply px-4 py-2 my-1 rounded-md;
-}`} />
+}
+```
 
 If we now start up the app, we should be able to toggle between the themes. This basic example shows how to use `Context` with TypeScript and `useState` for simple use cases.
 
@@ -136,7 +146,8 @@ We will add a very simple job board to our application and refactor the `ThemeCo
 
 First, let's refactor `ThemeContext` by moving it to separate file in `contexts` folder within the `src`.
 
-<CodeBlock language='typescript' fileName='./contexts/ThemeContext.tsx' text={`import { useContext, createContext, useState } from 'react'
+```tsx title="./contexts/ThemeContext.tsx" showLineNumbers
+import { useContext, createContext, useState } from 'react'
 
 type Theme = {
   darkMode: boolean
@@ -166,13 +177,15 @@ export function useTheme() {
     throw new Error('useTheme must be used within a ThemeProvider')
   }
   return context
-}`} enableScroll={true} />
+}
+```
 
 Here we are creating and exporting `ThemeProvider` that will wrap our `App` component so that we can use this context. We are also exporting `useTheme` hook, which exposes the `state` and `toggle` function.
 
 Now we can simplify the `App` component with this new standalone `ThemeContext`.
 
-<CodeBlock language='typescript' fileName='./App.tsx' text={`import { useEffect } from 'react'
+```tsx title="./App.tsx" 
+import { useEffect } from 'react'
 import { useTheme } from './contexts/ThemeContext'
 
 function App() {
@@ -196,13 +209,15 @@ function App() {
   )
 }
 
-export default App`} enableScroll={true} />
+export default App
+```
 
 We just need to import our `useTheme` hook and we are good to go. Thanks to TypeScript we are getting our two properties that we defined in our `Theme` type.
 
 If we would try to run the app now, we would get the `useTheme must be used within a ThemeProvider` error defined in our hook. To fix this, we need to wrap our `App` component with `ThemeProvider`.
 
-<CodeBlock language='typescript' fileName='./main.tsx' text={`import React from 'react'
+```tsx title="./main.tsx" showLineNumbers
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import { ThemeProvider } from './contexts/ThemeContext'
@@ -214,7 +229,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <App />
     </ThemeProvider>
   </React.StrictMode>
-)`} />
+)
+```
 
 And the refactor of `ThemeContext` is done. Onto the job board.
 
@@ -222,7 +238,8 @@ And the refactor of `ThemeContext` is done. Onto the job board.
 
 First we will create couple of basic components to have our UI prepared.
 
-<CodeBlock language='typescript' fileName='./JobBoard.tsx' text={`import AddJob from './components/AddJob'
+```tsx title="./JobBoard.tsx" showLineNumbers
+import AddJob from './components/AddJob'
 import JobDetail from './components/JobDetail'
 import JobList from './components/JobList'
 
@@ -239,11 +256,13 @@ export default function JobBoard() {
       <AddJob />
     </div>
   )
-}`} />
+}
+```
 
 `JobBoard` is sitting in `src` directory and is a parent component to the three parts of the board, all created in `components` folder inside the `src`:
 
-<CodeBlock language='typescript' fileName='./components/JobList.tsx' text={`import { useTheme } from '../contexts/ThemeContext'
+```tsx title="./components/JobList.tsx" showLineNumbers
+import { useTheme } from '../contexts/ThemeContext'
 
 export default function JobList() {
   const darkMode = useTheme().darkMode
@@ -256,11 +275,13 @@ export default function JobList() {
       </ul>
     </div>
   )
-}`} />
+}
+```
 
 `JobList` will display the list of jobs in a kind of sidebar.
 
-<CodeBlock language='typescript' fileName='./components/JobDetail.tsx' text={`export default function JobDetail() {
+```tsx title="./components/JobDetail.tsx"
+export default function JobDetail() {
   return (
     <div className="wrapper w-3/4">
       <h3 className="text-xl">Job Details</h3>
@@ -269,11 +290,13 @@ export default function JobList() {
       <button>Delete Job</button>
     </div>
   )
-}`} />
+}
+```
 
 `JobDetail` will show selected `Job` and will provide options to read, delete and update single job.
 
-<CodeBlock language='typescript' fileName='./components/AddJob.tsx' text={`export default function AddJob() {
+```tsx title="./components/AddJob.tsx" showLineNumbers
+export default function AddJob() {
   return (
     <div className="wrapper">
       <h1>Add Job</h1>
@@ -284,11 +307,13 @@ export default function JobList() {
       <button className="btn bg-blue-400">Add Job</button>
     </div>
   )
-}`} />
+}
+```
 
 `AddJob` is a single `input` component to add job by writing its' title. There was also small change in the `index.css` file:
 
-<CodeBlock language='css' fileName='./index.css' text={`@tailwind base;
+```css title="./index.css" showLineNumbers
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -302,11 +327,13 @@ export default function JobList() {
 
 .wrapper {
   @apply border p-2 m-1;
-}`} />
+}
+```
 
 Now we can add the `JobBoard` component to our `App` component right under the toggle theme button:
 
-<CodeBlock language='typescript' fileName='./App.tsx' text={`...
+```tsx title="./App.tsx"
+...
     <div className="container mx-auto">
       <h1>React + Vite + TypeScript + Tailwind + Prettier</h1>
       <button className="btn bg-yellow-400" onClick={toggleTheme}>
@@ -314,13 +341,15 @@ Now we can add the `JobBoard` component to our `App` component right under the t
       </button>
       <JobBoard /> // < = = = JobBoard
     </div>
-...`} startingLineNumber={15} />
+...
+```
 
 Alright, now if we look at the app, we see our little Job Board and we can toggle the light and dark mode. Before we move on, we need some placeholder JSON data for couple of Jobs to simulate API call, when our app loads for the first time. 
 
 Create a new file `data.json` in the root of the project with following data:
 
-<CodeBlock language='json' fileName='../data.json' text={`{
+```json title="../data.json" showLineNumbers
+{
   "jobs": [
     {
       "id": 1,
@@ -333,15 +362,17 @@ Create a new file `data.json` in the root of the project with following data:
       "isActive": true
     }
   ]
-}`} />
+}
+```
 
 Perfect, now onto the meat of the article, `JobsContext`. To handle CRUD operations in our context, we will use aforementioned React hook made just for this, `useReducer`.
 
-<MdLink url='/reactjs/usereducer-with-typescript' text='Learn more about how to use the useReducer with TypeScript' />
+[Learn more about how to use the useReducer with TypeScript](/reactjs/usereducer-with-typescript)
 
 First we will create our types. One for the `Job`, based on the JSON data structure and one for the `JobAction`.
 
-<CodeBlock language='typescript' fileName='./contexts/JobsContext.tsx' text={`export type Job = {
+```tsx title="./contexts/JobsContext.tsx" showLineNumbers
+export type Job = {
   title: string
   isActive: boolean
 }
@@ -354,18 +385,22 @@ type JobAction =
   | {
       type: 'ADD_JOB' | 'REMOVE_JOB'
       payload: Job
-    }`} startingLineNumber={3} />
+    }
+```
 
-We are exporting `Job` type because we will need it in our components. For the `JobAction` type, we are using <MdLink url='https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types' text='union' /> to specify the different `payload`. Now we can create our contexts.
+We are exporting `Job` type because we will need it in our components. For the `JobAction` type, we are using <a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types" target="_blank" alt='TypeScript Union type'>union</a> to specify the different `payload`. Now we can create our contexts.
 
-<CodeBlock language='typescript' fileName='./context/JobsContext.tsx' text={`const JobsContext = createContext<Job[] | null>(null)
+```tsx title="./context/JobsContext.tsx"
+const JobsContext = createContext<Job[] | null>(null)
 const JobsDispatchContext = createContext<React.Dispatch<JobAction>>(
   {} as React.Dispatch<JobAction>
-)`} startingLineNumber={18} />
+)
+```
 
 The first context is just a container to hold our array of jobs and the second one is for interacting with it through dispatching actions. Now to the brains of this context, `jobsReducer`.
 
-<CodeBlock language='typescript' fileName='./context/JobsContext.tsx' text={`function jobsReducer(jobs: Job[], action: JobAction): Job[] {
+```tsx title="./context/JobsContext.tsx"
+function jobsReducer(jobs: Job[], action: JobAction): Job[] {
   switch (action.type) {
     case 'SET_JOBS':
       return [...(action.payload as Job[])]
@@ -376,13 +411,15 @@ The first context is just a container to hold our array of jobs and the second o
     default:
       return jobs
   }
-}`} startingLineNumber={23} />
+}
+```
 
 We are missing action for updating the job for the sake of making the reducer a bit more simple. Feel free to add the action later as an exercise.
 
 Now we are ready to create the last 3 exports that will actually be used throughout our application. `JobsProvider` for providing our contexts and 2 hooks to enable interacting with these contexts.
 
-<CodeBlock language='typescript' fileName='./context/JobsContext.tsx' text={`export function JobsProvider({ children }: { children: React.ReactNode }) {
+```tsx title="./context/JobsContext.tsx"
+export function JobsProvider({ children }: { children: React.ReactNode }) {
   const [jobs, dispatch] = useReducer(jobsReducer, [])
 
   return (
@@ -392,7 +429,8 @@ Now we are ready to create the last 3 exports that will actually be used through
       </JobsDispatchContext.Provider>
     </JobsContext.Provider>
   )
-}`} startingLineNumber={36} />
+}
+```
 
 Here we are using the `useReducer` function and supplying it with the `jobsReducer` and as initial state we give it and empty array. This provider is a simple component that just wraps `children` with both of our contexts.
 
@@ -400,7 +438,8 @@ Note how we divide variables coming from `useReducer` hook into each of the `Con
 
 Last thing to do is to create our hooks.
 
-<CodeBlock language='typescript' fileName='./context/JobsContext.tsx' text={`export function useJobs() {
+```tsx title="./context/JobsContext.tsx"
+export function useJobs() {
   const context = useContext(JobsContext)
   if (context === null) {
     throw new Error('useJobs must be used within a JobsContext')
@@ -414,11 +453,13 @@ export function useJobsDispatch() {
     throw new Error('useJobsDispatch must be used within a JobsDispatchContext')
   }
   return context
-}`} startingLineNumber={48} />
+}
+```
 
 And finally, the whole `JobsContext`:
 
-<CodeBlock language='typescript' fileName='./context/JobsContext.tsx' text={`import { createContext, useContext, useReducer } from 'react'
+```tsx title="./context/JobsContext.tsx" showLineNumbers
+import { createContext, useContext, useReducer } from 'react'
 
 export type Job = {
   title: string
@@ -477,13 +518,15 @@ export function useJobsDispatch() {
   if (context === null) {
     throw new Error('useJobsDispatch must be used within a JobsDispatchContext')
   }
-}`} enableScroll={true} />
+}
+```
 
 Now we can use our awesome new context to manage application state!
 
 First up, let's fix our `JobList`, so it actually "fetches" jobs from the JSON file and shows them in the list.
 
-<CodeBlock language='typescript' fileName='./components/JobList.tsx' text={`import { useEffect } from 'react'
+```tsx title="./components/JobList.tsx" showLineNumbers
+import { useEffect } from 'react'
 import { useTheme } from '../contexts/ThemeContext'
 import data from '../../data.json'
 import { Job, useJobs, useJobsDispatch } from '../contexts/JobsContext'
@@ -513,7 +556,8 @@ export default function JobList() {
       )}
     </div>
   )
-}`} enableScroll={true} />
+}
+```
 
 We import our two hooks. Inside the `useEffect` we look at the `jobs` coming from `JobsContext` and if there are no jobs, we dispatch `SET_JOBS` action with the payload of `data.jobs` coming from the JSON file. Here we could call an API to fetch real data and initialise our context data.
 
@@ -521,25 +565,30 @@ Once the `useEffect` runs, we check if we have some jobs in the array and if we 
 
 If we would try to run the app, we would get an error. You know why? Well we didn't provide our context anywhere. Let's do that by wrapping the app component with it.
 
-<CodeBlock language='typescript' fileName='./main.tsx' text={`<ThemeProvider>
+```tsx title="./main.tsx"
+<ThemeProvider>
   <JobsProvider>
     <App />
   </JobsProvider>
-</ThemeProvider>`} startingLineNumber={10} />
+</ThemeProvider>
+```
 
 And don't forget to import the `ThemeProvider` at the top of the file. When we run the app now, we should see our 2 jobs in the list. Awesome!
 
 Let's handle adding jobs.
 
-<CodeBlock language='typescript' fileName='./components/AddJob.tsx' text={`const [job, setJob] = useState<Job>({
+```tsx title="./components/AddJob.tsx"
+const [job, setJob] = useState<Job>({
   title: '',
   isActive: true,
 })
-const dispatch = useJobsDispatch()`} startingLineNumber={5} />
+const dispatch = useJobsDispatch()
+```
 
 We use `useState` hook to keep track of the `Job` variable within `AddJob` component. This would be even more handy, if `Job` type would have more properties and the form would be more complex. `dispatch` function will be used to send action to our context.
 
-<CodeBlock language='typescript' fileName='./components/AddJob.tsx' text={`    <div className="wrapper">
+```tsx title="./components/AddJob.tsx"
+    <div className="wrapper">
       <h1>Add Job</h1>
       <div>
         <label>Title</label>
@@ -553,11 +602,13 @@ We use `useState` hook to keep track of the `Job` variable within `AddJob` compo
       <button className="btn bg-blue-400" onClick={handleAddJob}>
         Add Job
       </button>
-    </div>`} startingLineNumber={23} />
+    </div>
+```
 
 Here we set the `input` value to the title of the job variable and add `onChange` handler. We also wire up `onClick` to handle adding a job. Here are those handle functions:
 
-<CodeBlock language='typescript' fileName='./components/AddJob.tsx' text={`  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+```tsx title="./components/AddJob.tsx"
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setJob({ ...job, title: e.target.value })
   }
   
@@ -566,13 +617,15 @@ Here we set the `input` value to the title of the job variable and add `onChange
       dispatch({ type: 'ADD_JOB', payload: job })
       setJob({ ...job, title: '' })
     }
-  }`} startingLineNumber={11} />
+  }
+```
 
 The `handleTitleChange` is just updating the title of job and the `handleAddJob` is dispatching `ADD_JOB` action with the job as a payload. After the action is dispatched, we set the title of the job to an empty string.
 
 Here is the complete `AddJob` component:
 
-<CodeBlock language='typescript' fileName='./components/AddJob.tsx' text={`import { useState } from 'react'
+```tsx title="./components/AddJob.tsx" showLineNumbers
+import { useState } from 'react'
 import { Job, useJobsDispatch } from '../contexts/JobsContext'
 
 export default function AddJob() {
@@ -610,29 +663,35 @@ export default function AddJob() {
       </button>
     </div>
   )
-}`} enableScroll={true} />
+}
+```
 
 With these changes, we are able to add new jobs to our job list. Last thing to do, is to fix our `JobDetail` component. In this component we want to show details of selected job and also have the delete job button.
 
-<CodeBlock language='typescript' fileName='./components/JobDetail.tsx' text={`type Props = {
+```tsx title="./components/JobDetail.tsx"
+type Props = {
   job: Job | null
   setSelectedJob: (job: Job | null) => void
-}`} startingLineNumber={3} />
+}
+```
 
 We define `Props` for our component. First is the `job` that we want details of, second is function to clear the job after we remove it. Both of these will be sent down from the `JobBoard` component.
 
-<CodeBlock language='typescript' fileName='./components/JobDetail.tsx' text={`  const dispatch = useJobsDispatch()
+```tsx title="./components/JobDetail.tsx"
+  const dispatch = useJobsDispatch()
 
   const handleRemoveJob = () => {
     if (job) {
       dispatch({ type: 'REMOVE_JOB', payload: job })
       setSelectedJob(null)
     }
-  }`} startingLineNumber={9} />
+  }
+```
 
 Again, we use `dispatch` to remove job from our context and `setSelectedJob` to unselect job.
 
-<CodeBlock language='typescript' fileName='./components/JobDetail.tsx' text={`    <div className="wrapper w-3/4">
+```tsx title="./components/JobDetail.tsx"
+    <div className="wrapper w-3/4">
       {job ? (
         <>
           <h3 className="text-xl">Job Details</h3>
@@ -647,13 +706,15 @@ Again, we use `dispatch` to remove job from our context and `setSelectedJob` to 
           <p>Select a job.</p>
         </>
       )}
-    </div>`} startingLineNumber={19} />
+    </div>
+```
 
 And this is the JSX, we are checking for a job, if we don't have any job selected, we inform the user to `Select a job`. If we do have a job, we display the details and also wire up `onClick` event on the delete `button`.
 
 Here is the whole `JobDetail` component:
 
-<CodeBlock language='typescript' fileName='./components/JobDetail.tsx' text={`import { Job, useJobsDispatch } from '../contexts/JobsContext'
+```tsx title="./components/JobDetail.tsx" showLineNumbers
+import { Job, useJobsDispatch } from '../contexts/JobsContext'
 
 type Props = {
   job: Job | null
@@ -688,11 +749,13 @@ export default function JobDetail({ job, setSelectedJob }: Props) {
       )}
     </div>
   )
-}`} enableScroll={true} />
+}
+```
 
 And the last thing to do is to adjust `JobBoard` so that it supplies the `job` and `setSelectedJob` props to `JobDetail`. Plus we need to adjust `JobList` to enable selecting a job.
 
-<CodeBlock language='typescript' fileName='./JobBoard.tsx' text={`import { useState } from 'react' 
+```tsx title="./JobBoard.tsx" showLineNymbers
+import { useState } from 'react' 
 import { Job } from './contexts/JobsContext'
 import AddJob from './components/AddJob'
 import JobDetail from './components/JobDetail'
@@ -713,13 +776,15 @@ export default function JobBoard() {
       <AddJob />
     </div>
   )
-}`} enableScroll />
+}
+```
 
 We use `useState` to handle the `selectedJob` and than we forward those variables down to the `JobDetail` and `JobList`.
 
 Last small addition to `JobList` and we are done.
 
-<CodeBlock language='typescript' fileName='./components/JobList.tsx' text={`type Props = {
+```tsx title="./components/JobList.tsx"
+type Props = {
   setSelectedJob: (job: Job) => void
 }
 ...
@@ -728,7 +793,8 @@ export default function JobList({ setSelectedJob }: Props) {
 	<li onClick={() => setSelectedJob(job)} key={job.title}>
 		{job.title}
 	</li>
-...`} startingLineNumber={6} />
+...
+```
 
 Great job, with these changes, we should now have working application with state management handled with **Context API, useReducer and TypeScript**.
 

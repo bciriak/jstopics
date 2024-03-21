@@ -8,6 +8,8 @@ import kebabCase from 'lodash/kebabCase'
 import compact from 'lodash/compact'
 import uniq from 'lodash/uniq'
 import moment from 'moment'
+import rehypePrism from 'rehype-prism-plus'
+import remarkCodeTitle from 'remark-code-title'
 
 import { ArticleInterface } from '../types/article.types'
 
@@ -36,6 +38,7 @@ function getArticleInfo(fileName: string, isSlug = false) {
   const formattedDate = getFormattedDate(
     moment(matterResult.data.date, 'YYYY-MM-DD')
   )
+  matterResult.data.date = moment(matterResult.data.date).format()
 
   return { id, readTime, formattedDate, matterResult }
 }
@@ -94,7 +97,12 @@ export function getAllArticleSlugs() {
 
 export async function getArticleData(slug: string) {
   const articleInfo = getArticleInfo(slug, true)
-  const contentHtml = await serialize(articleInfo.matterResult.content)
+  const contentHtml = await serialize(articleInfo.matterResult.content, {
+    mdxOptions: {
+      remarkPlugins: [remarkCodeTitle],
+      rehypePlugins: [rehypePrism],
+    },
+  })
 
   return {
     ...(articleInfo.matterResult.data as ArticleInterface),

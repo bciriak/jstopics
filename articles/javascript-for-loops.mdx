@@ -16,9 +16,11 @@ Loops are incredibly useful “tools” in programming! Since we as a programmer
 
 Well, as already stated, **`for`** loop is very useful in programming. In JavaScript (and probably in most languages) it is the most used kind of loop. JavaScript for loop is widely used in great libraries like **`Underscore.js`**. Alright, enough talk, let’s have a look at our basic **JavaScript for loop**.
 
-<CodeBlock language='javascript' fileName='' text={`for (let i = 0; i < 5; i++) {
+```js title="app.js" showLineNumbers
+for (let i = 0; i < 5; i++) {
   console.log('We are in iteration: ' + i);
-}`} />
+}
+```
 
 First line is where we do all of our for loop setup. It consists of three parts (expressions) divided by semicolon. All of these parts are optional.
 
@@ -40,7 +42,8 @@ Now let's have a look at some JavaScript for loop tips.
 
 What do I mean by caching the length? It's simply just setting the length of the array we want to iterate over to a variable. The point is, we don’t want to ask for it every loop iteration because it is more performance intensive than asking for variable value. Here is an example:
 
-<CodeBlock language='javascript' fileName='app.js' text={`let myArray = []
+```js title="app.js" showLineNumbers
+let myArray = []
 for (let i = 0; i < 10000; i++) {
 	myArray.push(i)
 }
@@ -55,14 +58,17 @@ console.time("loop test with cache");
 for (let i = 0, arrayLength = myArray.length; i < arrayLength; i++) {
   let j = i;
 }
-console.timeEnd("loop test with cache");`} />
+console.timeEnd("loop test with cache");
+```
 
-I have added console.time to check the performance and on my machine the difference is quite big, even though it might not seem.
+I have added `console.time` to check the performance and on my machine the difference is quite big, even though it might not seem.
 
-<CodeBlock language='shell' fileName='terminal' text={`node app.js
+```shell title="shell" {3,4}
+node app.js
 
 loop test no cache: 0.16ms
-loop test with cache: 0.074ms`} />
+loop test with cache: 0.074ms
+```
 
 Of course, this is a very simple example and there is a lot of inputs that go into actual overall performance. But if we were working with some HTML DOM arrays, and would be asking for their length at each iteration, the difference in performance would be even greater. Good rule of thumb is, when you don’t need dynamic length of the array in your for loop, always cache the array length.
 
@@ -70,11 +76,13 @@ Of course, this is a very simple example and there is a lot of inputs that go in
 
 This tip is very subjective but I like it and it might help some of you. It has got to do with how we name our variable that acts as index in the for loop. It’s best explained on code example.
 
-<CodeBlock language='javascript' fileName='app.js' text={`for (let ii = 0; ii < 2; ii += 1) {
+```js title="app.js" showLineNumbers
+for (let ii = 0; ii < 2; ii += 1) {
   for (let iii = 0; iii < 5; iii += 1) {
     console.log('ii is now: ' + ii + ' and iii is now: ' + iii);
   }
-}`} />
+}
+```
 
 As we can see, I am using ii for the name of my index. Why? Well, once in a while I come across the bug within the loop so I want to find it. If I would name the variable **`i`** and would search for **`i`** in VSCode, I would get gazillion results. This way, when I search for **`ii`**, I find it right away. I know I could change my search query to something like _let i =_ or similar. There is many ways to do everything in programming and that is awesome about it. I am not saying this is JavaScript best practice, I’m just saying, maybe give it a try, if you like it stick with it, otherwise let’s go to the final tip.
 
@@ -82,7 +90,8 @@ As we can see, I am using ii for the name of my index. Why? Well, once in a whil
 
 This one is more of a micro-optimisation. In JavaScript, it is usually faster (not by much) to compare to 0 than to anything else like the length of the array. So let’s have a look on how to do this small performance optimisation.
 
-<CodeBlock language='javascript' fileName='app.js' text={`let myArr = [1,2,3];
+```js title="app.js" showLineNumbers
+let myArr = [1,2,3];
 
 console.time("loop test compare to number");
 for (let i = 1, max = myArr.length; i < max; i++) {
@@ -94,17 +103,19 @@ console.time("loop test compare to zero");
 for (let i = myArr.length; i--;) {
   let j = i;
 }
-console.timeEnd("loop test compare to zero");`} />
+console.timeEnd("loop test compare to zero");
+```
 
 In the second for loop we assign **`i`** to the length of the array and than just subtract from that number. The point is, condition evaluates those actual numbers. And in JavaScript, all of the numbers besides **0**, return as a true boolean value. So when the i will equal to **0** loop will end. Great stuff!
 
 Here are the times, almost 10x improvement?
 
-<CodeBlock language='shell' fileName='terminal' text={`node app.js
+```shell title="shell" {3,4}
+node app.js
 
 loop test compare to number: 0.038ms
-loop test compare to zero: 0.003ms`} />
-
+loop test compare to zero: 0.003ms
+```
 
 ## Developer Comfort Comes First
 

@@ -1,11 +1,11 @@
 ---
-title: 'Using the useRef hook in React'
-date: '2022-06-09'
-excerpt: 'The useRef hook is a React.js hook that provides some special features. We can use it to solve unique problems in our apps. Let us look at the useRef hook in React.'
-intro: 'What is the useRef hook and how can we use it in React to solve some use cases? In this article, we will look at a couple of example usages of the useRef hook with JavaScript and TypeScript.'
-category: 'reactjs'
-image: 'the-useref-hook-in-react.jpeg'
-imageAlt: 'Developer grabbing reference with useRef hook'
+title: Using the useRef hook in React
+date: "2022-06-09"
+excerpt: The useRef hook is a React.js hook that provides some special features. We can use it to solve unique problems in our apps. Let us look at the useRef hook in React.
+intro: What is the useRef hook and how can we use it in React to solve some use cases? In this article, we will look at a couple of example usages of the useRef hook with JavaScript and TypeScript.
+category: reactjs
+image: the-useref-hook-in-react.jpeg
+imageAlt: Developer grabbing reference with useRef hook
 ---
 
 The useRef hook is one of the handy React hooks that we can use to solve some of the problems that other hooks will not solve for us. Let's have a look at what are the use cases that **`useRef`** hook can help us with.
@@ -15,19 +15,20 @@ The useRef hook is one of the handy React hooks that we can use to solve some of
 - grabbing a reference to DOM element to manipulate it as in vanilla JavaScript
 - creating variable "container" that behaves like a mixture of plain variable in component and variable handled by **`useState`**
 
-<MdLink url='/reactjs/usestate-with-typescript' text='Read this article for more info about `useState`'/>.
+[Read this article for more info about `useState`](/reactjs/usestate-with-typescript)
 
 You can have a look at the finished code here:
-- <MdLink url='https://github.com/jstopics/05-react-js-useref' text='React useRef examples JavaScript' />
-- <MdLink url='https://github.com/jstopics/05-react-ts-useref' text='React useRef examples TypeScript' />
+- <a href="https://github.com/jstopics/05-react-js-useref" target="_blank" alt="Simple Github repo for useref hook in JS" >React useRef examples JavaScript</a>
+- <a href="https://github.com/jstopics/05-react-ts-useref" target="_blank" alt="Simple Github repo for useref hook in TS" >React useRef examples TypeScript</a>
 
 ## DOM Element Reference and useRef hook
 
 The best way to wrap our heads around these is to look at some code. Here is a basic implementation of the **`useRef`** hook grabbing DOM element ref: 
 
-<Note text='We will also look at how to work with useRef and TypeScript in the bonus section of this article.' />
+> We will also look at how to work with useRef and TypeScript in the bonus section of this article.
 
-<CodeBlock language='javascript' fileName='BasicUseRef.jsx' text={`import {useRef} from 'react'
+```jsx title="BasicUseRef.jsx"
+import {useRef} from 'react'
 
 export default function BasicUseRef() {
   const spanElement = useRef()
@@ -42,7 +43,8 @@ export default function BasicUseRef() {
       <span ref={spanElement}>Hi 👋</span>
     </div>
   )
-}`} />
+}
+```
 
 After we import **`useRef`** from React, we instantiate our **`spanElement`** constant that will point to the actual span element. **`changeText`** is a function bound to **`onClick`** event on our button below in the JSX. 
 
@@ -50,13 +52,14 @@ In JSX we are rendering two elements, _a button and a span_. We grab the referen
 
 When we click on the button, the **`changeText`** function fires and changes the text of the span. You might notice we are accessing the **`innerText`** through this **`current`** property. That is what the **`useRef`** hook gives us back, object with **`current`** property.
 
-<Note text='Thing to mention is, that changing the text of the span will not re-render our component. Give it a try, put a console.log right below the const spanElement.' />
+> Thing to mention is, that changing the text of the span will not re-render our component. Give it a try, put a console.log right below the const spanElement.
 
 ## useRef hook as an Instance variable
 
 Now we will have a look at the second use case for **`useRef`** hook.
 
-<CodeBlock language='javascript' fileName='Variables.jsx' text={`import {useRef, useState} from 'react'
+```jsx title="Variables.jsx" showLineNumbers
+import {useRef, useState} from 'react'
 
 export default function Variables() {
   let vanillaVariable = 'Vanilla' // bad and useless ❌
@@ -77,7 +80,8 @@ export default function Variables() {
       <button onClick={changeFlavor}>New Flavor</button>
     </div>
   )
-}`} />
+}
+```
 
 We are declaring variables in three different ways. The first one is a regular JavaScript variable in our component scope, the second is by using **`useState`** hook and the last one is by **`useRef`** hook.
 
@@ -87,7 +91,7 @@ Okay, this may be a really simple and dumb example but I want to point out some 
 
 ## Variables with useState hook
 
-When we click on the button, our _<MdLink url='/reactjs/usestate-with-typescript' text='useState' />_ variable will change to the new text. We see the change on screen thanks to the re-render that React runs after this variable changes and **only** because of this reason.
+When we click on the button, our _[useState with TypeScript](/reactjs/usestate-with-typescript)_ variable will change to the new text. We see the change on screen thanks to the re-render that React runs after this variable changes and **only** because of this reason.
 
 ## Variables with useRef hook
 
@@ -101,9 +105,10 @@ And these are the big differences between these three variables.
 
 The first example is a simple one but there are some heads ups that we need to know, not to get confused when using TypeScript with React hooks.
 
-<MdLink url='/typescript/javascript-vs-typescript' text='Why should you use TypeScript instead of JavaScript?' />
+[Why should you use TypeScript instead of JavaScript?](/typescript/javascript-vs-typescript)
 
-<CodeBlock language='typescript' fileName='App.tsx' text={`import {useEffect, useRef} from 'react'
+```tsx title="App.tsx" showLineNumbers
+import {useEffect, useRef} from 'react'
 
 export default function App() {
   const spanRef = useRef<HTMLSpanElement>(null)
@@ -119,13 +124,14 @@ export default function App() {
       <span ref={spanRef}>Hello</span>
     </div>
   )
-}`} />
+}
+```
 
-There are two things to point out and these are the basics that we need to understand when working with TypeScript. <MdLink url='https://www.typescriptlang.org/docs/handbook/2/type-declarations.html' text='Type declarations' /> and type checking. Once we handle these two, TypeScript is going to give us a ton of benefits.
+There are two things to point out and these are the basics that we need to understand when working with TypeScript. <a href="https://www.typescriptlang.org/docs/handbook/2/type-declarations.html" target="_blank" alt="Type declarations" >Type declarations</a> and type checking. Once we handle these two, TypeScript is going to give us a ton of benefits.
 
 On the fourth line, we are declaring what type will our **`spanRef`** be. And you might be asking, how did I know it's gonna be **`HTMLSpanElement`**? Well, I did not just guess it, I have some experience on how to figure these types out. It can get a bit frustrating when you are just starting with TypeScript, but with some practice and experience, it will get simpler.
 
-Have a look at <MdLink url='https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.htmlelement.html' text='this link to Microsoft website' /> where they list basic DOM Element types.
+Have a look at <a href="https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.htmlelement.html" target="_blank" alt="Basic DOM element types for TypeScript" >this link to Microsoft website</a> where they list basic DOM Element types.
 
 Looking at line 7, that is where we do our type checking, making sure that our **`spanRef.current`** is defined.
 
@@ -133,7 +139,8 @@ Looking at line 7, that is where we do our type checking, making sure that our *
 
 Now we will look at the last example:
 
-<CodeBlock language='typescript' fileName='UseRefEvent.tsx' text={`import {useRef} from 'react'
+```tsx title="UseRefEvent.tsx" showLineNumbers
+import {useRef} from 'react'
 
 export default function UseRefElement() {
   const elementRef = useRef<HTMLButtonElement>(null)
@@ -150,7 +157,8 @@ export default function UseRefElement() {
       <button ref={elementRef}>Ref Button</button>
     </div>
   )
-}`} />
+}
+```
 
 This is also a silly example, but it brings home the point of what **`useRef`** hook can do. What we do here is, basically, we bind one **`onClick`** event by clicking another button. 
 
@@ -160,7 +168,8 @@ Notice that on line 8 we are accessing **`current.onclick`** property of Button 
 
 Last example is also quite common React.js interview question. Question is, how would you focus a specific input element in React? Let's see:
 
-<CodeBlock language='typescript' fileName='FocusInput.tsx' text={`import {useEffect, useRef} from 'react'
+```tsx title="FocusInput.tsx" showLineNumbers
+import {useEffect, useRef} from 'react'
 
 export default function FocusInput() {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -179,7 +188,8 @@ export default function FocusInput() {
       <input type="text"/>
     </div>
   )
-}`} />
+}
+```
 
 Again, this is simple if you know the **`useRef`** hook. We have 4 inputs in our JSX and let's say we want to focus the third one on the page load. All we need to do is grab a reference to the input that we want to control and call the native function **`focus()`** on the **`current`** object that **`useRef`** provides for us.
 

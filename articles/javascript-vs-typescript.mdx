@@ -1,11 +1,11 @@
 ---
-title: 'TypeScript vs JavaScript'
+title: TypeScript vs JavaScript
 date: '2023-03-15'
-excerpt: 'Why would you as a JavaScript developer use TypeScript? What are the advantages? Are there any?'
-intro: 'What is the difference between the two major "front-end languages", JavaScript and TypeScript? Why would you use one over the other? Or rather, why would you use TypeScript instead of JavaScript?'
-category: 'typescript'
-image: 'javascript-vs-typescript.jpeg'
-imageAlt: 'JavaScript vs TypeScript'
+excerpt: Why would you as a JavaScript developer use TypeScript? What are the advantages? Are there any?
+intro: What is the difference between the two major "front-end languages", JavaScript and TypeScript? Why would you use one over the other? Or rather, why would you use TypeScript instead of JavaScript?
+category: typescript
+image: javascript-vs-typescript.jpeg
+imageAlt: JavaScript vs TypeScript
 ---
 
 ## Why would you use TypeScript over JavaScript?
@@ -26,24 +26,28 @@ Popularity brought up the problems that JavaScript always had. Dynamic typing is
 
 ## TypeScript is "documentation" for JavaScript
 
-<MdLink url='https://www.typescriptlang.org/' text='TypeScript' /> was created by Microsoft in 2012 and is **strongly typed language build on top of JavaScript**. 
+<a href="https://www.typescriptlang.org/" target="_blank" alt="TypeScript official website" >TypeScript</a> was created by Microsoft in 2012 and is **strongly typed language build on top of JavaScript**. 
 
 By writing TypeScript, we are forced to follow its rules, which in turn give us huge advantages in comparison to JavaScript. You gain these training wheels, that will not let you do silly mistakes and introduce easy-to-make bugs.
 
 Let's look at a simple example in JavaScript: 
 
-<CodeBlock language='javascript' fileName='app.js' text={`let name = "Brano"
+```js title="app.js" showLineNumbers
+let name = "Brano"
 console.log(name) // Brano
 
 name = 45
-console.log(name) // 45`} />
+console.log(name) // 45
+```
 
 This is all valid and working JavaScript, and now in TypeScript:
 
-<CodeBlock language='typescript' fileName='app.ts' text={`let name: string = "Brano"
+```ts title="app.ts" showLineNumbers
+let name: string = "Brano"
 console.log(name) // Brano
 
-name = 45 // we get squiggly under the name: Type 'number' is not assignable to type 'string'.`} />
+name = 45 // we get squiggly under the name: Type 'number' is not assignable to type 'string'.
+```
 
 By us specifying what type the `name` variable is (`string`), we ensure that down the line we will not make a silly mistake by assigning it the wrong type.
 

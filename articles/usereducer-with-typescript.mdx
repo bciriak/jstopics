@@ -1,18 +1,18 @@
 ---
-title: 'React useReducer with TypeScript'
+title: React useReducer with TypeScript
 date: '2022-12-02'
-excerpt: 'Get a in depth overview of another React hook, useReducer in combination with TypeScript and manage state in your components like a pro.'
-intro: 'UseReducer and TypeScript is a good combo to tackle more complex component state problems. But how do they work together?'
-category: 'reactjs'
-image: 'usereducer-with-typescript.jpeg'
-imageAlt: 'How to use UseReducer with TypeScript'
+excerpt: Get a in depth overview of another React hook, useReducer in combination with TypeScript and manage state in your components like a pro.
+intro: UseReducer and TypeScript is a good combo to tackle more complex component state problems. But how do they work together?
+category: reactjs
+image: usereducer-with-typescript.jpeg
+imageAlt: How to use UseReducer with TypeScript
 ---
 
 useReducer hook is one of Reacts API features that helps us manage state in React components. It has been added to react in version 16.8 along with other hooks.
 
 ## Managing state with useReducer
 
-You can think of **`useReducer`** as older brother of **<MdLink url='/reactjs/usestate-with-typescript' text='useState' />**. Older meaning it can handle more complicated things.
+You can think of **`useReducer`** as older brother of **[useState](/reactjs/usestate-with-typescript)**. Older meaning it can handle more complicated things.
 
 Following is a diagram of simple Todo App that we will reconstruct with **`useReducer`**.
 
@@ -24,7 +24,7 @@ On the left, we have mock of the app and on the right is **`useReducer`** with i
 
 Well, **state** is the _container_ that holds our information. This **state** can hold much more complex data than **`useState`**. Not that **`useState`** can't hold complex data, but its use is not suited for such a complex data.
 
-For managing more complex state make sure to look at <MdLink url='/reactjs/react-context-typescript' text='Context API with useReducer and TypeScript.' />
+For managing more complex state make sure to look at [Context API with useReducer and TypeScript.](/reactjs/react-context-typescript)
 
 
 ## Dispatch
@@ -35,14 +35,12 @@ For managing more complex state make sure to look at <MdLink url='/reactjs/react
 
 **Action** is plain object that specifies what we want to do with our state. Here is an example of adding a todo **action**:
 
-<CodeBlock
-  language="typescript"
-  fileName="example.tsx"
-  text={`{
+```tsx title="example.tsx" showLineNumbers
+{
 	type: "ADD_TODO",
 	todo: "Buy Milk"
-}`}
-/>
+}
+```
 
 So dispatch is the messenger and **action** is the message.
 
@@ -58,22 +56,20 @@ Looking at the previous picture, we see that there is already some initial state
 
 Alright, to better understand how **`useReducer`** works, especially with TypeScript, let's build this simple app.
 
-<MdLink url='/typescript/javascript-vs-typescript' text='Learn more about advantages of TypeScript.' />
+[Learn more about advantages of TypeScript.](/typescript/javascript-vs-typescript)
 
 ## Clean React TypeScript app with Vitejs
 
-I am gonna create barebones React TypeScript app with <MdLink url='https://vitejs.dev/' text='Vitejs' />, an amazing tool for creating Front-end applications.
+I am gonna create barebones React TypeScript app with <a href="https://vitejs.dev/" target="_blank" alt="Vite official website" >Vitejs</a>, an amazing tool for creating Front-end applications.
 
-If you don't know **Vite**, have a look at <MdLink url='/reactjs/vite-create-react-app' text='Create React App With Vite' />.
+If you don't know **Vite**, have a look at [Create React App With Vite](/reactjs/vite-create-react-app).
 
-<Note text="To create React app with TypeScript, make sure to use this command: 'npm create vite@latest my-react-app --template react-ts'" />
+> To create React app with TypeScript, make sure to use this command: **`npm create vite@latest my-react-app --template react-ts`**
 
 First thing I will do, is to remove all the noise from **`App.tsx`** and get to this point:
 
-<CodeBlock
-  language="typescript"
-  fileName="App.tsx"
-  text={`function App() {
+```tsx title="App.tsx" showLineNumbers
+function App() {
   return (
     <div>
       <h1>Todos</h1>
@@ -81,8 +77,8 @@ First thing I will do, is to remove all the noise from **`App.tsx`** and get to 
   )
 }
 
-export default App`}
-/>
+export default App
+```
 
 I also don't like the dummy styling included with Vite, so I just removed everything from **`index.css`**. Now if we run `npm run dev`, we should be all set.
 
@@ -92,7 +88,8 @@ Let's add **`useReducer`** to our app. And we will do this in a silly way, so th
 
 To initialise **`useReducer`**, we need to supply 2 arguments to this hook. **Reducer** and **initial state**. As I mentioned before, **`reducer`** is pure function returning state. **`initialState`** is object holding our state/data.
 
-<CodeBlock language="typescript" fileName="App.tsx" text={`import { useReducer } from 'react'
+```tsx title="App.tsx" showLineNumbers
+import { useReducer } from 'react'
 
   const initialState = {
     todos: [],
@@ -113,8 +110,8 @@ To initialise **`useReducer`**, we need to supply 2 arguments to this hook. **Re
     )
 }
 
-export default App`}
-/>
+export default App
+```
 
 First, we imported the **`useReducer`** hook itself from 'react'. We created **`initialState`** object with one key `todos`, initialised to an empty array. Underneath is our dummy reducer, doing only one thing right now, returning state. It also has 2 arguments (for now typed as `any`), first one is the actual **state** that we have access to in reducer and second is our **action**.
 
@@ -122,22 +119,24 @@ Inside our `App` component we initialise the `useReducer` with our `reducer` and
 
 Last little detail is the `pre` tag, to display our state.
 
-<Note text="JSON.stringify is function to, well, make string out of JSON. But we can nicely format the outputted string, by supplying 2 more arguments. Second argument is 'replacer' and this can be function, array or null, used in case we want to somehow manipulate the output, e.g. we don't want some of the properties to be shown in the JSON string. And the last one is 'space', meaning how we want to indent and line break characters, for better readability." />
+> JSON.stringify is function to, well, make string out of JSON. But we can nicely format the outputted string, by supplying 2 more arguments. Second argument is 'replacer' and this can be function, array or null, used in case we want to somehow manipulate the output, e.g. we don't want some of the properties to be shown in the JSON string. And the last one is 'space', meaning how we want to indent and line break characters, for better readability.
 
 ## Using our useReducer to add a Todo
 
 First of all, we need a button to be able to add a **Todo**.
 
-<CodeBlock language="typescript" fileName="App.tsx" text={`<button onClick={() => dispatch({ type: 'addTodo', payload: 'Buy Milk' })}>
+```tsx title="App.tsx"
+<button onClick={() => dispatch({ type: 'addTodo', payload: 'Buy Milk' })}>
   Add Todo
-</button>`}
-/>
+</button>
+```
 
 We are using **`dispatch`** function given to us by the hook and supplying it with hardcoded action object for now. Don't worry, we will improve this solution.
 
 The only thing missing is now some logic in **`reducer`** that will handle the action and update state accordingly.
 
-<CodeBlock language="typescript" fileName="App.tsx" text={`const reducer = (state: any, action: any) => {
+```tsx title="App.tsx"
+const reducer = (state: any, action: any) => {
   switch (action.type) {
     case 'addTodo':
       let newTodos = [...state.todos, action.payload]
@@ -145,10 +144,10 @@ The only thing missing is now some logic in **`reducer`** that will handle the a
     default:
       throw new Error(\`Unhandled action type: \${action.type}\`)
   }
-}`}
-/>
+}
+```
 
-For those of you familiar with <MdLink url='https://redux.js.org/' text='Redux' />, this syntax in reducer should be very simple to understand. **`switch`** statement is perfect for this situation, but you could very well use **`if else`** statement to make this logic work.
+For those of you familiar with <a href="https://redux.js.org/" target="_blank" alt="Redux official website" >Redux</a>, this syntax in reducer should be very simple to understand. **`switch`** statement is perfect for this situation, but you could very well use **`if else`** statement to make this logic work.
 
 Right now we have 2 options how the `switch` can go. Default state will throw error if the `action.type` will be unknown, and `addTodo` will add new todo to our state. Remember, **we don't want to mutate the `state`**, that is why we first copy the todos from current state by destructuring it `...state.todos` and then we simply add our new todo from `action.payload` to that new array.
 
@@ -162,7 +161,8 @@ Looking at our `App`, besides those two **`any`** parameters in the **`reducer`*
 
 Good place to start is our **`state`**. Let's give our state proper types so that we can get some benefits of TypeScript:
 
-<CodeBlock language="typescript" fileName="App.tsx" text={`type Todo = {
+```tsx title="App.tsx"
+type Todo = {
   id: number
   description: string
 }
@@ -173,14 +173,15 @@ type State = {
 
 const initialState: State = {
   todos: [],
-}`}
-/>
+}
+```
 
 Here we created 2 simple types, **`Todo`** and **`State`**. Now we know exact structure of our todo list. Every todo needs to have an `id` and a `description`, and our `todos` array is array of those todos.
 
 In a same way we can add types to the `reducer` function.
 
-<CodeBlock language="typescript" fileName="App.tsx" text={`const reducer = (
+```tsx title="App.tsx"
+const reducer = (
   state: State,
   action: { type: string; payload: Todo }
 ): State => {
@@ -191,14 +192,15 @@ In a same way we can add types to the `reducer` function.
     default:
       throw new Error(\`Unhandled action type: \${action.type}\`)
   }
-}`}
-/>
+}
+```
 
 Pretty simple, we just got rid of those **`any`** types, which by the way are never a good sign. You should never use those. Also, check out the return type of the `reducer`. It always returns **`State`**.
 
 With this change, we also need to update the **`dispatch`** function call in our **`onClick`**. It is just a simple change of switching the payload to the correct type:
 
-<CodeBlock language="typescript" fileName="App.tsx" text={`<button
+```tsx title="App.tsx"
+<button
   onClick={() =>
     dispatch({
       type: 'addTodo',
@@ -207,8 +209,8 @@ With this change, we also need to update the **`dispatch`** function call in our
   }
 >
   Add Todo
-</button>`}
-/>
+</button>
+```
 
 Awesome, with these changes we know what to expect in our action, and in our state.
 
@@ -218,19 +220,21 @@ Having hardcoded value as a `Todo` is truly not very useful. Let's change that b
 
 It is great practice to extract usages of plain strings into constants, this way we will not make simple typo and introduce bug.
 
-<CodeBlock language="typescript" fileName="App.tsx" text={`...
+```tsx title="App.tsx"
+...
 const ADD_TODO = 'addTodo'
 ...
 switch (action.type) {
 	case ADD_TODO:
-...`}
-/>
+...
+```
 
 As we will add more types of actions, we will just add corresponding constants.
 
 Back to the **`input`** for our todo.
 
-<CodeBlock language="typescript" fileName="App.tsx" text={`<input
+```tsx title="App.tsx"
+<input
   type="text"
   value={state.newTodoValue}
   onChange={(e) =>
@@ -239,12 +243,13 @@ Back to the **`input`** for our todo.
       payload: { description: e.target.value },
     })
   }
-/>`}
 />
+```
 
 This is how the **`input`** looks like. We are handling its value with our state, which we will add to `initialState` in just a second. Another thing is, the **`UPDATE_VALUE`**. This means we will need to also update our `reducer` to handle this action case.
 
-<CodeBlock language="typescript" fileName="App.tsx" text={`...
+```tsx title="App.tsx"
+...
 const ADD_TODO = 'addTodo'
 const UPDATE_VALUE = 'updateValue'
 ...
@@ -257,14 +262,15 @@ const initialState: State = {
 	todos: [],
 	newTodoValue: '',
 }
-...`}
-/>
+...
+```
 
 This should be pretty straight forward, we just took advantage or `useReducer` and added another piece of state, which will handle the `input` value. And we just initialised it to an empty string.
 
 Onto the **`reducer`**:
 
-<CodeBlock language="typescript" fileName="App.tsx" text={`const reducer = (
+```tsx title="App.tsx"
+const reducer = (
   state: State,
   action: { type: string; payload: Todo }
 ): State => {
@@ -277,8 +283,8 @@ Onto the **`reducer`**:
     default:
       throw new Error(\`Unhandled action type: \${action.type}\`)
   }
-}`}
-/>
+}
+```
 
 Notice that we added the **`newTodoValue`** to our `ADD_TODO` case and set it to an empty string. This is just to clear the input after we added the todo.
 
@@ -286,7 +292,8 @@ The **`UPDATE_VALUE`** case is just updating the input field and the description
 
 One last change we need to do, is the **`dispatch`** action in our button since we want to have different IDs for our todos and more importantly, we want the description to be the value of the input.
 
-<CodeBlock language="typescript" fileName="App.tsx" text={`<button
+```tsx title="App.tsx"
+<button
   onClick={() =>
     dispatch({
       type: ADD_TODO,
@@ -298,14 +305,15 @@ One last change we need to do, is the **`dispatch`** action in our button since 
   }
 >
   Add Todo
-</button>`}
-/>
+</button>
+```
 
 Phew, that was quite a few small tweaks. But now we should have fully working Todo App where we **manage state with the use of `useReducer` hook and TypeScript**.
 
 Here is the full `App` component if you want to just glance through it all at once:
 
-<CodeBlock enableScroll={true} language="typescript" fileName="App.tsx" text={`import { useReducer } from 'react'
+```tsx title="App.tsx" showLineNumbers
+import { useReducer } from 'react'
 
 const ADD_TODO = 'addTodo'
 const UPDATE_VALUE = 'updateValue'
@@ -373,7 +381,7 @@ function App() {
   )
 }
 
-export default App`}
-/>
+export default App
+```
 
 I hope you liked this more _in depth_ article. If you did leave a reaction or a comment down below.
