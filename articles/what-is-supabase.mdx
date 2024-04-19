@@ -1,0 +1,111 @@
+---
+title: What is Supabase?
+date: '2024-04-19'
+excerpt: 'Build your backend quickly and without hustle. Learn about Supabase and how it can help you build and deliver your software products.'
+intro: 'If you want to build and deliver your software products quickly, Supabase is a tool that can help you. It provides many great features that simplify building and delivering products. Let`s look at what is Supabase about.'
+category: supabase
+image: 'what-is-supabase.jpg'
+imageAlt: 'Supabase - build in a weekend scale to millions'
+---
+
+<a href="https://supabase.com/" alt="Supabase" target="_blank">Supabase</a> is an amazing tool that provides backend as a service. If you want to build web or mobile applications and move from idea to product quickly, Supabase is definitely worth considering. It gives developers and teams many great features and we will look at those in this article.
+
+## So what is Supabase?
+
+You can think of Supabase as a fully-fledged solution for your backend. Say, you are building a project management application for the web and mobile in JavaScript or TypeScript with the following features:
+
+- user accounts (sign up, log in, user profiles)
+- ability for users to manage different projects (some users can access different projects, others not - authorisation)
+- messaging between users
+- create todos for projects
+- account tiers (free, paid)
+
+Assume we would build it with <a href="https://react.dev/" alt="React official website" target="_blank">React.js</a> as our frontend and <a href="https://expressjs.com/" alt="Express.js official website" target="_blank">Express.js</a> as our backend. Now, let's see what tools we would need, to build such an application.
+
+#### User accounts
+
+We could use Clerk or any other provider to handle authentication. We definitely don't want to build authentication ourselves. It is way too complex and it would take loads of time to get it right.
+
+#### Profile pictures
+
+For file uploads of any kind we could use Amazons' S3 as our storage and handle the upload with our Express backend. Again, we could use our own server to store and manage files, but we would miss out on the benefits like CDN, image optimisation and others that S3 provides.
+
+#### User authorisation, access to projects
+
+There are some handy NPM packages to manage roles ourselves with Express.js app. So we could implement this ourselves. Nothing fancy here.
+
+#### Messaging feature
+
+Again, we could use some providers for this feature, but let's say we want to learn some Socket.io, so we build it ourselves.
+
+#### Projects and todos CRUDs
+
+We create our JSON API easily thanks to Express.js. Piece of cake.
+
+#### Account tiers
+
+For payments we can use Stripe, as it is most known solution.
+
+### Deployment
+
+And now the easy part. Deployment and continuous delivery. For the front-end it is quite easy, we can use Vercel or Netlify. But with backend it is a bit more complex. If we want to keep up with the modern development and depoyment cycle, we would probably want to use Docker with Github actions, tests, etc.
+
+That is quite a stack of tools and required knowledge. Web development got pretty complex over the past 10 - 15 years or so. Finding tools that **simplify building and delivering products** is something of a rarity these days, but Supabase is one of those tools.
+
+## Supabase features
+
+If we would use Supabase for this project, it would help us solve almost all of the above problems. Supabase offers these main features:
+
+- database
+- auth
+- storage
+- edge functions
+- realtime
+- AI and vectors
+
+### Supabase database
+
+<a href="https://supabase.com/database" target="_blank" alt="Supabase Database" >Supabase Database</a> is a Postgres instance that we can interact with through great and intuitive API. **CRUD actions are basically built in**. We can use it as JSON API or GraphQL, the choice is ours.
+
+### Supabase auth
+
+We can manage our user authentication with many providers that <a href="https://supabase.com/auth" alt="Supabase Open Source Auth" target="_blank">Supabase Auth</a> offers. There is **password & email, social login through OAuth, passwordless and others**. Thanks to Postgres' rule engine, we can define granular (Row Level Security) **authorisation rules to manage access of our users**.
+
+### Supabase storage
+
+**Supabase also provides <a href="https://supabase.com/storage" alt="Supabase Storage" target="_blank">Storage</a>** that we can use for uploading assets without hustle. It has a built in CDN, image-optimisation, so our users can enjoy great experience with our website.
+
+### Supabase edge functions
+
+When we need some custom logic, like implementing Stripe payments, we can just use **<a href="https://supabase.com/edge-functions" alt="Supabase Edge functions" target="_blank">Supabase edge functions</a>** and be done with it.
+
+### Supabase realtime
+
+For the our messaging feature, there is **<a href="https://supabase.com/realtime" alt="Supabase Realtime" target="_blank">Realtime</a>**. Again, the API makes it very simple to implement chat feature.
+
+### Supabase AI & vector
+
+ ****<a href="https://supabase.com/vector" alt="Supabase Vectors" target="_blank">AI & vector</a>** is a tool for integrating with machine learning and AI**. Supabase provides even this if you ever need it.
+
+### Local Development
+
+All these features are available for us to use locally. It is extremely simple to setup Supabase on our development machines, as we just need to run Docker to build it up and we can develop our app locally.
+
+Do you realise, I used the word "simple" a lot in this article? Well it is kind of a theme here and that is why I love Supabase. Supabase tries to simplify our lives as developers, so we can focus on building the product, not figuring out how to implement basic features.
+
+## Who is Supabase for?
+
+In my opinion, Supabase is for business oriented developers, who **want to finish and deliver their projects**. Not get lost in the weeds of complexity of the modern day web development.
+
+Supabases' tagline says it all:
+
+![Screenshot 2024-04-05 at 08.12.00.png](/images/articles/supabase-build-in-a-weekend.jpg 'Supabase - build in a weekend scale to millions')
+
+Just thinking about all the tools that we, as developers use, makes me a bit sick. Don't get me wrong, I love learning new things and tools, but there are way too many projects that I started and got derailed by some new tool/framework that I wanted to learn about.
+
+I spent freaking days setting up my text editor(VIM)! And I know you did too, tuning your VSCode, Emacs, whatchamacallit.
+
+> Finishing project is my number one priority and Supabase actually helps me focus on that priority. 
+
+A big **THANK YOU** to all the smart people who built Supabase!
+
