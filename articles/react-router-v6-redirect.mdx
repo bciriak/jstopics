@@ -1,14 +1,14 @@
 ---
-title: 'React Router V6 - How to redirect?'
-date: '2022-06-05'
-excerpt: 'How do we redirect in the React Router v6? That is the question we will answer in this article and we will also look at some other features of React Router version 6.'
-intro: 'New version of the React Router brought a couple of updates that differ from version 5. Trying to figure them out can get a bit frustrating. Let us have a look at redirecting in React Router V6.'
-category: 'reactjs'
-image: 'react-router-v6-redirect.jpeg'
-imageAlt: 'Route to somewhere with react router v6'
+title: React Router V6 - How to redirect?
+date: "2022-06-05"
+excerpt: How do we redirect in the React Router v6? That is the question we will answer in this article and we will also look at some other features of React Router version 6.
+intro: New version of the React Router brought a couple of updates that differ from version 5. Trying to figure them out can get a bit frustrating. Let us have a look at redirecting in React Router V6.
+category: reactjs
+image: react-router-v6-redirect.jpeg
+imageAlt: Route to somewhere with react router v6
 ---
 
-There are 2 main ways we can redirect in our app with <MdLink url='https://reactrouter.com/' text='React Router V6'/>. The first one is by using the **`useNavigate`** hook that is provided by React Router and the second one is with the **`Navigate`** component.
+There are 2 main ways we can redirect in our app with <a href="https://reactrouter.com/" target="_blank" alt="Official React Router website" >React Router V6</a>. The first one is by using the **`useNavigate`** hook that is provided by React Router and the second one is with the **`Navigate`** component.
 
 First, we will look at the basic usage of these two methods, then we will look at some common use cases like:
 
@@ -23,7 +23,8 @@ Since React v16.8 which brought us hooks, everyone is trying to utilize them to 
 
 Hooks change how we work in React and React Router gives us **`useNavigate`** hook to handle redirecting programmatically. To use this hook is very simple:
 
-<CodeBlock language='javascript' fileName='Login.jsx' text={`import {useNavigate} from 'react-router-dom'
+```jsx title="Login.jsx" showLineNumbers
+import {useNavigate} from 'react-router-dom'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -37,7 +38,8 @@ export default function Login() {
     }
   }
   ...
-}`} />
+}
+```
 
 This is more of a pseudocode but the gist is simple. As we can see the **`useNavigate`** hook gives us back **`navigate`** function that we can simply call with _path_ argument. It is the same argument as we use in **`<Link to="/some-path">Some path</Link>`** component.
 
@@ -45,7 +47,8 @@ This is more of a pseudocode but the gist is simple. As we can see the **`useNav
 
 **`Navigate`** component is a dedicated component to handle redirects in React Router v6. This component is very similar to **`Redirect`** in version 5. Let's look at how we can use it.
 
-<CodeBlock language='javascript' fileName='PrivateRoute.jsx' text={`import { Navigate } from 'react-router-dom'
+```jsx title="PrivateRoute.jsx" showLineNumbers
+import { Navigate } from 'react-router-dom'
 
 const PrivateRoute = (props) => {
   return (
@@ -59,7 +62,8 @@ const PrivateRoute = (props) => {
   )
 }
 
-export default PrivateRoute`} />
+export default PrivateRoute
+```
 
 This piece of code shows how we can conditionally redirect in our components. You may be asking what is that **`replace`** prop doing and that is a good question. Without this property, a **new entry is added to React Router history** and this can cause unwanted behavior e.g. user tries to click back in the browser but can't get back because we might have a couple of the same entries in our history.
 
@@ -67,20 +71,23 @@ This piece of code shows how we can conditionally redirect in our components. Yo
 
 Now let's look at some common use cases that we might want to solve in our applications. One of those is _Some user wants to access private/protected route without being logged in_.
 
-I created a simple application that demonstrates these use cases and you can find the code at this <MdLink url='https://github.com/jstopics/react-router-v6-redirect' text='GitHub link' />.
+I created a simple application that demonstrates these use cases and you can find the code at this <a href="https://github.com/jstopics/react-router-v6-redirect" target="_blank" alt="Simple react router github repo" >GitHub link</a>.
 
 This is the folder structure:
 
-<CodeBlock lineNumbers={false} language='shell' fileName='terminal' text={`    ├── App.jsx
-    ├── main.jsx
-    └── pages
-        ├── HomePage.jsx
-        ├── Login.jsx
-        └── PrivateRoute.jsx`} />
+```shell title="shell"
+├── App.jsx
+├── main.jsx
+└── pages
+	├── HomePage.jsx
+	├── Login.jsx
+	└── PrivateRoute.jsx
+```
 
 And here is the entry file:
 
-<CodeBlock language='javascript' fileName='main.jsx' text={`import React from 'react'
+```jsx title="main.jsx" showLineNumbers
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -94,7 +101,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </React.StrictMode>
 )
-`} />
+```
 
 It is important to note that we are wrapping our **`<App />`** component with **`<BrowserRouter />`** component imported from React Router.
 
@@ -102,7 +109,8 @@ I am not even gonna show the **`HomePage`**, because it is just a barebones func
 
 Next, we have the most complicated file **`<App />`** component:
 
-<CodeBlock language='javascript' fileName='App.jsx' text={`import { useState } from 'react'
+```jsx title="App.jsx" showLineNumbers
+import { useState } from 'react'
 import { Link, Route, Routes, Navigate } from 'react-router-dom'
 
 import HomePage from './pages/HomePage'
@@ -153,7 +161,7 @@ function App() {
 }
 
 export default App
-`} />
+```
 
 Let's go over the file.
 
@@ -171,7 +179,7 @@ Line 17 shows our header, which conditionally renders **`Authenticated/Not Authe
 
 Our little navigation is consisting of three **`<Link>`** components from React Router. These links point to routes that we set up just under the navigation code.
 
-<Note text='It is important to note that we can only use Link and NavLink in components wrapped with BrowserRouter. It might seem obvious when you think about it, but the error that this mistake produces is not that clear.' />
+> It is important to note that we can only use Link and NavLink in components wrapped with BrowserRouter. It might seem obvious when you think about it, but the error that this mistake produces is not that clear.
 
 ### React Router v6 Routes
 
@@ -181,7 +189,8 @@ The first route is our **Home page**, this is the public route to which we have 
 
 The second route is a bit more interesting. It is **Private Route** to which we pass our piece of state to determine if we are authenticated or not. Let's look at the code inside to see how we manage the redirect.
 
-<CodeBlock language='javascript' fileName='PrivateRoute.jsx' text={`import { Navigate } from 'react-router-dom'
+```jsx title="PrivateRoute.jsx" showLineNumbers
+import { Navigate } from 'react-router-dom'
 
 const PrivateRoute = (props) => {
   return (
@@ -196,7 +205,7 @@ const PrivateRoute = (props) => {
 }
 
 export default PrivateRoute
-`} />
+```
 
 We import **`Navigate`** from React Router and use it in our condition. If the **`props.isAuthenticated`** is true, we render our private route, otherwise, we redirect to **`/login`**. We are supplying two parameters to the **`Navigate`** component: **`to`** and **`replace`**. It is pretty simple as it was explained at the beginning of this article.
 
@@ -206,7 +215,8 @@ This is how we could handle protecting our routes from unauthenticated access.
 
 Back to the **`<App />`** component:
 
-<CodeBlock language='javascript' fileName='App.jsx' text={`...
+```jsx title="App.jsx"
+...
 <Route
   path="login"
   element={
@@ -217,13 +227,15 @@ Back to the **`<App />`** component:
     )
   }
 />
-...`} />
+...
+```
 
 Here we are using a very similar method as in our **`Login`** component. We are conditionally deciding which element to render right in our element param.
 
 That brings us to the last piece of code, **`Login`** component.
 
-<CodeBlock language='javascript' fileName='Login.jsx' text={`import { useNavigate } from 'react-router-dom'
+```jsx title="Login.jsx" showLineNumbers
+import { useNavigate } from 'react-router-dom'
 
 const Login = (props) => {
   const navigate = useNavigate()
@@ -245,7 +257,7 @@ const Login = (props) => {
 }
 
 export default Login
-`} />
+```
 
 ### useNavigate hook in action
 

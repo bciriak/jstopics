@@ -1,45 +1,79 @@
-@import 'normalize.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-body {
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  color: #515151;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+
+    --primary: 220.9 39.3% 11%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 224 71.4% 4.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 210 20% 98%;
+    --primary-foreground: 220.9 39.3% 11%;
+
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 216 12.2% 83.9%;
+  }
 }
 
-ul {
-  margin: 0;
-  padding: 0;
-}
+@layer base {
+  * {
+    @apply border-border;
+  }
 
-li {
-  list-style-type: none;
-}
-
-a {
-  text-decoration: none;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  color: black;
-}
-
-strong {
-  color: black;
-}
-
-.wrapper {
-  width: 100%;
-}
-
-.container {
-  max-width: 960px;
-
-  margin: 0 auto;
-  padding: 0 20px;
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
 .highlight {
@@ -70,6 +104,10 @@ strong {
   background: #62dafb;
 }
 
+.supabase {
+  background: #3ecf8e;
+}
+
 .tooling {
   background: #ff9b9b;
 }
@@ -82,6 +120,38 @@ strong {
   text-decoration: underline;
 }
 
+a {
+  @apply underline font-normal;
+}
+
+ul > li {
+  @apply list-disc ml-6 text-gray-700 mb-1;
+}
+
+ul > li a:hover {
+  @apply underline;
+}
+
+h2 {
+  @apply text-3xl font-extrabold mb-4 mt-16;
+}
+
+h3 {
+  @apply text-2xl font-bold mb-4 mt-6;
+}
+
+h4 {
+  @apply text-lg font-bold mb-2 mt-6;
+}
+
+p {
+  @apply leading-7 tracking-wide my-8 font-light text-gray-700;
+}
+
+code {
+  @apply text-sm font-semibold;
+}
+
 strong > code,
 p > code {
   background: #e9e9e9;
@@ -90,17 +160,65 @@ p > code {
 }
 
 ::-moz-selection {
-  background: #ffe43c;
+  @apply bg-amber-300;
 }
 
 ::selection {
-  background: #ffe43c;
-}
-
-code > span::selection {
-  background: rgb(85, 85, 85);
+  @apply bg-amber-300;
 }
 
 .not-found {
   padding: 10rem 0;
+}
+
+.code-line {
+  display: block;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-left: -16px;
+  margin-right: -16px;
+  border-left: 4px solid rgba(0, 0, 0, 0); /* Set placeholder for highlight accent border color to transparent */
+  line-height: 1.3rem;
+}
+
+.code-line.inserted {
+  background-color: theme(
+    'colors.emerald.900'
+  ); /* Set inserted line (+) color */
+}
+
+.code-line.deleted {
+  background-color: theme('colors.red.900'); /* Set deleted line (-) color */
+}
+
+.highlight-line {
+  margin-left: -14px;
+  margin-right: -16px;
+  background-color: hsl(225, 17%, 27%); /* Set highlight bg color */
+  border-left: 2px solid theme('colors.amber.400'); /* Set highlight accent border color */
+}
+
+.line-number::before {
+  display: inline-block;
+  width: 1rem;
+  text-align: right;
+  margin-right: 16px;
+  margin-left: -8px;
+  color: theme('colors.zinc.500');
+  content: attr(line);
+}
+
+[data-remark-code-title] {
+  margin-top: 3rem;
+  background: #404954;
+  color: theme('colors.zinc.100');
+  font-family: theme('fontFamily.mono');
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+blockquote {
+  @apply bg-gray-100 border-l-4 border-black italic px-4 py-1 my-4;
 }

@@ -1,43 +1,41 @@
 ---
 title: 'Create React app with Vite'
 date: '2022-05-29'
-excerpt: 'Create your new React project with Vite, great front-end tooling application. Vite has many handy features that enable us smooth front-end development. And it is really fast!'
-intro: 'We have many ways to create React apps today. We can set everything up from scratch ourselves, we can clone some starter project from GitHub, or we can use tooling app. Vite is one of the newer tooling apps and we will have a look at what it offers.'
-category: 'reactjs'
-image: 'create-react-app-with-vite.jpeg'
-imageAlt: 'Vitejs & React.js'
+excerpt: Create your new React project with Vite, great front-end tooling application. Vite has many handy features that enable us smooth front-end development. And it is really fast!
+intro: We have many ways to create React apps today. We can set everything up from scratch ourselves, we can clone some starter project from GitHub, or we can use tooling app. Vite is one of the newer tooling apps and we will have a look at what it offers.
+category: reactjs
+image: create-react-app-with-vite.jpeg
+imageAlt: Vitejs & React.js
 ---
 
 ## React.js Apps are very complex
 
 Setting up React application is very complex. There is ton of configuration and moving parts in the backstage. If you were to create React app from scratch, you would have to setup JSX compiling, SASS setup, TypeScript support, many other build tools etc.. 
 
-And to be honest, it is no joke to setup all the tools needed for fully fledged React project. That is why people in React team came up with <MdLink url='https://create-react-app.dev/' text='Create React App' /> tool which bootstraps all of this for us. So that is one option to go with. But we will use Vite to create our React app.
+And to be honest, it is no joke to setup all the tools needed for fully fledged React project. That is why people in React team came up with <a href="https://create-react-app.dev/" target="_blank" alt="Create React App official website" >Create React App</a> tool which bootstraps all of this for us. So that is one option to go with. But we will use Vite to create our React app.
 
 ## Vite - Next Generation Frontend Tooling?
 
-<MdLink url='https://vitejs.dev/' text='Vite' /> is awesome tool for bootstrapping front-end applications. We will not go into too much detail on Vite, if you want to go more in depth on Vite, read this thorough <MdLink url='https://www.telerik.com/blogs/whats-vite-guide-modern-super-fast-project-tooling' text='Guide on Vite' />. 
+<a href="https://vitejs.dev/" target="_blank" alt="Vite official website" >Vite</a> is awesome tool for bootstrapping front-end applications. We will not go into too much detail on Vite, if you want to go more in depth on Vite, read this thorough <a href="https://www.telerik.com/blogs/whats-vite-guide-modern-super-fast-project-tooling" target="_blank" alt="What is Vite?" >Guide on Vite</a>. 
 
 In this article we will go through basic setup with Vite and get to Hello World on our screen! How awesome!
 
 ## Creating React app with Vite
 
-All we need to create new React app with Vite, is NPM and Node.js which every developer should have installed already. If not look at <MdLinkInternal url='/nodejs/5-ways-to-install-nodejs-in-2022' text='5 ways you can install Node' /> on your machine.
+All we need to create new React app with Vite, is NPM and Node.js which every developer should have installed already. If not look at [5 ways you can install Node](/nodejs/5-ways-to-install-nodejs-in-2022) on your machine.
 
 We can create different types of apps with Vite. Svelte, Vue, React and other. To create React app we use following command in our shell in folder where we want to create the app:
 
-<Note text='Different version of NPM requires different Vite command. You can check what version of NPM you have by following shell command: "npm --version"' />
+> Different version of NPM requires different Vite command. You can check what version of NPM you have by following shell command: "npm --version"
 
-<CodeBlock
-language='shell'
-fileName='terminal'
-text={`# npm 6.x
+```shell title="shell"
+# npm 6.x
 npm create vite@latest my-react-app --template react
 
 # npm 7+, extra double-dash is needed:
 
-npm create vite@latest my-react-app -- --template react`}
-/>
+npm create vite@latest my-react-app -- --template react
+```
 
 ## React app
 
@@ -45,19 +43,15 @@ We will not go into details of the app structure and other configurations. When 
 
 Now we create 2 new files. First one **`main.jsx`** and second **`MyApp.jsx`**, with the following code:
 
-<CodeBlock
-	language='javascript'
-	fileName='main.jsx'
-	text={`import ReactDOM from 'react-dom/client'
+```jsx title="main.jsx" showLineNumbers
+import ReactDOM from 'react-dom/client'
 import MyApp from './MyApp'
 
-ReactDOM.createRoot(document.getElementById('root')).render(<MyApp />)`}
-/>
+ReactDOM.createRoot(document.getElementById('root')).render(<MyApp />)
+```
 
-<CodeBlock
-	language='javascript'
-	fileName='MyApp.jsx'
-	text={`import React from 'react'
+```jsx title="MyApp.jsx" showLineNumbers
+import React from 'react'
 
 class MyApp extends React.Component {
   render() {
@@ -65,8 +59,8 @@ class MyApp extends React.Component {
   }
 }
 
-export default MyApp`}
-/>
+export default MyApp
+```
 
 ## Running our app
 
@@ -74,10 +68,8 @@ With these 2 files we are ready to run our app and we should see _"Hello from My
 
 To run our app, we run the usual NPM command:
 
-<CodeBlock 
-	language='shell' 
-	fileName='terminal' 
-	text={`npm run dev
+```shell title="shell"
+npm run dev
 
 # vite v2.9.9 dev server running at:
 
@@ -85,7 +77,7 @@ To run our app, we run the usual NPM command:
 # > Network: use \`--host\` to expose
 
 # ready in 102ms.
-`} lineNumbers={false} />
+```
 
 Now our app should be running on the **`http://localhost:3000`** as Vite writes in our Terminal. Going there, we see the **`h1`** tag.
 

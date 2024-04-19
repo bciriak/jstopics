@@ -1,0 +1,52 @@
+---
+title: 'TypeScript Try-Catch-Finally'
+date: '2023-12-02'
+excerpt: ''
+intro: ''
+category: 'typescript'
+image: ''
+imageAlt: ''
+---
+
+## What is try-catch?
+In programming, sometimes things go wrong, like trying to open a file that doesn't exist or fetching data from a website that is down. These are called "errors". The try-catch block in TypeScript (and JavaScript) is a way to handle these errors gracefully.
+
+## How Does It Work?
+Try Block: You put the code that might cause an error inside a try block. Think of it like saying, "I'm going to try this code, but it might not work."
+
+<CodeBlock language='typescript' fileName='' text={`
+try {
+    // Code that might cause an error
+}
+`} />
+
+Catch Block: If an error does happen in the try block, the code jumps to the catch block. This is where you handle the error, like telling the user something went wrong, or trying a different way to do the same thing.
+
+<CodeBlock language='typescript' fileName='' text={`
+catch (error) {
+    // Code to handle the error
+}
+`} />
+Error Variable: Inside the catch block, there's a variable (often called error) that holds information about what went wrong.
+
+Basic Example
+typescript
+Copy code
+try {
+    // Let's say we're trying to access a property of an undefined object
+    let obj = undefined;
+    console.log(obj.property);
+} catch (error) {
+    console.log("Oops! Something went wrong:", error.message);
+}
+In this example, trying to access property of undefined will cause an error. The catch block catches this error and prints a message.
+
+Why Use try-catch?
+Prevents Crashes: Without try-catch, an error could stop your whole program. try-catch lets you handle the error and keep your program running.
+Better User Experience: You can show a friendly error message instead of letting the program crash.
+Debugging: It helps you find and fix problems in your code.
+Tips for Junior Developers
+Use it Wisely: Only use try-catch where you think an error might actually happen. Overusing it can make your code harder to understand.
+Log Errors: It's often a good idea to log the error (like using console.log) so you know what went wrong.
+Keep Learning: Handling errors is a big topic. As you grow as a developer, you'll learn more sophisticated ways to handle them.
+Remember, making mistakes and encountering errors is a normal part of programming. try-catch is just one of the tools you have to deal with them!

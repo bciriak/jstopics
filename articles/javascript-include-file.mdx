@@ -1,16 +1,16 @@
 ---
-title: 'How to include JavaScript file into another JavaScript file?'
+title: How to include JavaScript file into another JavaScript file?
 date: '2022-04-23'
-excerpt: 'Quick and simple intro to sharing JavaScript code in different files. Importing and exporting code in JavaScript can get confusing, especially when working on server and client.'
-intro: 'JavaScript was never designed to be what it is today. At first, it was suppose to add tiny dynamic features to websites. Today we can build complete software solutions just with JavaScript. That is why we did not even had way to share code between two files. Let`s look at couple ways how to do it modern JavaScript.'
-category: 'javascript'
-image: 'include-javascript-files.jpeg'
-imageAlt: 'Include one JavaScript file into another'
+excerpt: Quick and simple intro to sharing JavaScript code in different files. Importing and exporting code in JavaScript can get confusing, especially when working on server and client.
+intro: JavaScript was never designed to be what it is today. At first, it was suppose to add tiny dynamic features to websites. Today we can build complete software solutions just with JavaScript. That is why we did not even had way to share code between two files. Let`s look at couple ways how to do it modern JavaScript.
+category: javascript
+image: include-javascript-files.jpeg
+imageAlt: Include one JavaScript file into another
 ---
 
 In this article we will have a look at couple of different ways to include JavaScript files to other JavaScript files. We will do this in two environments, one is _JavaScript within browser_ and second will be using _Node.js_.
 
-If you don’t have Node installed, read <MdLinkInternal url='/nodejs/5-ways-to-install-nodejs-in-2022' text='how to install Node.js here'/>.
+If you don’t have Node installed, read [how to install Node.js here](https://jstopics.com/nodejs/5-ways-to-install-nodejs-in-2022).
 
 Let’s dive in.
 
@@ -28,39 +28,35 @@ As already mentioned, we will experiment with two environments, browser or clien
 
 Let's imagine we are working on our plain website and want to add JavaScript, to improve our UI. We want to have one JavaScript file **`app.js`**, that is the entry point for our JS magic. Than we can have many different JavaScript files, which we would import/include into our **`app.js`** entry point. For the purpose of this simple example we will have one more JS file, **`xyz.js`**. This gives us the following folder structure:
 
-<CodeBlock
-	language='shell'
-	fileName='File structure'
-	lineNumbers={false}
-	text={`root
+```shell title="shell"
+root
 ├── index.html
 ├── app.js
-└── xyz.js`}
-/>
+└── xyz.js
+```
 
 Let’s start with **`xyz.js`**, the file that we will import.
 
-<CodeBlock language='javascript' fileName='xyz.js' 
-text={`function logXyz() {
+```javascript title="xyz.js" showLineNumbers
+function logXyz() {
 	console.log("XYZ");
 }
 
-export { logXyz };`} />
+export { logXyz };
+```
+
 All we do here is, we define our function called **`logXyz()`**, than export it with the **`export`** keyword and in between curly braces we specify function name/identifier to be exported. This is called **named export**, because we are specifically exporting by the name of our function. We could export any variable, object or class in the same way.
 This enables us to import the identifier in another JavaScript file. Here it goes:
-<CodeBlock
-	language='javascript'
-	fileName='app.js'
-	text={`import { logXyz } from "./xyz.js";
 
-logXyz();`} />
+```js title="app.js" showLineNumbers
+import { logXyz } from "./xyz.js";
+
+logXyz();
+```
 
 On the first line we import our **`logXyz`** function from **`xyz.js`** similarly to how we exported it. Since we used named export, we have to use the exported name, **`logXyz`** in between curly braces and use **`from`** keyword after which we specify path to file from which we are importing. Don’t forget the .js file extension. After this we can call the amazing function **`logXyz()`**. Now we just need to link this file from within our **`index.html`**.
 
-<CodeBlock
-	language='html'
-	fileName='index.html'
-	text={`
+```html title="index.html" showLineNumbers
 <!DOCTYPE html>
 <html>
 	<head>
@@ -71,52 +67,56 @@ On the first line we import our **`logXyz`** function from **`xyz.js`** similarl
 		<script src="app.js" type="module"></script>
 	</body>
 </html>
-`}
-/>
+```
 
 This is as basic HTML file as it gets, but pay attention to the script tag. We have to specify the **`type=“module”`** here, if we want to import our **`xyz.js`** file.
 
-<Note text="To run these examples, you will need to serve these files from server. You can install Live Server extension on your VSCode on the link below:" />
-<MdLink url='https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer' text='VSCode extension called Live Server' />
+>To run these examples, you will need to serve these files from server. You can install Live Server extension on your VSCode on the link below:
+
+<a href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer" target="_blank" alt="Live Server VSCode extension website" >VSCode extension called Live Server</a>
 
 Now, when we serve our **`index.html`** and open up console in our browser, we will see **XYZ** logged. Awesome!
 
 ## Include multiple functions
 To have multiple functions available, we need to just add them as our identifiers like so:
-<CodeBlock language='javascript' fileName='xyz.js' text={`function logXyz() {
+
+```js title="xyz.js" showLineNumbers
+function logXyz() {
 	console.log("XYZ");
 }
 function logAbc() {
 	console.log("ABC");
 }
 
-export { logXyz, logAbc };`} />
+export { logXyz, logAbc };
+```
+
 And also adjust our **`app.js`** similarly:
-<CodeBlock
-	language='javascript'
-	fileName='app.js'
-	text={`import { logXyz, logAbc } from './xyz.js'
+
+```js title="app.js" showLineNumbers
+import { logXyz, logAbc } from './xyz.js'
 
 logXyz()
-logAbc();`}
-/>
+logAbc();
+```
+
 ## Exporting JavaScript functions directly
 You can actually find examples that export the function directly, so let’s have a look at that example:
-<CodeBlock
-	language='javascript'
-	fileName='xyz.js'
-	text={`export function logXyz() {
-	console.log('XYZ')
-};`}
-/>
-and the **`app.js`**
-<CodeBlock
-	language='javascript'
-	fileName='app.js'
-	text={`import { logXyz } from './xyz.js'
 
-logXyz();`}
-/>
+```js title="xyz.js" showLineNumbers
+export function logXyz() {
+	console.log('XYZ')
+};
+```
+
+and the **`app.js`**
+
+```js title="app.js" showLineNumbers
+import { logXyz } from './xyz.js'
+
+logXyz();
+```
+
 Pretty simple. Alright, this is how we include JavaScript files inside another JavaScript
 file when working with browser JavaScript. Now, let’s have a look at Node.js solutions.
 
@@ -124,23 +124,21 @@ file when working with browser JavaScript. Now, let’s have a look at Node.js s
 
 Yes, it is true. At the time of writing this article, Node.js doesn’t support ES6 import. Node has its own way. Node actually relies heavily on the concept of modules.
 Let’s import some files in Node.js environment.
-<CodeBlock
-	language='javascript'
-	fileName='xyz.js'
-	text={`module.exports.sayXyz = function () {
+
+```js title="xyz.js" showLineNumbers
+module.exports.sayXyz = function () {
 	console.log('XYZ')
-};`}
-/>
+};
+```
+
 Here the **`module.exports`** might seem a bit confusing, but that is the Node.js module mechanism. Just think of it as an empty object, that is basically what it is (very simply put). All we do is, we append attribute to the module object and it is our **`sayXYZ`** function.
 Now to the **`app.js`**.
 
-<CodeBlock
-	language='javascript'
-	fileName='app.js'
-	text={`let xyz = require('./xyz')
+```js title="app.js" showLineNumbers
+let xyz = require('./xyz')
 
-xyz.sayXyz();`}
-/>
+xyz.sayXyz();
+```
 
 Requiring is Node way of importing. When you work with Node, you see it all over the place. Requiring modules left and right.
 
@@ -148,57 +146,47 @@ Interesting thing is, require returns the **`module.exports`** object with the a
 
 Now if we run **`app.js`** from our terminal with Node, we will get **XYZ** printed to the console.
 
-<CodeBlock
-	language='shell'
-	fileName='terminal'
-	text={`
-	$ node app.js
-	> XYZ`}
-	lineNumbers={false}
-/>
+```shell title="shell"
+node app.js
+> XYZ
+```
 
 If we want to export multiple functions, we just append another attribute to the **`module.exports`** object like so:
 
-<CodeBlock
-	language='javascript'
-	fileName='xyz.js'
-	text={`module.exports.sayXyz = function () {
+```js title="xyz.js" showLineNumbers
+module.exports.sayXyz = function () {
 	console.log('XYZ')
 }
 
 module.exports.sayAbc = function () {
 	console.log('ABC')
-};`}
-/>
+};
+```
 
 Here are another two ways to the same result. First one, we make **`module.exports`** equal to the object we construct. With function attribute.
 
-<CodeBlock
-	language='javascript'
-	fileName='xyz.js'
-	text={`module.exports = {
+```js showLineNumbers title="xyz.js"
+module.exports = {
 	sayXyz: function () {
 		console.log('XYZ')
 	},
-};`}
-/>
+};
+```
 
 And the last one, probably the most familiar way:
 
-<CodeBlock
-	language='javascript'
-	fileName='xyz.js'
-	text={`function sayXyz() {
+```js showLineNumbers title="xyz.js"
+function sayXyz() {
 	console.log('XYZ')
 }
 
-module.exports.sayXyz = sayXyz;`}
-/>
+module.exports.sayXyz = sayXyz;
+```
 
 ### Bonus: Node import
 
 If you really want to use import in your Node environment, you can achieve it with the help of Babel. Babel is a JavaScript compiler that makes modern JavaScript code available in older, non-compatible JavaScript environments.
 
-All it does with the import statement is, it transpiles the JavaScript into require function so that Node.js understands it. If you are interested in trying it out, read this nice article on <MdLink url='https://timonweb.com/javascript/how-to-enable-ecmascript-6-imports-in-nodejs/' text='Enabling Import in Node.js' />.
+All it does with the import statement is, it transpiles the JavaScript into require function so that Node.js understands it. If you are interested in trying it out, read this nice article on <a href="https://timonweb.com/javascript/how-to-enable-ecmascript-6-imports-in-nodejs/" target="_blank" alt="How to enable ECMAScript 6 imports" >Enabling Import in Node.js</a>.
 
 That is it for this article. Have a great one.
