@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://jstopics.com
+
+# Sitemaps
+Sitemap: https://jstopics.com/sitemap.xml
