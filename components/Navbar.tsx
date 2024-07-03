@@ -9,7 +9,7 @@ export function Navbar() {
       <div className="container flex justify-between">
         <div className="py-8">
           <Link
-            href="/public"
+            href="/"
             passHref
             className="text-white text-xl font-black no-underline"
           >

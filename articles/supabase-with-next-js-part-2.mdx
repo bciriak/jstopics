@@ -1,0 +1,285 @@
+---
+title: 'Supabase Insert and Revalidate To-dos - Part 2'
+date: '2024-06-25'
+excerpt: 'In this part of the Supabase with Next.js tutorial, learn to add to-dos to the Supabase Database using Next.js and React Server Components. Follow the steps to create client components and insert data seamlessly.'
+intro: 'This is the second part of the Supabase Database with Next.js tutorial, learn to insert to-dos to the Supabase Database using Next.js and React Server Components.'
+category: supabase
+image: 'supabase-with-nextjs-part-2.jpg'
+imageAlt: 'Supabase & Next.js part 2'
+---
+
+- [Part 1 - Initialize Next.js App with Supabase Database](/supabase/supabase-with-next-js-part-1)
+
+To follow along, [here](https://github.com/jstopics/todo-app-supabase/tree/01-todo-app-part-1) is the GIT repository with the `01-todo-app-part-1` branch that has all the changes from the first part.
+
+In this part, we will start with **inserting to-dos to our Supabase Database**, the creation piece of the CRUD actions.
+
+## Next.js and Server Components
+
+Since we are using Next.js 14+, we are also using React Server Components. If you are not familiar with this new React concept, read this great article by Josh Comeau - <a href="https://www.joshwcomeau.com/react/server-components" target="_blank" alt="Making Sense of React Server Components" >Making Sense of React Server Components</a>. 
+
+To sum it up **VERY** simply, React components are by default Server Components, and they represent "static" parts of the application while Client Components are handling user interactions with the web.
+
+### Add To-do Client Component
+
+That is why we can't just add a button with its `onClick` event to our `page.tsx`, which is a Server Component. What we can do, is create a Client Component that will have that button and text input and add that component to our `page.tsx`. Let's do that. Create a new folder in the root of our app called `components` and inside that folder create `AddTodo.tsx` file.
+
+```tsx title="./components/AddTodo.tsx" showLineNumbers
+'use client'
+
+import { useState } from 'react'
+
+export default function AddTodo() {
+  const [todo, setTodo] = useState('')
+
+  return (
+    <div>
+      <input
+        type='text'
+        className='border'
+        value={todo}
+        onChange={(e) => setTodo(e.target.value)}
+      />
+      <button onClick={() => {}} disabled={todo === ''}>
+        Add
+      </button>
+    </div>
+  )
+}
+```
+
+This is a basic component with one distinction, the first line defines it as a Client Component with `use client`. Other than that, pretty boring, for now `onClick` does nothing.
+
+We have a couple of ways to add the querying functionality to this component. We want to query the Supabase Database, which is asynchronous operation, but we never want to make our Client Component async as we will get this message from Next.js - <a href="https://nextjs.org/docs/messages/no-async-client-component" target="_blank" alt="Next.js no Async Client Components" >No Async Client Components</a>.
+
+## Supabase Insert Query
+
+So the simple way to do this, is to add an asynchronous function that will query the database, in the `page.tsx` file (Server component). But if we would create this function inside the component, we would bump into another problem. **We can't pass functions as parameters from Server Components to Client Components**.
+
+Simple solution for now is, to export async function directly from the `page.tsx` file. Don't worry, we will do a little refactor once we get it working.
+
+```tsx title="./app/page.tsx" showLineNumbers
+import { Database } from '@/types/supabase'
+import { createClient } from '@supabase/supabase-js'
+import AddTodo from '@/components/AddTodo'
+
+const supabase = createClient<Database>(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
+
+export default async function Home() {
+  const { data, error } = await supabase.from('Todos').select('*')
+
+  if (error) {
+    console.error('error', error)
+  }
+
+  return (
+    <div>
+      <h1>Home</h1>
+      <AddTodo />
+      {data && (
+        <ul>
+          {data.map((todo) => (
+            <li key={todo.id}>{todo.description}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+
+export const addTodo = async (todo: string) => {
+  const { error } = await supabase
+    .from('Todos')
+    .insert({ description: todo })
+
+  if (error) {
+    console.error('error', error)
+  }
+}
+```
+
+We have added our `AddTodo` component on the line 20 and at the bottom is the function to insert to-do into our Supabase Database. Again, the syntax is very intuitive.
+
+## Insert data to Supabase Database
+
+Now we just need to adjust `AddTodo` component to call the insert function from `page.tsx`. We can also improve user experience by clearing the to-do state after we call the `addTodo` function. Here is the final version of `AddTodo` component:
+
+```tsx title="./components/AddTodo.tsx" showLineNumbers
+'use client'
+
+import { useState } from 'react'
+import { addTodo } from '@/app/page'
+
+export default function AddTodo() {
+  const [todo, setTodo] = useState('')
+
+  const handleAddTodo = () => {
+    addTodo(todo)
+    setTodo('')
+  }
+
+  return (
+    <div>
+      <input
+        type='text'
+        className='border'
+        value={todo}
+        onChange={(e) => setTodo(e.target.value)}
+      />
+      <button onClick={handleAddTodo} disabled={todo === ''}>
+        Add
+      </button>
+    </div>
+  )
+}
+```
+
+We imported the `addTodo` function and added a little `handleAddTodo` function that will call the insert to-do function and clear the `todo` state. There is a little problem if we try this in our browser. After adding the to-do, we don't see it in our list of to-dos.
+
+## Revalidate Supabase data
+
+The problem is, we don't have the latest data from our database, the data is not **fresh**. To solve this, we can use Next.js function that will refresh our data.
+
+```tsx title="./app/page.tsx"
+export const addTodo = async (todo: string) => {
+  const { error } = await supabase.from('Todos').insert({ description: todo })
+
+  if (error) {
+    console.error('error', error)
+  }
+
+  revalidatePath('/')
+}
+```
+
+Since we are inserting the data on our home page, we can simply revalidate this path. With this change, we will see our new to-do in the list right after we click on the `Add` button.
+
+### Refactor insert into separate file
+
+With these changes, we now can do a small refactor and move all of our querying logic to a separate file, where we will add also functions to **update** and **delete** our to-dos.
+
+Let's create a new folder called `actions` inside the root and also create file called `todos.tsx` where will all of our Supabase querying logic reside. With that done, let's move both of our functions to this file:
+
+```tsx title="./actions/todos.tsx" showLineNumbers
+'use server'
+
+import { revalidatePath } from 'next/cache'
+import { createClient } from '@supabase/supabase-js'
+import { Database } from '@/types/supabase'
+
+const supabase = createClient<Database>(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
+
+export const getTodos = async () => {
+  const { data, error } = await supabase.from('todos').select('*')
+
+  if (error) {
+    console.error('error', error)
+  }
+
+  return { data, error }
+}
+
+export const addTodo = async (todo: string) => {
+  const { data, error } = await supabase.from('todos').insert({
+    description: todo,
+  })
+
+  if (error) {
+    console.error('error', error)
+  }
+
+  revalidatePath('/')
+}
+```
+
+Now we can update our `page.tsx` file as follows:
+
+```tsx title="./app/page.tsx" showLineNumbers
+'use server'
+
+import { getTodos } from '@/actions/todos'
+import AddTodo from '@/components/AddTodo'
+
+export default async function Home() {
+  const { data } = await getTodos()
+
+  return (
+    <div>
+      <h1>Home</h1>
+      <AddTodo />
+      {data && (
+        <ul>
+          {data.map((todo) => (
+            <li key={todo.id}>{todo.description}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+```
+
+Nice and simple. We also need to update the import of our `addTodo` function in `AddTodo.tsx` component to the new function in `todos.tsx` file.
+
+```tsx title="./app/components/AddTodo.tsx"
+import { addTodo } from '@/actions/todos'
+```
+
+Everything should be working as before and we can start thinking about adding functionality to remove to-dos. To make it simple, we will just add **Delete** button next to each to-do and when we click on it, we simply remove the item.
+
+### Todo List and Todo Item components
+
+Now we have good opportunity to continue with the refactor and to keep our components small and clean, we can add two new components, `TodoList` and `TodoItem`. This will keep our `page.tsx` clean and concise. Let's start with the `TodoList`, create it in the `components` folder and insert this code:
+
+```tsx title="./app/components/TodoList.tsx" showLineNumbers
+import { Tables } from '@/types/supabase'
+
+type Props = {
+  todos: Array<Tables<'Todos'>>
+}
+
+export default function TodoList({ todos }: Props) {
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <li key={todo.id}>{todo.description}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+One thing to mention, is the `Tables` import, which is how we can type our properties based on specific table, very neat.
+
+Let's also update our Homepage, so that we use this component.
+
+```tsx title="./app/page.tsx" showLineNumbers
+'use server'
+
+import { getTodos } from '@/actions/todos'
+import AddTodo from '@/components/AddTodo'
+import TodoList from '@/components/TodoList'
+
+export default async function Home() {
+  const { data } = await getTodos()
+
+  return (
+    <div>
+      <h1>Home</h1>
+      <AddTodo />
+      {data && <TodoList todos={data} />}
+    </div>
+  )
+}
+```
+
+We have extracted querying functionality to its own file, kind of like a service, and also added couple of components to show our to-dos. In the next part, we will add the last two functions, `Delete` and `Update`. Let's see how in the final part of this tutorial.
+
+[Part 3 - Supabase Update and Delete To-dos](/supabase/supabase-with-next-js-part-3)
+

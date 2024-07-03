@@ -8,6 +8,14 @@ type Props = {
 }
 
 export function ArticleHeader({ article }: Props) {
+  const replaceAsterisks = (input: string): string => {
+    let count = 0 // To keep track of the occurrences
+    return input.replace(/\*\*/g, () => {
+      count++
+      return count % 2 === 1 ? '<b>' : '</b>'
+    })
+  }
+
   return (
     <div>
       <Image

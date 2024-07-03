@@ -1,0 +1,266 @@
+---
+title: 'Supabase Update and Delete with Next.js - Part 3'
+date: '2024-07-02'
+excerpt: 'In this final part of the Next.js To-do app with Supabase tutorial, learn to delete and update to-dos. Follow the step-by-step guide to implement these CRUD operations and manage to-dos effectively.'
+intro: 'This is the third and last part of the Next.js To-do app and Supabase Database tutorial. Here we will look at how to delete and update to-dos in the Supabase Database.'
+category: supabase
+image: 'supabase-with-nextjs-part-3.jpg'
+imageAlt: 'Supabase & Next.js part 3'
+---
+
+- [Part 1 - Initialize Next.js App with Supabase Database](/supabase/supabase-with-next-js-part-1)
+- [Part 2 - Supabase Insert and Revalidate To-dos](/supabase/supabase-with-next-js-part-2)
+
+To follow along, go through the first two parts where we set everything up, or just download [this](https://github.com/jstopics/todo-app-supabase/tree/02-todo-app-part-2) GIT repository where you will find the code up until now, in the branch `02-todo-app-part-2`.
+
+## Delete To-do from Supabase Database
+
+First, let's create the `deleteTodo` function in our `actions/todos.tsx` file. Add the following code at the bottom of `todos.tsx` file:
+
+```tsx title="./actions/todos.tsx"
+export const deleteTodo = async (id: number) => {
+  const { data, error } = await supabase.from('Todos').delete().eq('id', id)
+
+  if (error) {
+    console.error('error', error)
+  }
+
+  revalidatePath('/')
+}
+```
+
+Supabase syntax is very straight forward, we select `Todos` table and delete item where `id` equals the provided `id`. Don't forget to `revalidatePath`, so that the list will be refreshed.
+
+Now we can create a component for our to-do item, because we will need more to-do specific logic later on, which belongs to a separate file. Create `TodoItem.tsx` in the `components` folder.
+
+```tsx title="./components/TodoItem.tsx" showLineNumbers
+'use client'
+
+import { deleteTodo } from '@/actions/todos'
+import { Tables } from '@/types/supabase'
+
+type Props = {
+  todo: Tables<'Todos'>
+}
+
+export default function TodoItem({ todo }: Props) {
+  return (
+    <li>
+      {todo.description}
+      <button
+        className='border rounded p-1 ml-1'
+        onClick={() => deleteTodo(todo.id)}
+      >
+        Delete
+      </button>
+    </li>
+  )
+}
+```
+
+For now, this component accepts one prop, the to-do object with the type coming from Supabase. We connect the `deleteTodo` action onto the `onClick` event, providing `id` of the to-do.
+
+The last thing, before we can delete the to-do, is to add this component to our `TodoList` component:
+
+```tsx title="./components/TodoList.tsx" showLineNumbers
+import { Tables } from '@/types/supabase'
+import TodoItem from './TodoItem'
+
+type Props = {
+  todos: Array<Tables<'Todos'>>
+}
+
+export default function TodoList({ todos }: Props) {
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} />
+      ))}
+    </ul>
+  )
+}
+```
+
+Now we should be able to delete todos from our list and it will be automatically refreshed.
+
+## Mutation with Supabase Database and Next.js
+
+Updating to-dos will be a bit more complicated, and there are a million ways to do this. Let's look at one of them.
+
+First, let's add the last of our functions to our `actions/todos.tsx` file. This will be the mutation to update the to-do. Final version of the `todos.tsx` is as follows:
+
+```tsx title="./actions/todos.tsx" showLineNumbers
+'use server'
+
+import { revalidatePath } from 'next/cache'
+import { createClient } from '@supabase/supabase-js'
+import { Database, Tables } from '@/types/supabase'
+
+const supabase = createClient<Database>(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
+
+export const getTodos = async () => {
+  const { data, error } = await supabase.from('Todos').select('*')
+
+  if (error) {
+    console.error('error', error)
+  }
+
+  return { data, error }
+}
+
+export const addTodo = async (todo: string) => {
+  const { error } = await supabase.from('Todos').insert({
+    description: todo,
+  })
+
+  if (error) {
+    console.error('error', error)
+  }
+
+  revalidatePath('/')
+}
+
+export const deleteTodo = async (id: number) => {
+  const { error } = await supabase.from('Todos').delete().eq('id', id)
+
+  if (error) {
+    console.error('error', error)
+  }
+
+  revalidatePath('/')
+}
+
+export const updateTodo = async (todo: Tables<'Todos'>) => {
+  const { error } = await supabase
+    .from('Todos')
+    .update({
+      description: todo.description,
+      created_at: todo.created_at,
+    })
+    .eq('id', todo.id)
+
+  if (error) {
+    console.error('error', error)
+  }
+
+  revalidatePath('/')
+}
+```
+
+Again, the `updateTodo` function is pretty self-explanatory thanks to the intuitive Supabase API. We take the full `todo` object as a parameter, because we want those updated values from it. We use the `Tables` import to make use of the generated Supabase types, and we just supply the `todo` into the `update` function for the specific `todo` with `id` of our `todo`. Finally, we `revalidatePath` to keep the list fresh.
+
+### Update Mutation with Supabase
+
+I want to implement this functionality in a way, when user clicks on the `todo`, it will become editable and `Edit`, `Delete` buttons will appear next to it. 
+
+To achieve this, we need to make these To-dos, `Input` elements, so that we can edit them after click. There is also the problem of keeping track of which To-do we are editing. To solve this, we will simply keep the `id` of the To-do being edited in the state of the `TodoList` component. Let's add this piece of state and pass it down to the `TodoItem`.
+
+```tsx title="./components/TodoList.tsx" showLineNumbers
+'use client'
+
+import { useState } from 'react'
+import { Tables } from '@/types/supabase'
+import TodoItem from './TodoItem'
+
+type Props = {
+  todos: Array<Tables<'Todos'>>
+}
+
+export default function TodoList({ todos }: Props) {
+  const [selectedTodoId, setSelectedTodoId] = useState<number>(-1)
+
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <TodoItem
+          key={todo.id}
+          t={todo}
+          selectedTodoId={selectedTodoId}
+          setIsEditing={setSelectedTodoId}
+        />
+      ))}
+    </ul>
+  )
+}
+```
+
+Notice how we are initializing the `selectedTodoId` to `-1`, to track the unselected state. We pass both of the properties from `useState` down to our `TodoItem` component. Don't forget to put `use client` at the beginning of this component, because we are using the `useState` hook. Onto the `TodoItem` component.
+
+```tsx title="./components/TodoItem.tsx" showLineNumbers
+'use client'
+
+import { deleteTodo, updateTodo } from '@/actions/todos'
+import { Tables } from '@/types/supabase'
+import { useState } from 'react'
+
+type Props = {
+  todo: Tables<'Todos'>
+  selectedTodoId: number
+  setSelectedTodoId: React.Dispatch<React.SetStateAction<number>>
+}
+
+export default function TodoItem({
+  todo: t,
+  selectedTodoId,
+  setSelectedTodoId,
+}: Props) {
+  const [todo, setTodo] = useState(t)
+
+  const handleUpdateTodo = () => {
+    updateTodo(todo)
+    setSelectedTodoId(-1)
+  }
+
+  const handleDeleteTodo = () => {
+    deleteTodo(todo.id)
+  }
+
+  return (
+    <li>
+      <input
+        className='border rounded p-1 mt-1'
+        type='text'
+        value={todo.description ? todo.description : ''}
+        onChange={(e) => setTodo({ ...todo, description: e.target.value })}
+        onClick={() => setSelectedTodoId(todo.id)}
+      />
+
+      {selectedTodoId === t.id && (
+        <>
+          <button
+            className='border rounded p-1 ml-1'
+            onClick={handleUpdateTodo}
+          >
+            Update
+          </button>
+          <button
+            className='border rounded p-1 ml-1'
+            onClick={handleDeleteTodo}
+          >
+            Delete
+          </button>
+        </>
+      )}
+    </li>
+  )
+}
+```
+
+Let's go over the component line by line.
+
+First, we import `updateTodo` and `useState` and update our component `Props`. Also, add these new props to the component itself and notice the 14th line. We rename the `todo` to `t`, so that we can use `todo` in our `useState` hook, where we initialize this piece of state with the original `todo`. We need to do this to make our component re-render when updating the To-do.
+
+Next, we have two new functions where we handle `update` and `delete`. We moved the `delete` here just for the consistency. 
+
+On line 31, we are handling the logic of displaying the to-do in `value`, editing the to-do in `onChange`, where we update only the `description` and keep the `todo` as is. In the `onClick` event, we call the function passed down from the parent, to set the selected to-do ID. 
+
+Lastly, on line 39, we check if we have some to-do selected if so, we show the `Update` and `Delete` buttons.
+
+And this brings us to the end of this tutorial, where we looked at the 4 main ways to interact with the Supabase Database. Now we know how to read, create, update and delete items from Supabase. 
+
+Here is the git repository with the final code: [todo-app-supabase](https://github.com/jstopics/todo-app-supabase/tree/main)
+
+I hope you liked this tutorial. If you have something I should add/change, please leave a comment down below. 
